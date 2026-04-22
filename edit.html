@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="referrer" content="no-referrer"/>
+<meta name="robots" content="noindex,nofollow"/>
+<title>Edit submission — Unsealed</title>
+<style>
+:root{--bg:#07080b;--bg2:#0d0f14;--bg3:#11141a;--border:#1c2028;--border2:#2a2f38;--text:#d6d4d0;--text2:#9a9690;--text3:#6e6c66;--teal:#3eb890;--red:#c85858;--amber:#e0a040;--green:#80c450}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,Inter,system-ui,sans-serif;font-size:13px;line-height:1.6}
+.top{padding:14px 24px;border-bottom:1px solid var(--border);background:var(--bg2);display:flex;gap:16px;align-items:center}
+.top a{color:var(--teal);text-decoration:none;font-size:12px}
+.top h1{margin:0;font-size:16px;font-weight:500}
+.wrap{max-width:720px;margin:0 auto;padding:32px 24px}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:20px 22px;margin-bottom:16px}
+.card h2{font-size:14px;font-weight:500;margin:0 0 10px 0;color:var(--text2)}
+.ib{padding:10px 12px;border-left:3px solid var(--teal);background:rgba(62,184,144,.06);font-size:12px;line-height:1.7;color:var(--text2);border-radius:5px;margin-bottom:12px}
+.ib.red{border-left-color:var(--red);background:rgba(200,88,88,.06)}
+.ib.amber{border-left-color:var(--amber);background:rgba(224,160,64,.06)}
+label{display:block;font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+input[type=text]{width:100%;padding:10px 12px;font-family:'DM Mono',monospace;font-size:14px;background:var(--bg3);border:1px solid var(--border2);color:var(--text);border-radius:6px;letter-spacing:.04em}
+input[type=text]:focus{outline:none;border-color:var(--teal)}
+button{padding:9px 18px;font-size:13px;font-weight:500;border-radius:6px;cursor:pointer;border:1px solid var(--border2);background:var(--bg3);color:var(--text);font-family:inherit}
+button.primary{background:var(--teal);color:#041a12;border-color:var(--teal);font-weight:600}
+button.primary:hover{opacity:.88}
+button.danger{background:var(--red);color:#fff;border-color:var(--red)}
+button.danger:hover{opacity:.88}
+.row{display:flex;gap:10px;align-items:center}
+.summary{font-size:12px;line-height:1.9}
+.summary .k{color:var(--text3);display:inline-block;width:220px}
+.summary .v{color:var(--text)}
+.status{min-height:18px;font-size:11.5px;margin-top:10px}
+.hide{display:none}
+</style>
+</head>
+<body>
+<div class="top">
+  <a href="/">← Home</a>
+  <h1>Edit or delete your submission</h1>
+</div>
+<div class="wrap">
+
+  <div class="card" id="lookup-card">
+    <h2>Enter your submission token</h2>
+    <div class="ib">
+      The token you received when you submitted your case. This is the <strong>only</strong> way to access your own submission — we have no names, emails, or accounts on file. If you lost the token, you cannot recover the submission (and neither can we).
+    </div>
+    <label for="tok">Token (32 hex characters, with or without dashes)</label>
+    <input type="text" id="tok" placeholder="e.g. a1b2c3d4e5f6..." autocomplete="off" spellcheck="false"/>
+    <div style="margin-top:14px" class="row">
+      <button class="primary" onclick="lookup()">Look up submission</button>
+      <div class="status" id="status"></div>
+    </div>
+  </div>
+
+  <div class="card hide" id="view-card">
+    <h2>Your submission</h2>
+    <div class="summary" id="summary"></div>
+    <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap">
+      <button onclick="location.href='/?token='+encodeURIComponent(TOKEN)+'#submit'">Open in full form to edit</button>
+      <button class="danger" onclick="deleteSubmission()">Delete this submission</button>
+      <button onclick="reset()">Use a different token</button>
+    </div>
+    <div class="status" id="actionStatus"></div>
+  </div>
+
+  <div class="card">
+    <h2>Privacy notes</h2>
+    <div class="ib">
+      No cookie is set. No IP is logged. The only thing the server holds about you is the record keyed to your token — no name, email, or account anywhere. If you delete your submission here, it is gone immediately (not "soft-deleted" or archived).
+    </div>
+  </div>
+
+</div>
+<script>
+let TOKEN = '';
+
+function clean(t){ return (t||'').replace(/[^a-fA-F0-9]/g,'').toLowerCase(); }
+
+async function lookup(){
+  const raw = document.getElementById('tok').value;
+  const t = clean(raw);
+  const s = document.getElementById('status');
+  if (t.length !== 32) { s.innerHTML = '<span style="color:var(--amber)">Token must be 32 hex characters.</span>'; return; }
+  s.innerHTML = '<span style="color:var(--text3)">Looking up…</span>';
+  try {
+    const r = await fetch('/api_token.php?op=get&token=' + t);
+    const j = await r.json();
+    if (!j.ok) { s.innerHTML = '<span style="color:var(--red)">' + (j.error || 'Not found.') + '</span>'; return; }
+    TOKEN = t;
+    renderSummary(j);
+  } catch(e) {
+    s.innerHTML = '<span style="color:var(--red)">Lookup failed: ' + e.message + '</span>';
+  }
+}
+
+function renderSummary(j){
+  document.getElementById('status').innerHTML = '<span style="color:var(--green)">✓ Found. Submitted ' + (j.created || '') + '</span>';
+  const c = j.case || {};
+  // Only surface public/statistical fields — never leak identifiers even
+  // though the submitter entered them. The server already scrubs PII-shaped
+  // data at ingest; here we just render the whitelist.
+  const fields = [
+    ['State',             c.state],
+    ['County',            c.county],
+    ['Year filed',        c.year],
+    ['Year resolved',     c.yearEnd],
+    ['Role',              c.role],
+    ['Represented',       c.represented === 1 || c.represented === '1' ? 'Yes' : c.represented === 0 ? 'Pro se' : '—'],
+    ['Outcome',           c.outcome],
+    ['Judge (public)',    c.judge],
+    ['Court',             c.court],
+    ['Custody',           c.custody],
+    ['Legal custody',     c.legalCustody],
+    ['Primary support ($/mo)', c.support],
+    ['Arrears total ($)', c.arrearsAmt],
+    ['Days without child',c.daysNoChild],
+    ['Contempt charges',  c.contempt],
+    ['Gag order',         c.gag ? 'Yes' : c.gag === 0 ? 'No' : ''],
+    ['PFA filed against you', c.po ? 'Yes' : c.po === 0 ? 'No' : ''],
+    ['Verified by order upload?', c._orderVerified ? 'Yes ✓' : 'Self-reported'],
+    ['Last edited',       c._editedAt || '—'],
+  ];
+  document.getElementById('summary').innerHTML = fields.filter(r => r[1] != null && r[1] !== '').map(r =>
+    '<div><span class="k">' + r[0] + '</span><span class="v">' + String(r[1]) + '</span></div>'
+  ).join('');
+  document.getElementById('lookup-card').classList.add('hide');
+  document.getElementById('view-card').classList.remove('hide');
+}
+
+async function deleteSubmission(){
+  if (!confirm('Permanently delete this submission? This cannot be undone.')) return;
+  const a = document.getElementById('actionStatus');
+  a.innerHTML = '<span style="color:var(--text3)">Deleting…</span>';
+  try {
+    const r = await fetch('/api_token.php?op=delete', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token: TOKEN }),
+    });
+    const j = await r.json();
+    if (!j.ok) { a.innerHTML = '<span style="color:var(--red)">' + (j.error || 'Delete failed.') + '</span>'; return; }
+    a.innerHTML = '<span style="color:var(--green)">✓ Deleted. The submission is permanently gone.</span>';
+    document.querySelector('#view-card .summary').innerHTML = '<em style="color:var(--text3)">Submission deleted.</em>';
+    document.querySelectorAll('#view-card button').forEach(b => b.disabled = true);
+  } catch(e) {
+    a.innerHTML = '<span style="color:var(--red)">Delete failed: ' + e.message + '</span>';
+  }
+}
+
+function reset(){
+  TOKEN = '';
+  document.getElementById('tok').value = '';
+  document.getElementById('status').innerHTML = '';
+  document.getElementById('actionStatus').innerHTML = '';
+  document.getElementById('lookup-card').classList.remove('hide');
+  document.getElementById('view-card').classList.add('hide');
+}
+</script>
+</body>
+</html>

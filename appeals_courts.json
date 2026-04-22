@@ -1,0 +1,4334 @@
+{
+  "_version": 3,
+  "_updated": "2026-04-21",
+  "_note": "Appellate courts relevant to family-law appeals. Every state supreme court + intermediate courts of appeal where they exist + all 13 US Circuit Courts of Appeals. Rendered on the map with amber hexagonal markers distinct from teal trial-court teardrops. Each entry: state, name, jurisdiction (federal|state), level (circuit|intermediate|supreme|court_of_last_resort), address, url, fipsHint (county or state FIPS for marker placement).",
+  "courts": [
+    {
+      "state": "Alabama",
+      "name": "Supreme Court of Alabama",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "300 Dexter Avenue, Montgomery, AL 36104",
+      "url": "https://judicial.alabama.gov/supreme",
+      "fipsHint": "01101",
+      "county": "Montgomery",
+      "judges": [
+        {
+          "name": "Hon. Sarah Hicks Stewart",
+          "role": "Chief Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2025"
+        },
+        {
+          "name": "Hon. Greg Shaw",
+          "role": "Associate Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2009"
+        },
+        {
+          "name": "Hon. Kelli Wise",
+          "role": "Associate Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2011"
+        },
+        {
+          "name": "Hon. Tommy Bryan",
+          "role": "Associate Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2013"
+        },
+        {
+          "name": "Hon. William B. Sellers",
+          "role": "Associate Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2017"
+        },
+        {
+          "name": "Hon. Brady E. Mendheim, Jr.",
+          "role": "Associate Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2018"
+        },
+        {
+          "name": "Hon. Greg Cook",
+          "role": "Associate Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2023"
+        },
+        {
+          "name": "Hon. Chris McCool",
+          "role": "Associate Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2023"
+        },
+        {
+          "name": "Hon. Will Parker",
+          "role": "Associate Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2019"
+        },
+        {
+          "name": "Hon. Bill Lewis",
+          "role": "Associate Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2025"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "Alabama",
+      "name": "Alabama Court of Civil Appeals",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "300 Dexter Avenue, Montgomery, AL 36104",
+      "url": "https://judicial.alabama.gov/civilappeals",
+      "fipsHint": "01101",
+      "county": "Montgomery"
+    },
+    {
+      "state": "Alaska",
+      "name": "Alaska Supreme Court",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "303 K Street, Anchorage, AK 99501",
+      "url": "https://courts.alaska.gov/courts/supreme.htm",
+      "fipsHint": "02020",
+      "county": "Anchorage",
+      "judges": [
+        {
+          "name": "Hon. Susan M. Carney",
+          "role": "Chief Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2016"
+        },
+        {
+          "name": "Hon. Dario Borghesan",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2020"
+        },
+        {
+          "name": "Hon. Jennifer S. Henderson",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2022"
+        },
+        {
+          "name": "Hon. Jude Pate",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2023"
+        },
+        {
+          "name": "Hon. Aimee A. Oravec",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2024"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "Alaska",
+      "name": "Alaska Court of Appeals",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "303 K Street, Anchorage, AK 99501",
+      "url": "https://courts.alaska.gov/courts/appeals.htm",
+      "fipsHint": "02020",
+      "county": "Anchorage"
+    },
+    {
+      "state": "Arizona",
+      "name": "Arizona Supreme Court",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "1501 W. Washington Street, Phoenix, AZ 85007",
+      "url": "https://www.azcourts.gov/azsupremecourt",
+      "fipsHint": "04013",
+      "county": "Maricopa",
+      "judges": [
+        {
+          "name": "Hon. Ann A. Scott Timmer",
+          "role": "Chief Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2012"
+        },
+        {
+          "name": "Hon. Clint Bolick",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2016"
+        },
+        {
+          "name": "Hon. John R. Lopez IV",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2017"
+        },
+        {
+          "name": "Hon. James P. Beene",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2019"
+        },
+        {
+          "name": "Hon. Bill Montgomery",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2019"
+        },
+        {
+          "name": "Hon. Kathryn H. King",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2021"
+        },
+        {
+          "name": "Hon. Maria Elena Cruz",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2025"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "Arizona",
+      "name": "Arizona Court of Appeals, Division One",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "1501 W. Washington Street, Phoenix, AZ 85007",
+      "url": "https://www.azcourts.gov/coa1",
+      "fipsHint": "04013",
+      "county": "Maricopa"
+    },
+    {
+      "state": "Arizona",
+      "name": "Arizona Court of Appeals, Division Two",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "400 W. Congress Street, Suite 200, Tucson, AZ 85701",
+      "url": "https://www.azcourts.gov/coa2",
+      "fipsHint": "04019",
+      "county": "Pima"
+    },
+    {
+      "state": "Arkansas",
+      "name": "Arkansas Supreme Court",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "625 Marshall Street, Little Rock, AR 72201",
+      "url": "https://www.arcourts.gov/courts/supreme-court",
+      "fipsHint": "05119",
+      "county": "Pulaski",
+      "judges": [
+        {
+          "name": "Hon. Karen R. Baker",
+          "role": "Chief Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2011"
+        },
+        {
+          "name": "Hon. Rhonda K. Wood",
+          "role": "Associate Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2015"
+        },
+        {
+          "name": "Hon. Shawn A. Womack",
+          "role": "Associate Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2017"
+        },
+        {
+          "name": "Hon. Courtney Rae Hudson",
+          "role": "Associate Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2011"
+        },
+        {
+          "name": "Hon. Barbara W. Webb",
+          "role": "Associate Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2021"
+        },
+        {
+          "name": "Hon. Cody Hiland",
+          "role": "Associate Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2025"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "Arkansas",
+      "name": "Arkansas Court of Appeals",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "625 Marshall Street, Little Rock, AR 72201",
+      "url": "https://www.arcourts.gov/courts/court-of-appeals",
+      "fipsHint": "05119",
+      "county": "Pulaski"
+    },
+    {
+      "state": "California",
+      "name": "Supreme Court of California",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "350 McAllister Street, San Francisco, CA 94102",
+      "url": "https://www.courts.ca.gov/supremecourt.htm",
+      "fipsHint": "06075",
+      "county": "San Francisco",
+      "judges": [
+        {
+          "name": "Hon. Patricia Guerrero",
+          "role": "Chief Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2022"
+        },
+        {
+          "name": "Hon. Carol A. Corrigan",
+          "role": "Associate Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2006"
+        },
+        {
+          "name": "Hon. Goodwin H. Liu",
+          "role": "Associate Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2011"
+        },
+        {
+          "name": "Hon. Leondra R. Kruger",
+          "role": "Associate Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2015"
+        },
+        {
+          "name": "Hon. Joshua P. Groban",
+          "role": "Associate Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2019"
+        },
+        {
+          "name": "Hon. Kelli Evans",
+          "role": "Associate Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2022"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "California",
+      "name": "California Court of Appeal, First District",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "350 McAllister Street, San Francisco, CA 94102",
+      "url": "https://www.courts.ca.gov/1dca.htm",
+      "fipsHint": "06075",
+      "county": "San Francisco"
+    },
+    {
+      "state": "California",
+      "name": "California Court of Appeal, Second District",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "300 S. Spring Street, 2nd Floor, N. Tower, Los Angeles, CA 90013",
+      "url": "https://www.courts.ca.gov/2dca.htm",
+      "fipsHint": "06037",
+      "county": "Los Angeles"
+    },
+    {
+      "state": "California",
+      "name": "California Court of Appeal, Third District",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "914 Capitol Mall, 4th Floor, Sacramento, CA 95814",
+      "url": "https://www.courts.ca.gov/3dca.htm",
+      "fipsHint": "06067",
+      "county": "Sacramento"
+    },
+    {
+      "state": "California",
+      "name": "California Court of Appeal, Fourth District (Div. 1)",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "750 B Street, Suite 300, San Diego, CA 92101",
+      "url": "https://www.courts.ca.gov/4dca.htm",
+      "fipsHint": "06073",
+      "county": "San Diego"
+    },
+    {
+      "state": "California",
+      "name": "California Court of Appeal, Fifth District",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "2424 Ventura Street, Fresno, CA 93721",
+      "url": "https://www.courts.ca.gov/5dca.htm",
+      "fipsHint": "06019",
+      "county": "Fresno"
+    },
+    {
+      "state": "California",
+      "name": "California Court of Appeal, Sixth District",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "333 W. Santa Clara Street, Suite 1060, San Jose, CA 95113",
+      "url": "https://www.courts.ca.gov/6dca.htm",
+      "fipsHint": "06085",
+      "county": "Santa Clara"
+    },
+    {
+      "state": "Colorado",
+      "name": "Colorado Supreme Court",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "2 E. 14th Avenue, Denver, CO 80203",
+      "url": "https://www.courts.state.co.us/Courts/Supreme_Court/",
+      "fipsHint": "08031",
+      "county": "Denver",
+      "judges": [
+        {
+          "name": "Hon. Monica M. Márquez",
+          "role": "Chief Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2010"
+        },
+        {
+          "name": "Hon. William W. Hood III",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2014"
+        },
+        {
+          "name": "Hon. Richard L. Gabriel",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2015"
+        },
+        {
+          "name": "Hon. Carlos A. Samour, Jr.",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2018"
+        },
+        {
+          "name": "Hon. Maria E. Berkenkotter",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2021"
+        },
+        {
+          "name": "Hon. Brian D. Boatright",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2011"
+        },
+        {
+          "name": "Hon. Susan Blanco",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2026"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "Colorado",
+      "name": "Colorado Court of Appeals",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "2 E. 14th Avenue, Denver, CO 80203",
+      "url": "https://www.courts.state.co.us/Courts/Court_Of_Appeals/",
+      "fipsHint": "08031",
+      "county": "Denver"
+    },
+    {
+      "state": "Connecticut",
+      "name": "Connecticut Supreme Court",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "231 Capitol Avenue, Hartford, CT 06106",
+      "url": "https://www.jud.ct.gov/external/supapp/",
+      "fipsHint": "09003",
+      "county": "Hartford",
+      "judges": [
+        {
+          "name": "Hon. Raheem L. Mullins",
+          "role": "Chief Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2017"
+        },
+        {
+          "name": "Hon. Gregory T. D'Auria",
+          "role": "Associate Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2017"
+        },
+        {
+          "name": "Hon. Steven D. Ecker",
+          "role": "Associate Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2018"
+        },
+        {
+          "name": "Hon. Joan K. Alexander",
+          "role": "Associate Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2023"
+        },
+        {
+          "name": "Hon. Nora R. Dannehy",
+          "role": "Associate Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2024"
+        },
+        {
+          "name": "Hon. Andrew J. McDonald",
+          "role": "Associate Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2013"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "Connecticut",
+      "name": "Connecticut Appellate Court",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "75 Elm Street, Hartford, CT 06106",
+      "url": "https://www.jud.ct.gov/external/supapp/",
+      "fipsHint": "09003",
+      "county": "Hartford"
+    },
+    {
+      "state": "Delaware",
+      "name": "Supreme Court of Delaware",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "55 The Green, Dover, DE 19901",
+      "url": "https://courts.delaware.gov/supreme/",
+      "fipsHint": "10001",
+      "county": "Kent",
+      "judges": [
+        {
+          "name": "Hon. Collins J. Seitz, Jr.",
+          "role": "Chief Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2015"
+        },
+        {
+          "name": "Hon. Karen L. Valihura",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2014"
+        },
+        {
+          "name": "Hon. Gary F. Traynor",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2014"
+        },
+        {
+          "name": "Hon. Abigail M. LeGrow",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2022"
+        },
+        {
+          "name": "Hon. N. Christopher Griffiths",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2024"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "District of Columbia",
+      "name": "DC Court of Appeals",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "Historic Courthouse, 430 E Street NW, Washington, DC 20001",
+      "url": "https://www.dccourts.gov/court-of-appeals",
+      "fipsHint": "11001",
+      "county": "District of Columbia"
+    },
+    {
+      "state": "Florida",
+      "name": "Florida Supreme Court",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "500 S. Duval Street, Tallahassee, FL 32399",
+      "url": "https://www.floridasupremecourt.org/",
+      "fipsHint": "12073",
+      "county": "Leon",
+      "judges": [
+        {
+          "name": "Hon. Carlos G. Muñiz",
+          "role": "Chief Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2019"
+        },
+        {
+          "name": "Hon. Jorge Labarga",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2009"
+        },
+        {
+          "name": "Hon. John D. Couriel",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2020"
+        },
+        {
+          "name": "Hon. Jamie R. Grosshans",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2020"
+        },
+        {
+          "name": "Hon. Renatha Francis",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2022"
+        },
+        {
+          "name": "Hon. Meredith L. Sasso",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2023"
+        },
+        {
+          "name": "Hon. Adam S. Tanenbaum",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2026"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "Florida",
+      "name": "Florida First District Court of Appeal",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "2000 Drayton Drive, Tallahassee, FL 32399",
+      "url": "https://1dca.flcourts.gov/",
+      "fipsHint": "12073",
+      "county": "Leon"
+    },
+    {
+      "state": "Florida",
+      "name": "Florida Second District Court of Appeal",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "1005 E. Memorial Blvd, Lakeland, FL 33801",
+      "url": "https://2dca.flcourts.gov/",
+      "fipsHint": "12105",
+      "county": "Polk"
+    },
+    {
+      "state": "Florida",
+      "name": "Florida Third District Court of Appeal",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "2001 SW 117th Avenue, Miami, FL 33175",
+      "url": "https://3dca.flcourts.gov/",
+      "fipsHint": "12086",
+      "county": "Miami-Dade"
+    },
+    {
+      "state": "Florida",
+      "name": "Florida Fourth District Court of Appeal",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "1525 Palm Beach Lakes Blvd, West Palm Beach, FL 33401",
+      "url": "https://4dca.flcourts.gov/",
+      "fipsHint": "12099",
+      "county": "Palm Beach"
+    },
+    {
+      "state": "Florida",
+      "name": "Florida Fifth District Court of Appeal",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "300 S. Beach Street, Daytona Beach, FL 32114",
+      "url": "https://5dca.flcourts.gov/",
+      "fipsHint": "12127",
+      "county": "Volusia"
+    },
+    {
+      "state": "Florida",
+      "name": "Florida Sixth District Court of Appeal",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "811 E. Main Street, Lakeland, FL 33801",
+      "url": "https://6dca.flcourts.gov/",
+      "fipsHint": "12105",
+      "county": "Polk"
+    },
+    {
+      "state": "Georgia",
+      "name": "Supreme Court of Georgia",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "330 Capitol Avenue SE, Room 400, Atlanta, GA 30334",
+      "url": "https://www.gasupreme.us/",
+      "fipsHint": "13121",
+      "county": "Fulton",
+      "judges": [
+        {
+          "name": "Hon. Nels S.D. Peterson",
+          "role": "Chief Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2017"
+        },
+        {
+          "name": "Hon. Charlie Bethel",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2018"
+        },
+        {
+          "name": "Hon. Sarah Hawkins Warren",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2018"
+        },
+        {
+          "name": "Hon. Verda M. Colvin",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2021"
+        },
+        {
+          "name": "Hon. Carla Wong McMillian",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2020"
+        },
+        {
+          "name": "Hon. Shawn Ellen LaGrua",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2021"
+        },
+        {
+          "name": "Hon. Andrew A. Pinson",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2022"
+        },
+        {
+          "name": "Hon. Ben Land",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2024"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "Georgia",
+      "name": "Court of Appeals of Georgia",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "47 Trinity Avenue SW, Suite 501, Atlanta, GA 30334",
+      "url": "https://www.gaappeals.us/",
+      "fipsHint": "13121",
+      "county": "Fulton"
+    },
+    {
+      "state": "Hawaii",
+      "name": "Hawaii Supreme Court",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "Ali'iolani Hale, 417 S. King Street, Honolulu, HI 96813",
+      "url": "https://www.courts.state.hi.us/courts/supreme",
+      "fipsHint": "15003",
+      "county": "Honolulu",
+      "judges": [
+        {
+          "name": "Hon. Sabrina S. McKenna",
+          "role": "Chief Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2011"
+        },
+        {
+          "name": "Hon. Todd W. Eddins",
+          "role": "Associate Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2020"
+        },
+        {
+          "name": "Hon. Lisa M. Ginoza",
+          "role": "Associate Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2023"
+        },
+        {
+          "name": "Hon. Vladimir P. Devens",
+          "role": "Associate Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2024"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "Hawaii",
+      "name": "Hawaii Intermediate Court of Appeals",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "417 S. King Street, Honolulu, HI 96813",
+      "url": "https://www.courts.state.hi.us/courts/intermediate",
+      "fipsHint": "15003",
+      "county": "Honolulu"
+    },
+    {
+      "state": "Idaho",
+      "name": "Idaho Supreme Court",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "451 W. State Street, Boise, ID 83702",
+      "url": "https://isc.idaho.gov/",
+      "fipsHint": "16001",
+      "county": "Ada",
+      "judges": [
+        {
+          "name": "Hon. G. Richard Bevan",
+          "role": "Chief Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2017"
+        },
+        {
+          "name": "Hon. Robyn M. Brody",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2017"
+        },
+        {
+          "name": "Hon. Gregory W. Moeller",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2019"
+        },
+        {
+          "name": "Hon. Colleen D. Zahn",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2023"
+        },
+        {
+          "name": "Hon. Cynthia K.C. Meyer",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2023"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "Idaho",
+      "name": "Idaho Court of Appeals",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "451 W. State Street, Boise, ID 83702",
+      "url": "https://isc.idaho.gov/appeals",
+      "fipsHint": "16001",
+      "county": "Ada"
+    },
+    {
+      "state": "Illinois",
+      "name": "Supreme Court of Illinois",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "200 E. Capitol Avenue, Springfield, IL 62701",
+      "url": "https://www.illinoiscourts.gov/courts/supreme-court/",
+      "fipsHint": "17167",
+      "county": "Sangamon",
+      "judges": [
+        {
+          "name": "Hon. P. Scott Neville, Jr.",
+          "role": "Chief Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2018"
+        },
+        {
+          "name": "Hon. David K. Overstreet",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2020"
+        },
+        {
+          "name": "Hon. Lisa Holder White",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2022"
+        },
+        {
+          "name": "Hon. Joy V. Cunningham",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2022"
+        },
+        {
+          "name": "Hon. Elizabeth M. Rochford",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2022"
+        },
+        {
+          "name": "Hon. Mary K. O'Brien",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2022"
+        },
+        {
+          "name": "Hon. Sanjay T. Tailor",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2026"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "Illinois",
+      "name": "Illinois Appellate Court, First District (Chicago)",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "160 N. LaSalle Street, Chicago, IL 60601",
+      "url": "https://www.illinoiscourts.gov/courts/appellate-court/first-district/",
+      "fipsHint": "17031",
+      "county": "Cook"
+    },
+    {
+      "state": "Illinois",
+      "name": "Illinois Appellate Court, Second District",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "55 Symphony Way, Elgin, IL 60120",
+      "url": "https://www.illinoiscourts.gov/courts/appellate-court/second-district/",
+      "fipsHint": "17089",
+      "county": "Kane"
+    },
+    {
+      "state": "Illinois",
+      "name": "Illinois Appellate Court, Third District",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "1004 Columbus Street, Ottawa, IL 61350",
+      "url": "https://www.illinoiscourts.gov/courts/appellate-court/third-district/",
+      "fipsHint": "17099",
+      "county": "LaSalle"
+    },
+    {
+      "state": "Illinois",
+      "name": "Illinois Appellate Court, Fourth District",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "201 W. Monroe Street, Springfield, IL 62704",
+      "url": "https://www.illinoiscourts.gov/courts/appellate-court/fourth-district/",
+      "fipsHint": "17167",
+      "county": "Sangamon"
+    },
+    {
+      "state": "Illinois",
+      "name": "Illinois Appellate Court, Fifth District",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "14th & Main Streets, Mt. Vernon, IL 62864",
+      "url": "https://www.illinoiscourts.gov/courts/appellate-court/fifth-district/",
+      "fipsHint": "17081",
+      "county": "Jefferson"
+    },
+    {
+      "state": "Indiana",
+      "name": "Indiana Supreme Court",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "315 W. Ohio Street, 3rd Floor, Indianapolis, IN 46204",
+      "url": "https://www.in.gov/courts/supreme/",
+      "fipsHint": "18097",
+      "county": "Marion",
+      "judges": [
+        {
+          "name": "Hon. Loretta H. Rush",
+          "role": "Chief Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2012"
+        },
+        {
+          "name": "Hon. Mark S. Massa",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2012"
+        },
+        {
+          "name": "Hon. Geoffrey G. Slaughter",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2016"
+        },
+        {
+          "name": "Hon. Christopher M. Goff",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2017"
+        },
+        {
+          "name": "Hon. Derek R. Molter",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2022"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "Indiana",
+      "name": "Indiana Court of Appeals",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "200 W. Washington Street, Room 413, Indianapolis, IN 46204",
+      "url": "https://www.in.gov/courts/appeals/",
+      "fipsHint": "18097",
+      "county": "Marion"
+    },
+    {
+      "state": "Iowa",
+      "name": "Iowa Supreme Court",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "1111 E. Court Avenue, Des Moines, IA 50319",
+      "url": "https://www.iowacourts.gov/iowa-courts/supreme-court/",
+      "fipsHint": "19153",
+      "county": "Polk",
+      "judges": [
+        {
+          "name": "Hon. Susan Larson Christensen",
+          "role": "Chief Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2018"
+        },
+        {
+          "name": "Hon. Thomas D. Waterman",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2011"
+        },
+        {
+          "name": "Hon. Edward M. Mansfield",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2011"
+        },
+        {
+          "name": "Hon. Christopher McDonald",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2019"
+        },
+        {
+          "name": "Hon. Dana Oxley",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2020"
+        },
+        {
+          "name": "Hon. Matthew McDermott",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2020"
+        },
+        {
+          "name": "Hon. David May",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2022"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "Iowa",
+      "name": "Iowa Court of Appeals",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "1111 E. Court Avenue, Des Moines, IA 50319",
+      "url": "https://www.iowacourts.gov/iowa-courts/court-of-appeals/",
+      "fipsHint": "19153",
+      "county": "Polk"
+    },
+    {
+      "state": "Kansas",
+      "name": "Kansas Supreme Court",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "301 SW 10th Avenue, Topeka, KS 66612",
+      "url": "https://www.kscourts.org/About-the-Courts/Courts/Supreme-Court",
+      "fipsHint": "20177",
+      "county": "Shawnee",
+      "judges": [
+        {
+          "name": "Hon. Eric S. Rosen",
+          "role": "Chief Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2005"
+        },
+        {
+          "name": "Hon. Marla J. Luckert",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2003"
+        },
+        {
+          "name": "Hon. Dan Biles",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2009"
+        },
+        {
+          "name": "Hon. Caleb Stegall",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2014"
+        },
+        {
+          "name": "Hon. Melissa Taylor Standridge",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2020"
+        },
+        {
+          "name": "Hon. Keynen J. Wall, Jr.",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2022"
+        },
+        {
+          "name": "Hon. K. Larkin Walsh",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2025"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "Kansas",
+      "name": "Kansas Court of Appeals",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "301 SW 10th Avenue, Topeka, KS 66612",
+      "url": "https://www.kscourts.org/About-the-Courts/Courts/Court-of-Appeals",
+      "fipsHint": "20177",
+      "county": "Shawnee"
+    },
+    {
+      "state": "Kentucky",
+      "name": "Supreme Court of Kentucky",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "State Capitol, 700 Capitol Avenue, Room 235, Frankfort, KY 40601",
+      "url": "https://www.kycourts.gov/Courts/Supreme-Court/",
+      "fipsHint": "21073",
+      "county": "Franklin",
+      "judges": [
+        {
+          "name": "Hon. Debra Hembree Lambert",
+          "role": "Chief Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2019"
+        },
+        {
+          "name": "Hon. Robert B. Conley",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2023"
+        },
+        {
+          "name": "Hon. Michelle M. Keller",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2013"
+        },
+        {
+          "name": "Hon. Christopher Shea Nickell",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2019"
+        },
+        {
+          "name": "Hon. Angela McCormick Bisig",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2023"
+        },
+        {
+          "name": "Hon. Pamela R. Goodwine",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2024"
+        },
+        {
+          "name": "Hon. Kelly Thompson",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2023"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "Kentucky",
+      "name": "Kentucky Court of Appeals",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "360 Democrat Drive, Frankfort, KY 40601",
+      "url": "https://www.kycourts.gov/Courts/Court-of-Appeals/",
+      "fipsHint": "21073",
+      "county": "Franklin"
+    },
+    {
+      "state": "Louisiana",
+      "name": "Louisiana Supreme Court",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "400 Royal Street, Suite 4200, New Orleans, LA 70130",
+      "url": "https://www.lasc.org/",
+      "fipsHint": "22071",
+      "county": "Orleans",
+      "judges": [
+        {
+          "name": "Hon. John L. Weimer",
+          "role": "Chief Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2001"
+        },
+        {
+          "name": "Hon. Scott J. Crichton",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2015"
+        },
+        {
+          "name": "Hon. James T. Genovese",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2016"
+        },
+        {
+          "name": "Hon. Jay B. McCallum",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2020"
+        },
+        {
+          "name": "Hon. Piper D. Griffin",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2021"
+        },
+        {
+          "name": "Hon. Jefferson Hughes III",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2013"
+        },
+        {
+          "name": "Hon. Allison H. Penzato",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2025"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "Louisiana",
+      "name": "Louisiana First Circuit Court of Appeal",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "1600 N. 3rd Street, Baton Rouge, LA 70802",
+      "url": "https://www.la-fcca.org/",
+      "fipsHint": "22033",
+      "county": "East Baton Rouge"
+    },
+    {
+      "state": "Louisiana",
+      "name": "Louisiana Fourth Circuit Court of Appeal",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "410 Royal Street, New Orleans, LA 70130",
+      "url": "https://www.la4th.org/",
+      "fipsHint": "22071",
+      "county": "Orleans"
+    },
+    {
+      "state": "Maine",
+      "name": "Maine Supreme Judicial Court",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "142 Federal Street, Portland, ME 04101",
+      "url": "https://www.courts.maine.gov/courts/sjc/",
+      "fipsHint": "23005",
+      "county": "Cumberland",
+      "judges": [
+        {
+          "name": "Hon. Valerie Stanfill",
+          "role": "Chief Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2020"
+        },
+        {
+          "name": "Hon. Andrew M. Mead",
+          "role": "Associate Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2007"
+        },
+        {
+          "name": "Hon. Catherine R. Connors",
+          "role": "Associate Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2020"
+        },
+        {
+          "name": "Hon. Rick E. Lawrence",
+          "role": "Associate Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2022"
+        },
+        {
+          "name": "Hon. Wayne R. Douglas",
+          "role": "Associate Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2023"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "Maryland",
+      "name": "Supreme Court of Maryland",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "361 Rowe Blvd, Annapolis, MD 21401",
+      "url": "https://www.mdcourts.gov/appellatecourt",
+      "fipsHint": "24003",
+      "county": "Anne Arundel",
+      "judges": [
+        {
+          "name": "Hon. Matthew J. Fader",
+          "role": "Chief Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2022"
+        },
+        {
+          "name": "Hon. Shirley M. Watts",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2013"
+        },
+        {
+          "name": "Hon. Jonathan Biran",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2021"
+        },
+        {
+          "name": "Hon. Brynja M. Booth",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2019"
+        },
+        {
+          "name": "Hon. Angela M. Eaves",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2022"
+        },
+        {
+          "name": "Hon. Steven B. Gould",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2022"
+        },
+        {
+          "name": "Hon. Peter K. Killough",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2024"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "Maryland",
+      "name": "Appellate Court of Maryland",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "361 Rowe Blvd, Annapolis, MD 21401",
+      "url": "https://www.mdcourts.gov/specialappeals",
+      "fipsHint": "24003",
+      "county": "Anne Arundel"
+    },
+    {
+      "state": "Massachusetts",
+      "name": "Supreme Judicial Court of Massachusetts",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "John Adams Courthouse, 1 Pemberton Square, Suite 2500, Boston, MA 02108",
+      "url": "https://www.mass.gov/orgs/supreme-judicial-court",
+      "fipsHint": "25025",
+      "county": "Suffolk",
+      "judges": [
+        {
+          "name": "Hon. Kimberly S. Budd",
+          "role": "Chief Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2016"
+        },
+        {
+          "name": "Hon. Frank M. Gaziano",
+          "role": "Associate Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2016"
+        },
+        {
+          "name": "Hon. Scott L. Kafker",
+          "role": "Associate Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2017"
+        },
+        {
+          "name": "Hon. Dalila Argaez Wendlandt",
+          "role": "Associate Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2020"
+        },
+        {
+          "name": "Hon. Serge Georges Jr.",
+          "role": "Associate Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2020"
+        },
+        {
+          "name": "Hon. Gabrielle R. Wolohojian",
+          "role": "Associate Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2024"
+        },
+        {
+          "name": "Hon. Bessie Dewar",
+          "role": "Associate Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2024"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "Massachusetts",
+      "name": "Massachusetts Appeals Court",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "John Adams Courthouse, 1 Pemberton Square, Suite 1200, Boston, MA 02108",
+      "url": "https://www.mass.gov/orgs/massachusetts-appeals-court",
+      "fipsHint": "25025",
+      "county": "Suffolk"
+    },
+    {
+      "state": "Michigan",
+      "name": "Michigan Supreme Court",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "Michigan Hall of Justice, 925 W. Ottawa Street, Lansing, MI 48915",
+      "url": "https://www.courts.michigan.gov/courts/supreme-court/",
+      "fipsHint": "26065",
+      "county": "Ingham",
+      "judges": [
+        {
+          "name": "Hon. Megan K. Cavanagh",
+          "role": "Chief Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2019"
+        },
+        {
+          "name": "Hon. Brian K. Zahra",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2011"
+        },
+        {
+          "name": "Hon. Richard H. Bernstein",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2015"
+        },
+        {
+          "name": "Hon. Elizabeth M. Welch",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2021"
+        },
+        {
+          "name": "Hon. Kyra H. Bolden",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2023"
+        },
+        {
+          "name": "Hon. Noah P. Hood",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2024"
+        },
+        {
+          "name": "Hon. Kimberly A. Thomas",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2025"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "Michigan",
+      "name": "Michigan Court of Appeals (Detroit)",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "3020 W. Grand Blvd, Cadillac Place, 14th Floor, Detroit, MI 48202",
+      "url": "https://www.courts.michigan.gov/courts/court-of-appeals/",
+      "fipsHint": "26163",
+      "county": "Wayne"
+    },
+    {
+      "state": "Michigan",
+      "name": "Michigan Court of Appeals (Grand Rapids)",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "350 Ottawa Avenue NW, Grand Rapids, MI 49503",
+      "url": "https://www.courts.michigan.gov/courts/court-of-appeals/",
+      "fipsHint": "26081",
+      "county": "Kent"
+    },
+    {
+      "state": "Minnesota",
+      "name": "Minnesota Supreme Court",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "25 Rev. Dr. Martin Luther King Jr. Blvd, St. Paul, MN 55155",
+      "url": "https://www.mncourts.gov/SupremeCourt.aspx",
+      "fipsHint": "27123",
+      "county": "Ramsey",
+      "judges": [
+        {
+          "name": "Hon. Natalie E. Hudson",
+          "role": "Chief Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2015"
+        },
+        {
+          "name": "Hon. Paul Thissen",
+          "role": "Associate Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2018"
+        },
+        {
+          "name": "Hon. Anne K. McKeig",
+          "role": "Associate Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2016"
+        },
+        {
+          "name": "Hon. Gordon L. Moore III",
+          "role": "Associate Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2020"
+        },
+        {
+          "name": "Hon. Karl C. Procaccini",
+          "role": "Associate Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2023"
+        },
+        {
+          "name": "Hon. Theodora Gaïtas",
+          "role": "Associate Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2024"
+        },
+        {
+          "name": "Hon. Sarah E. Hennesy",
+          "role": "Associate Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2024"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "Minnesota",
+      "name": "Minnesota Court of Appeals",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "25 Rev. Dr. Martin Luther King Jr. Blvd, St. Paul, MN 55155",
+      "url": "https://www.mncourts.gov/CourtOfAppeals.aspx",
+      "fipsHint": "27123",
+      "county": "Ramsey"
+    },
+    {
+      "state": "Mississippi",
+      "name": "Supreme Court of Mississippi",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "Carroll Gartin Justice Building, 450 High Street, Jackson, MS 39201",
+      "url": "https://courts.ms.gov/appellatecourts/sc/sc.php",
+      "fipsHint": "28049",
+      "county": "Hinds",
+      "judges": [
+        {
+          "name": "Hon. Michael K. Randolph",
+          "role": "Chief Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2004"
+        },
+        {
+          "name": "Hon. Leslie D. King",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2011"
+        },
+        {
+          "name": "Hon. James W. Kitchens",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2009"
+        },
+        {
+          "name": "Hon. Josiah D. Coleman",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2012"
+        },
+        {
+          "name": "Hon. Dawn H. Beam",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2016"
+        },
+        {
+          "name": "Hon. Robert P. Chamberlin",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2017"
+        },
+        {
+          "name": "Hon. James D. Maxwell II",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2016"
+        },
+        {
+          "name": "Hon. David M. Ishee",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2020"
+        },
+        {
+          "name": "Hon. T. Kenneth Griffis",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2020"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "Mississippi",
+      "name": "Mississippi Court of Appeals",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "450 High Street, Jackson, MS 39201",
+      "url": "https://courts.ms.gov/appellatecourts/coa/coa.php",
+      "fipsHint": "28049",
+      "county": "Hinds"
+    },
+    {
+      "state": "Missouri",
+      "name": "Supreme Court of Missouri",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "207 W. High Street, Jefferson City, MO 65101",
+      "url": "https://www.courts.mo.gov/courts/pubCmenu.nsf/MO-Supreme-Court",
+      "fipsHint": "29051",
+      "county": "Cole",
+      "judges": [
+        {
+          "name": "Hon. W. Brent Powell",
+          "role": "Chief Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2017"
+        },
+        {
+          "name": "Hon. Mary R. Russell",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2004"
+        },
+        {
+          "name": "Hon. Zel M. Fischer",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2008"
+        },
+        {
+          "name": "Hon. Paul C. Wilson",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2012"
+        },
+        {
+          "name": "Hon. Robin Ransom",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2021"
+        },
+        {
+          "name": "Hon. Kelly C. Broniec",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2024"
+        },
+        {
+          "name": "Hon. Ginger K. Gooch",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2024"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "Missouri",
+      "name": "Missouri Court of Appeals, Eastern District (St. Louis)",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "One Post Office Square, 815 Olive Street, St. Louis, MO 63101",
+      "url": "https://www.courts.mo.gov/page.jsp?id=88",
+      "fipsHint": "29510",
+      "county": "St. Louis City"
+    },
+    {
+      "state": "Missouri",
+      "name": "Missouri Court of Appeals, Western District (Kansas City)",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "1300 Oak Street, Kansas City, MO 64106",
+      "url": "https://www.courts.mo.gov/page.jsp?id=89",
+      "fipsHint": "29095",
+      "county": "Jackson"
+    },
+    {
+      "state": "Missouri",
+      "name": "Missouri Court of Appeals, Southern District (Springfield)",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "300 Hammons Parkway, Springfield, MO 65806",
+      "url": "https://www.courts.mo.gov/page.jsp?id=90",
+      "fipsHint": "29077",
+      "county": "Greene"
+    },
+    {
+      "state": "Montana",
+      "name": "Montana Supreme Court",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "215 N. Sanders Street, Helena, MT 59620",
+      "url": "https://courts.mt.gov/Courts/SupremeCourt",
+      "fipsHint": "30049",
+      "county": "Lewis and Clark",
+      "judges": [
+        {
+          "name": "Hon. Cory J. Swanson",
+          "role": "Chief Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2025"
+        },
+        {
+          "name": "Hon. Laurie McKinnon",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2013"
+        },
+        {
+          "name": "Hon. Beth Baker",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2011"
+        },
+        {
+          "name": "Hon. James Jeremiah Shea",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2014"
+        },
+        {
+          "name": "Hon. Ingrid Gustafson",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2017"
+        },
+        {
+          "name": "Hon. Jim Rice",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2001"
+        },
+        {
+          "name": "Hon. Katherine M. Bidegaray",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2025"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "Nebraska",
+      "name": "Nebraska Supreme Court",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "2413 State Capitol, 1445 K Street, Lincoln, NE 68509",
+      "url": "https://supremecourt.nebraska.gov/",
+      "fipsHint": "31109",
+      "county": "Lancaster",
+      "judges": [
+        {
+          "name": "Hon. Jeffrey J. Funke",
+          "role": "Chief Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2016"
+        },
+        {
+          "name": "Hon. William B. Cassel",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2012"
+        },
+        {
+          "name": "Hon. Stephanie F. Stacy",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2015"
+        },
+        {
+          "name": "Hon. Jonathan J. Papik",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2018"
+        },
+        {
+          "name": "Hon. John R. Freudenberg",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2020"
+        },
+        {
+          "name": "Hon. Jason M. Bergevin",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2024"
+        },
+        {
+          "name": "Hon. Derek R. Vaughn",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2025"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "Nebraska",
+      "name": "Nebraska Court of Appeals",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "2413 State Capitol, Lincoln, NE 68509",
+      "url": "https://supremecourt.nebraska.gov/courts/court-of-appeals",
+      "fipsHint": "31109",
+      "county": "Lancaster"
+    },
+    {
+      "state": "Nevada",
+      "name": "Nevada Supreme Court",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "201 S. Carson Street, Carson City, NV 89701",
+      "url": "https://nvcourts.gov/Supreme/",
+      "fipsHint": "32510",
+      "county": "Carson City",
+      "judges": [
+        {
+          "name": "Hon. Douglas W. Herndon",
+          "role": "Chief Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2021"
+        },
+        {
+          "name": "Hon. Kristina Pickering",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2009"
+        },
+        {
+          "name": "Hon. Lidia Stiglich",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2016"
+        },
+        {
+          "name": "Hon. Elissa F. Cadish",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2019"
+        },
+        {
+          "name": "Hon. Ron D. Parraguirre",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2005"
+        },
+        {
+          "name": "Hon. Linda Marie Bell",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2021"
+        },
+        {
+          "name": "Hon. Patricia Lee",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2023"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "Nevada",
+      "name": "Nevada Court of Appeals",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "408 E. Clark Avenue, Las Vegas, NV 89101",
+      "url": "https://nvcourts.gov/coa/",
+      "fipsHint": "32003",
+      "county": "Clark"
+    },
+    {
+      "state": "New Hampshire",
+      "name": "New Hampshire Supreme Court",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "One Charles Doe Drive, Concord, NH 03301",
+      "url": "https://www.courts.nh.gov/our-courts/supreme-court",
+      "fipsHint": "33013",
+      "county": "Merrimack",
+      "judges": [
+        {
+          "name": "Hon. Gordon J. MacDonald",
+          "role": "Chief Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2021"
+        },
+        {
+          "name": "Hon. Anna Barbara Hantz Marconi",
+          "role": "Associate Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2017"
+        },
+        {
+          "name": "Hon. Patrick E. Donovan",
+          "role": "Associate Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2019"
+        },
+        {
+          "name": "Hon. Melissa Beth Countway",
+          "role": "Associate Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2023"
+        },
+        {
+          "name": "Hon. Bryan K. Gould",
+          "role": "Associate Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2024"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "New Jersey",
+      "name": "New Jersey Supreme Court",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "Richard J. Hughes Justice Complex, 25 Market Street, Trenton, NJ 08611",
+      "url": "https://www.njcourts.gov/courts/supreme",
+      "fipsHint": "34021",
+      "county": "Mercer",
+      "judges": [
+        {
+          "name": "Hon. Stuart Rabner",
+          "role": "Chief Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2007"
+        },
+        {
+          "name": "Hon. Anne M. Patterson",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2011"
+        },
+        {
+          "name": "Hon. Fabiana Pierre-Louis",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2020"
+        },
+        {
+          "name": "Hon. Rachel Wainer Apter",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2022"
+        },
+        {
+          "name": "Hon. Douglas M. Fasciale",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2022"
+        },
+        {
+          "name": "Hon. Michael Noriega",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2023"
+        },
+        {
+          "name": "Hon. John Jay Hoffman",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2024"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "New Jersey",
+      "name": "New Jersey Superior Court, Appellate Division",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "Richard J. Hughes Justice Complex, 25 Market Street, Trenton, NJ 08611",
+      "url": "https://www.njcourts.gov/courts/appellate",
+      "fipsHint": "34021",
+      "county": "Mercer"
+    },
+    {
+      "state": "New Mexico",
+      "name": "New Mexico Supreme Court",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "237 Don Gaspar Avenue, Santa Fe, NM 87501",
+      "url": "https://supremecourt.nmcourts.gov/",
+      "fipsHint": "35049",
+      "county": "Santa Fe",
+      "judges": [
+        {
+          "name": "Hon. Julie J. Vargas",
+          "role": "Chief Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2020"
+        },
+        {
+          "name": "Hon. Michael E. Vigil",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2018"
+        },
+        {
+          "name": "Hon. C. Shannon Bacon",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2019"
+        },
+        {
+          "name": "Hon. David K. Thomson",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2019"
+        },
+        {
+          "name": "Hon. Briana H. Zamora",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2021"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "New Mexico",
+      "name": "New Mexico Court of Appeals",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "237 Don Gaspar Avenue, Santa Fe, NM 87501",
+      "url": "https://coa.nmcourts.gov/",
+      "fipsHint": "35049",
+      "county": "Santa Fe"
+    },
+    {
+      "state": "New York",
+      "name": "New York Court of Appeals",
+      "jurisdiction": "state",
+      "level": "court_of_last_resort",
+      "address": "20 Eagle Street, Albany, NY 12207",
+      "url": "https://www.nycourts.gov/ctapps/",
+      "fipsHint": "36001",
+      "county": "Albany"
+    },
+    {
+      "state": "New York",
+      "name": "New York Appellate Division, First Department",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "27 Madison Avenue, New York, NY 10010",
+      "url": "https://www.courts.state.ny.us/courts/ad1/",
+      "fipsHint": "36061",
+      "county": "New York"
+    },
+    {
+      "state": "New York",
+      "name": "New York Appellate Division, Second Department",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "45 Monroe Place, Brooklyn, NY 11201",
+      "url": "https://www.courts.state.ny.us/courts/ad2/",
+      "fipsHint": "36047",
+      "county": "Kings"
+    },
+    {
+      "state": "New York",
+      "name": "New York Appellate Division, Third Department",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "Robert Abrams Building for Law and Justice, Empire State Plaza, Albany, NY 12223",
+      "url": "https://www.courts.state.ny.us/courts/ad3/",
+      "fipsHint": "36001",
+      "county": "Albany"
+    },
+    {
+      "state": "New York",
+      "name": "New York Appellate Division, Fourth Department",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "50 East Avenue, Suite 200, Rochester, NY 14604",
+      "url": "https://www.courts.state.ny.us/courts/ad4/",
+      "fipsHint": "36055",
+      "county": "Monroe"
+    },
+    {
+      "state": "North Carolina",
+      "name": "Supreme Court of North Carolina",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "2 E. Morgan Street, Raleigh, NC 27601",
+      "url": "https://www.nccourts.gov/courts/supreme-court",
+      "fipsHint": "37183",
+      "county": "Wake",
+      "judges": [
+        {
+          "name": "Hon. Paul Martin Newby",
+          "role": "Chief Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2004"
+        },
+        {
+          "name": "Hon. Anita Earls",
+          "role": "Associate Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2018"
+        },
+        {
+          "name": "Hon. Philip E. Berger, Jr.",
+          "role": "Associate Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2021"
+        },
+        {
+          "name": "Hon. Tamara Barringer",
+          "role": "Associate Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2021"
+        },
+        {
+          "name": "Hon. Richard Dietz",
+          "role": "Associate Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2023"
+        },
+        {
+          "name": "Hon. Trey Allen",
+          "role": "Associate Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2023"
+        },
+        {
+          "name": "Hon. Allison Riggs",
+          "role": "Associate Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2023"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "North Carolina",
+      "name": "North Carolina Court of Appeals",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "One W. Morgan Street, Raleigh, NC 27601",
+      "url": "https://www.nccourts.gov/courts/court-of-appeals",
+      "fipsHint": "37183",
+      "county": "Wake"
+    },
+    {
+      "state": "North Dakota",
+      "name": "North Dakota Supreme Court",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "600 E. Boulevard Avenue, Bismarck, ND 58505",
+      "url": "https://www.ndcourts.gov/supreme-court",
+      "fipsHint": "38015",
+      "county": "Burleigh",
+      "judges": [
+        {
+          "name": "Hon. Lisa K. Fair McEvers",
+          "role": "Chief Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2013"
+        },
+        {
+          "name": "Hon. Jon J. Jensen",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2017"
+        },
+        {
+          "name": "Hon. Jerod E. Tufte",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2016"
+        },
+        {
+          "name": "Hon. Daniel J. Crothers",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2005"
+        },
+        {
+          "name": "Hon. Douglas A. Bahr",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2022"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "Ohio",
+      "name": "Supreme Court of Ohio",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "65 S. Front Street, Columbus, OH 43215",
+      "url": "https://www.supremecourt.ohio.gov/",
+      "fipsHint": "39049",
+      "county": "Franklin",
+      "judges": [
+        {
+          "name": "Hon. Sharon L. Kennedy",
+          "role": "Chief Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2012"
+        },
+        {
+          "name": "Hon. Patrick F. Fischer",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2017"
+        },
+        {
+          "name": "Hon. R. Patrick DeWine",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2017"
+        },
+        {
+          "name": "Hon. Jennifer L. Brunner",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2021"
+        },
+        {
+          "name": "Hon. Joseph T. Deters",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2023"
+        },
+        {
+          "name": "Hon. Daniel R. Hawkins",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2025"
+        },
+        {
+          "name": "Hon. Megan E. Shanahan",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2025"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "Ohio",
+      "name": "Ohio Eighth District Court of Appeals (Cuyahoga)",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "1 W. Lakeside Avenue, Cleveland, OH 44113",
+      "url": "https://www.8thdistrictcourt.com/",
+      "fipsHint": "39035",
+      "county": "Cuyahoga"
+    },
+    {
+      "state": "Ohio",
+      "name": "Ohio Tenth District Court of Appeals (Franklin)",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "373 S. High Street, 24th Floor, Columbus, OH 43215",
+      "url": "https://www.tenthdistrictcourtofappeals.org/",
+      "fipsHint": "39049",
+      "county": "Franklin"
+    },
+    {
+      "state": "Oklahoma",
+      "name": "Oklahoma Supreme Court",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "Oklahoma Judicial Center, 2100 N. Lincoln Blvd, Oklahoma City, OK 73105",
+      "url": "https://www.oscn.net/applications/oscn/start.asp?viewType=COURT&selectedCourt=1",
+      "fipsHint": "40109",
+      "county": "Oklahoma",
+      "judges": [
+        {
+          "name": "Hon. M. John Kane IV",
+          "role": "Chief Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2019"
+        },
+        {
+          "name": "Hon. Dustin P. Rowe",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2019"
+        },
+        {
+          "name": "Hon. James R. Winchester",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2000"
+        },
+        {
+          "name": "Hon. James E. Edmondson",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2003"
+        },
+        {
+          "name": "Hon. Noma D. Gurich",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2011"
+        },
+        {
+          "name": "Hon. Douglas L. Combs",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2010"
+        },
+        {
+          "name": "Hon. Dana Kuehn",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2021"
+        },
+        {
+          "name": "Hon. Richard B. Darby",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2018"
+        },
+        {
+          "name": "Hon. Travis V. Jett",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2025"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "Oklahoma",
+      "name": "Oklahoma Court of Civil Appeals",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "2100 N. Lincoln Blvd, Oklahoma City, OK 73105",
+      "url": "https://www.oscn.net/applications/oscn/start.asp?viewType=COURT&selectedCourt=3",
+      "fipsHint": "40109",
+      "county": "Oklahoma"
+    },
+    {
+      "state": "Oregon",
+      "name": "Oregon Supreme Court",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "1163 State Street, Salem, OR 97301",
+      "url": "https://www.courts.oregon.gov/courts/supreme/",
+      "fipsHint": "41047",
+      "county": "Marion",
+      "judges": [
+        {
+          "name": "Hon. Meagan A. Flynn",
+          "role": "Chief Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2017"
+        },
+        {
+          "name": "Hon. Rebecca A. Duncan",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2017"
+        },
+        {
+          "name": "Hon. Christopher L. Garrett",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2019"
+        },
+        {
+          "name": "Hon. Roger J. DeHoog",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2021"
+        },
+        {
+          "name": "Hon. Stephen K. Bushong",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2023"
+        },
+        {
+          "name": "Hon. Aruna A. Masih",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2023"
+        },
+        {
+          "name": "Hon. Bronson D. James",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2023"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "Oregon",
+      "name": "Oregon Court of Appeals",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "1163 State Street, Salem, OR 97301",
+      "url": "https://www.courts.oregon.gov/courts/appeals/",
+      "fipsHint": "41047",
+      "county": "Marion"
+    },
+    {
+      "state": "Pennsylvania",
+      "name": "Pennsylvania Supreme Court",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "601 Commonwealth Avenue, Suite 1500, Harrisburg, PA 17106",
+      "url": "https://www.pacourts.us/courts/supreme-court/",
+      "fipsHint": "42043",
+      "county": "Dauphin",
+      "judges": [
+        {
+          "name": "Hon. Debra Todd",
+          "role": "Chief Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2008"
+        },
+        {
+          "name": "Hon. Christine Donohue",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2016"
+        },
+        {
+          "name": "Hon. Kevin M. Dougherty",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2016"
+        },
+        {
+          "name": "Hon. David N. Wecht",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2016"
+        },
+        {
+          "name": "Hon. Sallie Updyke Mundy",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2017"
+        },
+        {
+          "name": "Hon. Kevin Brobson",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2022"
+        },
+        {
+          "name": "Hon. Daniel D. McCaffery",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2024"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "Pennsylvania",
+      "name": "Pennsylvania Superior Court (Philadelphia)",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "530 Walnut Street, Philadelphia, PA 19106",
+      "url": "https://www.pacourts.us/courts/superior-court/",
+      "fipsHint": "42101",
+      "county": "Philadelphia"
+    },
+    {
+      "state": "Pennsylvania",
+      "name": "Pennsylvania Superior Court (Pittsburgh)",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "310 Grant Street, 600 Grant Building, Pittsburgh, PA 15219",
+      "url": "https://www.pacourts.us/courts/superior-court/",
+      "fipsHint": "42003",
+      "county": "Allegheny"
+    },
+    {
+      "state": "Pennsylvania",
+      "name": "Pennsylvania Commonwealth Court",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "1515 Market Street, Suite 1414, Philadelphia, PA 19102",
+      "url": "https://www.pacourts.us/courts/commonwealth-court/",
+      "fipsHint": "42101",
+      "county": "Philadelphia"
+    },
+    {
+      "state": "Rhode Island",
+      "name": "Rhode Island Supreme Court",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "250 Benefit Street, Providence, RI 02903",
+      "url": "https://www.courts.ri.gov/Courts/SupremeCourt/",
+      "fipsHint": "44007",
+      "county": "Providence",
+      "judges": [
+        {
+          "name": "Hon. Paul A. Suttell",
+          "role": "Chief Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2003"
+        },
+        {
+          "name": "Hon. William P. Robinson III",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2004"
+        },
+        {
+          "name": "Hon. Erin Lynch Prata",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2020"
+        },
+        {
+          "name": "Hon. Melissa A. Long",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2021"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "South Carolina",
+      "name": "Supreme Court of South Carolina",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "1231 Gervais Street, Columbia, SC 29201",
+      "url": "https://www.sccourts.org/supreme/",
+      "fipsHint": "45079",
+      "county": "Richland",
+      "judges": [
+        {
+          "name": "Hon. John W. Kittredge",
+          "role": "Chief Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2008"
+        },
+        {
+          "name": "Hon. John Cannon Few",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2016"
+        },
+        {
+          "name": "Hon. George C. James Jr.",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2017"
+        },
+        {
+          "name": "Hon. D. Garrison Hill",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2023"
+        },
+        {
+          "name": "Hon. Letitia H. Verdin",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2024"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "South Carolina",
+      "name": "South Carolina Court of Appeals",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "1220 Senate Street, Columbia, SC 29201",
+      "url": "https://www.sccourts.org/courtOfAppeals/",
+      "fipsHint": "45079",
+      "county": "Richland"
+    },
+    {
+      "state": "South Dakota",
+      "name": "South Dakota Supreme Court",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "500 E. Capitol Avenue, Pierre, SD 57501",
+      "url": "https://ujs.sd.gov/Supreme_Court/",
+      "fipsHint": "46065",
+      "county": "Hughes",
+      "judges": [
+        {
+          "name": "Hon. Steven R. Jensen",
+          "role": "Chief Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2017"
+        },
+        {
+          "name": "Hon. Mark E. Salter",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2018"
+        },
+        {
+          "name": "Hon. Patricia J. DeVaney",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2019"
+        },
+        {
+          "name": "Hon. Scott P. Myren",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2021"
+        },
+        {
+          "name": "Hon. Robert Gusinsky",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2025"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "Tennessee",
+      "name": "Supreme Court of Tennessee",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "Supreme Court Building, 401 7th Avenue N., Nashville, TN 37219",
+      "url": "https://www.tncourts.gov/courts/supreme-court",
+      "fipsHint": "47037",
+      "county": "Davidson",
+      "judges": [
+        {
+          "name": "Hon. Jeffrey S. Bivins",
+          "role": "Chief Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2014"
+        },
+        {
+          "name": "Hon. Holly Kirby",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2014"
+        },
+        {
+          "name": "Hon. Sarah K. Campbell",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2022"
+        },
+        {
+          "name": "Hon. Dwight E. Tarwater",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2023"
+        },
+        {
+          "name": "Hon. Mary L. Wagner",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2024"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "Tennessee",
+      "name": "Tennessee Court of Appeals",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "401 7th Avenue N., Nashville, TN 37219",
+      "url": "https://www.tncourts.gov/courts/court-appeals",
+      "fipsHint": "47037",
+      "county": "Davidson"
+    },
+    {
+      "state": "Texas",
+      "name": "Texas Supreme Court",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "201 W. 14th Street, Austin, TX 78701",
+      "url": "https://www.txcourts.gov/supreme/",
+      "fipsHint": "48453",
+      "county": "Travis",
+      "judges": [
+        {
+          "name": "Hon. James D. (Jimmy) Blacklock",
+          "role": "Chief Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2018"
+        },
+        {
+          "name": "Hon. John P. Devine",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2013"
+        },
+        {
+          "name": "Hon. Debra H. Lehrmann",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2010"
+        },
+        {
+          "name": "Hon. Jeffrey S. Boyd",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2012"
+        },
+        {
+          "name": "Hon. Brett Busby",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2019"
+        },
+        {
+          "name": "Hon. Jane N. Bland",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2019"
+        },
+        {
+          "name": "Hon. Rebeca Aizpuru Huddle",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2021"
+        },
+        {
+          "name": "Hon. Evan A. Young",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2022"
+        },
+        {
+          "name": "Hon. James Sullivan",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2025"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "Texas",
+      "name": "Texas First Court of Appeals (Houston)",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "301 Fannin Street, Houston, TX 77002",
+      "url": "https://www.txcourts.gov/1stcoa/",
+      "fipsHint": "48201",
+      "county": "Harris"
+    },
+    {
+      "state": "Texas",
+      "name": "Texas Second Court of Appeals (Fort Worth)",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "401 W. Belknap Street, Fort Worth, TX 76196",
+      "url": "https://www.txcourts.gov/2ndcoa/",
+      "fipsHint": "48439",
+      "county": "Tarrant"
+    },
+    {
+      "state": "Texas",
+      "name": "Texas Third Court of Appeals (Austin)",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "209 W. 14th Street, Room 101, Austin, TX 78701",
+      "url": "https://www.txcourts.gov/3rdcoa/",
+      "fipsHint": "48453",
+      "county": "Travis"
+    },
+    {
+      "state": "Texas",
+      "name": "Texas Fourth Court of Appeals (San Antonio)",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "300 Dolorosa Street, Suite 3200, San Antonio, TX 78205",
+      "url": "https://www.txcourts.gov/4thcoa/",
+      "fipsHint": "48029",
+      "county": "Bexar"
+    },
+    {
+      "state": "Texas",
+      "name": "Texas Fifth Court of Appeals (Dallas)",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "George Allen Sr. Courts Building, 600 Commerce Street, 2nd Floor, Dallas, TX 75202",
+      "url": "https://www.txcourts.gov/5thcoa/",
+      "fipsHint": "48113",
+      "county": "Dallas"
+    },
+    {
+      "state": "Texas",
+      "name": "Texas Sixth Court of Appeals (Texarkana)",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "100 N. State Line Avenue, #20, Texarkana, TX 75501",
+      "url": "https://www.txcourts.gov/6thcoa/",
+      "fipsHint": "48037",
+      "county": "Bowie"
+    },
+    {
+      "state": "Texas",
+      "name": "Texas Seventh Court of Appeals (Amarillo)",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "501 S. Polk Street, Suite 10-1, Amarillo, TX 79101",
+      "url": "https://www.txcourts.gov/7thcoa/",
+      "fipsHint": "48375",
+      "county": "Potter"
+    },
+    {
+      "state": "Texas",
+      "name": "Texas Eighth Court of Appeals (El Paso)",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "500 E. San Antonio Avenue, Suite 1203, El Paso, TX 79901",
+      "url": "https://www.txcourts.gov/8thcoa/",
+      "fipsHint": "48141",
+      "county": "El Paso"
+    },
+    {
+      "state": "Texas",
+      "name": "Texas Ninth Court of Appeals (Beaumont)",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "1001 Pearl Street, Suite 330, Beaumont, TX 77701",
+      "url": "https://www.txcourts.gov/9thcoa/",
+      "fipsHint": "48245",
+      "county": "Jefferson"
+    },
+    {
+      "state": "Texas",
+      "name": "Texas Tenth Court of Appeals (Waco)",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "501 Washington Avenue, Room 415, Waco, TX 76701",
+      "url": "https://www.txcourts.gov/10thcoa/",
+      "fipsHint": "48309",
+      "county": "McLennan"
+    },
+    {
+      "state": "Texas",
+      "name": "Texas Eleventh Court of Appeals (Eastland)",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "100 W. Main Street, Suite 300, Eastland, TX 76448",
+      "url": "https://www.txcourts.gov/11thcoa/",
+      "fipsHint": "48133",
+      "county": "Eastland"
+    },
+    {
+      "state": "Texas",
+      "name": "Texas Twelfth Court of Appeals (Tyler)",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "1517 W. Front Street, Suite 354, Tyler, TX 75702",
+      "url": "https://www.txcourts.gov/12thcoa/",
+      "fipsHint": "48423",
+      "county": "Smith"
+    },
+    {
+      "state": "Texas",
+      "name": "Texas Thirteenth Court of Appeals (Corpus Christi)",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "Nueces County Courthouse, 901 Leopard Street, 10th Floor, Corpus Christi, TX 78401",
+      "url": "https://www.txcourts.gov/13thcoa/",
+      "fipsHint": "48355",
+      "county": "Nueces"
+    },
+    {
+      "state": "Texas",
+      "name": "Texas Fourteenth Court of Appeals (Houston)",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "301 Fannin Street, Houston, TX 77002",
+      "url": "https://www.txcourts.gov/14thcoa/",
+      "fipsHint": "48201",
+      "county": "Harris"
+    },
+    {
+      "state": "Utah",
+      "name": "Utah Supreme Court",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "450 S. State Street, Salt Lake City, UT 84111",
+      "url": "https://www.utcourts.gov/courts/sup/",
+      "fipsHint": "49035",
+      "county": "Salt Lake",
+      "judges": [
+        {
+          "name": "Hon. Matthew B. Durrant",
+          "role": "Chief Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2000"
+        },
+        {
+          "name": "Hon. Paige Petersen",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2017"
+        },
+        {
+          "name": "Hon. Diana Hagen",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2022"
+        },
+        {
+          "name": "Hon. Jill M. Pohlman",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2022"
+        },
+        {
+          "name": "Hon. John Nielsen",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2025"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "Utah",
+      "name": "Utah Court of Appeals",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "450 S. State Street, Salt Lake City, UT 84111",
+      "url": "https://www.utcourts.gov/courts/appeals/",
+      "fipsHint": "49035",
+      "county": "Salt Lake"
+    },
+    {
+      "state": "Vermont",
+      "name": "Vermont Supreme Court",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "111 State Street, Montpelier, VT 05609",
+      "url": "https://www.vermontjudiciary.org/supreme-court",
+      "fipsHint": "50023",
+      "county": "Washington",
+      "judges": [
+        {
+          "name": "Hon. Paul L. Reiber",
+          "role": "Chief Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2003"
+        },
+        {
+          "name": "Hon. Harold E. Eaton, Jr.",
+          "role": "Associate Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2014"
+        },
+        {
+          "name": "Hon. William D. Cohen",
+          "role": "Associate Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2022"
+        },
+        {
+          "name": "Hon. Nancy J. Waples",
+          "role": "Associate Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2022"
+        },
+        {
+          "name": "Hon. Michael D. Drescher",
+          "role": "Associate Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2026"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "Virginia",
+      "name": "Virginia Supreme Court",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "100 N. Ninth Street, 5th Floor, Richmond, VA 23219",
+      "url": "https://www.vacourts.gov/courts/scv/home.html",
+      "fipsHint": "51760",
+      "county": "Richmond City",
+      "judges": [
+        {
+          "name": "Hon. Cleo E. Powell",
+          "role": "Chief Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2011"
+        },
+        {
+          "name": "Hon. D. Arthur Kelsey",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2015"
+        },
+        {
+          "name": "Hon. Stephen R. McCullough",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2016"
+        },
+        {
+          "name": "Hon. Teresa M. Chafin",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2019"
+        },
+        {
+          "name": "Hon. Wesley G. Russell, Jr.",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2022"
+        },
+        {
+          "name": "Hon. Thomas P. Mann",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2022"
+        },
+        {
+          "name": "Hon. Junius P. Fulton III",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2026"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "Virginia",
+      "name": "Court of Appeals of Virginia",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "109 N. Eighth Street, Richmond, VA 23219",
+      "url": "https://www.vacourts.gov/courts/cav/home.html",
+      "fipsHint": "51760",
+      "county": "Richmond City"
+    },
+    {
+      "state": "Washington",
+      "name": "Washington State Supreme Court",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "Temple of Justice, 415 12th Avenue SW, Olympia, WA 98504",
+      "url": "https://www.courts.wa.gov/appellate_trial_courts/supreme/",
+      "fipsHint": "53067",
+      "county": "Thurston",
+      "judges": [
+        {
+          "name": "Hon. Debra L. Stephens",
+          "role": "Chief Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2008"
+        },
+        {
+          "name": "Hon. Charles W. Johnson",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "1991"
+        },
+        {
+          "name": "Hon. Barbara A. Madsen",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "1993"
+        },
+        {
+          "name": "Hon. Steven C. González",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2012"
+        },
+        {
+          "name": "Hon. Sheryl Gordon McCloud",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2013"
+        },
+        {
+          "name": "Hon. Mary I. Yu",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2014"
+        },
+        {
+          "name": "Hon. G. Helen Whitener",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2020"
+        },
+        {
+          "name": "Hon. Raquel Montoya-Lewis",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2020"
+        },
+        {
+          "name": "Hon. Salvador Mungia",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2025"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "Washington",
+      "name": "Washington Court of Appeals, Division I (Seattle)",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "600 University Street, Seattle, WA 98101",
+      "url": "https://www.courts.wa.gov/appellate_trial_courts/appellate/",
+      "fipsHint": "53033",
+      "county": "King"
+    },
+    {
+      "state": "Washington",
+      "name": "Washington Court of Appeals, Division II (Tacoma)",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "950 Broadway, Suite 300, Tacoma, WA 98402",
+      "url": "https://www.courts.wa.gov/appellate_trial_courts/appellate/",
+      "fipsHint": "53053",
+      "county": "Pierce"
+    },
+    {
+      "state": "Washington",
+      "name": "Washington Court of Appeals, Division III (Spokane)",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "500 N. Cedar Street, Spokane, WA 99201",
+      "url": "https://www.courts.wa.gov/appellate_trial_courts/appellate/",
+      "fipsHint": "53063",
+      "county": "Spokane"
+    },
+    {
+      "state": "West Virginia",
+      "name": "Supreme Court of Appeals of West Virginia",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "State Capitol Complex, 1900 Kanawha Blvd E., Charleston, WV 25305",
+      "url": "https://www.courtswv.gov/supreme-court/",
+      "fipsHint": "54039",
+      "county": "Kanawha",
+      "judges": [
+        {
+          "name": "Hon. C. Haley Bunn",
+          "role": "Chief Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2022"
+        },
+        {
+          "name": "Hon. Elizabeth D. Walker",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2017"
+        },
+        {
+          "name": "Hon. John A. Hutchison",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2018"
+        },
+        {
+          "name": "Hon. William R. Wooton",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2021"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "West Virginia",
+      "name": "Intermediate Court of Appeals of West Virginia",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "1900 Kanawha Blvd E., Charleston, WV 25305",
+      "url": "https://www.courtswv.gov/intermediate-court-of-appeals/",
+      "fipsHint": "54039",
+      "county": "Kanawha"
+    },
+    {
+      "state": "Wisconsin",
+      "name": "Wisconsin Supreme Court",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "Wisconsin State Capitol, 2 E. Main Street, Madison, WI 53703",
+      "url": "https://www.wicourts.gov/courts/supreme/index.htm",
+      "fipsHint": "55025",
+      "county": "Dane",
+      "judges": [
+        {
+          "name": "Hon. Jill J. Karofsky",
+          "role": "Chief Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2020"
+        },
+        {
+          "name": "Hon. Annette Kingsland Ziegler",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2007"
+        },
+        {
+          "name": "Hon. Rebecca Grassl Bradley",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2015"
+        },
+        {
+          "name": "Hon. Rebecca Frank Dallet",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2018"
+        },
+        {
+          "name": "Hon. Brian Hagedorn",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2019"
+        },
+        {
+          "name": "Hon. Janet C. Protasiewicz",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2023"
+        },
+        {
+          "name": "Hon. Susan Crawford",
+          "role": "Justice",
+          "electedOrAppointed": "elected",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2025"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "Wisconsin",
+      "name": "Wisconsin Court of Appeals (Madison)",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "110 E. Main Street, Suite 215, Madison, WI 53703",
+      "url": "https://www.wicourts.gov/courts/appeals/index.htm",
+      "fipsHint": "55025",
+      "county": "Dane"
+    },
+    {
+      "state": "Wisconsin",
+      "name": "Wisconsin Court of Appeals (Milwaukee)",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "633 W. Wisconsin Avenue, Suite 1400, Milwaukee, WI 53203",
+      "url": "https://www.wicourts.gov/courts/appeals/index.htm",
+      "fipsHint": "55079",
+      "county": "Milwaukee"
+    },
+    {
+      "state": "Wisconsin",
+      "name": "Wisconsin Court of Appeals (Waukesha)",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "2727 N. Grandview Blvd, Suite 300, Waukesha, WI 53188",
+      "url": "https://www.wicourts.gov/courts/appeals/index.htm",
+      "fipsHint": "55133",
+      "county": "Waukesha"
+    },
+    {
+      "state": "Wyoming",
+      "name": "Wyoming Supreme Court",
+      "jurisdiction": "state",
+      "level": "supreme",
+      "address": "2301 Capitol Avenue, Cheyenne, WY 82002",
+      "url": "https://www.courts.state.wy.us/supreme-court/",
+      "fipsHint": "56021",
+      "county": "Laramie",
+      "judges": [
+        {
+          "name": "Hon. Lynne Boomgaarden",
+          "role": "Chief Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2019"
+        },
+        {
+          "name": "Hon. Keith G. Kautz",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2015"
+        },
+        {
+          "name": "Hon. Kari Jo Gray",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2018"
+        },
+        {
+          "name": "Hon. John G. Fenn",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2022"
+        },
+        {
+          "name": "Hon. Bridget Hill",
+          "role": "Justice",
+          "electedOrAppointed": "appointed",
+          "dataQuality": "MEDIUM",
+          "sourceNote": "Research 2026-04-22 via state judicial-site summaries + Ballotpedia. Verify against the court's own roster page before citing.",
+          "tookOffice": "2025"
+        }
+      ],
+      "justicesLastUpdated": "2026-04-22"
+    },
+    {
+      "state": "District of Columbia",
+      "name": "US Court of Appeals, DC Circuit",
+      "jurisdiction": "federal",
+      "level": "circuit",
+      "address": "E. Barrett Prettyman United States Courthouse, 333 Constitution Avenue NW, Washington, DC 20001",
+      "url": "https://www.cadc.uscourts.gov/",
+      "fipsHint": "11001",
+      "county": "District of Columbia"
+    },
+    {
+      "state": "Massachusetts",
+      "name": "US Court of Appeals, First Circuit",
+      "jurisdiction": "federal",
+      "level": "circuit",
+      "address": "John Joseph Moakley US Courthouse, 1 Courthouse Way, Suite 2500, Boston, MA 02210",
+      "url": "https://www.ca1.uscourts.gov/",
+      "fipsHint": "25025",
+      "county": "Suffolk"
+    },
+    {
+      "state": "New York",
+      "name": "US Court of Appeals, Second Circuit",
+      "jurisdiction": "federal",
+      "level": "circuit",
+      "address": "Thurgood Marshall US Courthouse, 40 Foley Square, New York, NY 10007",
+      "url": "https://www.ca2.uscourts.gov/",
+      "fipsHint": "36061",
+      "county": "New York"
+    },
+    {
+      "state": "Pennsylvania",
+      "name": "US Court of Appeals, Third Circuit",
+      "jurisdiction": "federal",
+      "level": "circuit",
+      "address": "21400 US Courthouse, 601 Market Street, Philadelphia, PA 19106",
+      "url": "https://www.ca3.uscourts.gov/",
+      "fipsHint": "42101",
+      "county": "Philadelphia"
+    },
+    {
+      "state": "Virginia",
+      "name": "US Court of Appeals, Fourth Circuit",
+      "jurisdiction": "federal",
+      "level": "circuit",
+      "address": "Lewis F. Powell Jr. United States Courthouse, 1100 E. Main Street, Richmond, VA 23219",
+      "url": "https://www.ca4.uscourts.gov/",
+      "fipsHint": "51760",
+      "county": "Richmond City"
+    },
+    {
+      "state": "Louisiana",
+      "name": "US Court of Appeals, Fifth Circuit",
+      "jurisdiction": "federal",
+      "level": "circuit",
+      "address": "John Minor Wisdom US Court of Appeals Building, 600 S. Maestri Place, New Orleans, LA 70130",
+      "url": "https://www.ca5.uscourts.gov/",
+      "fipsHint": "22071",
+      "county": "Orleans"
+    },
+    {
+      "state": "Ohio",
+      "name": "US Court of Appeals, Sixth Circuit",
+      "jurisdiction": "federal",
+      "level": "circuit",
+      "address": "Potter Stewart US Courthouse, 100 E. Fifth Street, Cincinnati, OH 45202",
+      "url": "https://www.ca6.uscourts.gov/",
+      "fipsHint": "39061",
+      "county": "Hamilton"
+    },
+    {
+      "state": "Illinois",
+      "name": "US Court of Appeals, Seventh Circuit",
+      "jurisdiction": "federal",
+      "level": "circuit",
+      "address": "219 S. Dearborn Street, Chicago, IL 60604",
+      "url": "https://www.ca7.uscourts.gov/",
+      "fipsHint": "17031",
+      "county": "Cook"
+    },
+    {
+      "state": "Missouri",
+      "name": "US Court of Appeals, Eighth Circuit",
+      "jurisdiction": "federal",
+      "level": "circuit",
+      "address": "Thomas F. Eagleton US Courthouse, 111 S. 10th Street, Suite 24.329, St. Louis, MO 63102",
+      "url": "https://www.ca8.uscourts.gov/",
+      "fipsHint": "29510",
+      "county": "St. Louis City"
+    },
+    {
+      "state": "California",
+      "name": "US Court of Appeals, Ninth Circuit",
+      "jurisdiction": "federal",
+      "level": "circuit",
+      "address": "James R. Browning US Courthouse, 95 Seventh Street, San Francisco, CA 94103",
+      "url": "https://www.ca9.uscourts.gov/",
+      "fipsHint": "06075",
+      "county": "San Francisco"
+    },
+    {
+      "state": "Colorado",
+      "name": "US Court of Appeals, Tenth Circuit",
+      "jurisdiction": "federal",
+      "level": "circuit",
+      "address": "Byron White US Courthouse, 1823 Stout Street, Denver, CO 80257",
+      "url": "https://www.ca10.uscourts.gov/",
+      "fipsHint": "08031",
+      "county": "Denver"
+    },
+    {
+      "state": "Georgia",
+      "name": "US Court of Appeals, Eleventh Circuit",
+      "jurisdiction": "federal",
+      "level": "circuit",
+      "address": "56 Forsyth Street NW, Atlanta, GA 30303",
+      "url": "https://www.ca11.uscourts.gov/",
+      "fipsHint": "13121",
+      "county": "Fulton"
+    },
+    {
+      "state": "District of Columbia",
+      "name": "US Court of Appeals, Federal Circuit",
+      "jurisdiction": "federal",
+      "level": "circuit",
+      "address": "Howard T. Markey National Courts Building, 717 Madison Place NW, Washington, DC 20439",
+      "url": "https://cafc.uscourts.gov/",
+      "fipsHint": "11001",
+      "county": "District of Columbia"
+    },
+    {
+      "state": "Ohio",
+      "name": "Ohio First District Court of Appeals",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "William Howard Taft Law Center, 230 E. Ninth Street, 12th Floor, Cincinnati, OH 45202",
+      "url": "https://firstdistrictcoa.org/",
+      "fipsHint": "39061",
+      "county": "Hamilton"
+    },
+    {
+      "state": "Ohio",
+      "name": "Ohio Second District Court of Appeals",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "41 N. Perry Street, 5th Floor, Dayton, OH 45422",
+      "url": "https://www.seconddistrictcoa.org/",
+      "fipsHint": "39113",
+      "county": "Montgomery"
+    },
+    {
+      "state": "Ohio",
+      "name": "Ohio Third District Court of Appeals",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "204 N. Main Street, Lima, OH 45801",
+      "url": "https://www.third.courts.state.oh.us/",
+      "fipsHint": "39003",
+      "county": "Allen"
+    },
+    {
+      "state": "Ohio",
+      "name": "Ohio Fourth District Court of Appeals",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "110 Island Road, P.O. Box 790, Circleville, OH 43113",
+      "url": "https://www.4thdistrictappeals.com/",
+      "fipsHint": "39129",
+      "county": "Pickaway"
+    },
+    {
+      "state": "Ohio",
+      "name": "Ohio Fifth District Court of Appeals",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "110 Central Plaza S., Suite 320, Canton, OH 44702",
+      "url": "https://fifthdistrictohcoa.gov/",
+      "fipsHint": "39151",
+      "county": "Stark"
+    },
+    {
+      "state": "Ohio",
+      "name": "Ohio Sixth District Court of Appeals",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "One Constitution Avenue, Toledo, OH 43604",
+      "url": "https://www.co.lucas.oh.us/171/Ohio-Sixth-District-Court-of-Appeals",
+      "fipsHint": "39095",
+      "county": "Lucas"
+    },
+    {
+      "state": "Ohio",
+      "name": "Ohio Seventh District Court of Appeals",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "131 W. Federal Street, Youngstown, OH 44503",
+      "url": "https://www.seventh.courts.state.oh.us/",
+      "fipsHint": "39099",
+      "county": "Mahoning"
+    },
+    {
+      "state": "Ohio",
+      "name": "Ohio Ninth District Court of Appeals",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "161 S. High Street, Akron, OH 44308",
+      "url": "http://www.ninth.courts.state.oh.us/",
+      "fipsHint": "39153",
+      "county": "Summit"
+    },
+    {
+      "state": "Ohio",
+      "name": "Ohio Eleventh District Court of Appeals",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "111 High Street NE, Warren, OH 44481",
+      "url": "https://www.co.trumbull.oh.us/11thcourt/",
+      "fipsHint": "39155",
+      "county": "Trumbull"
+    },
+    {
+      "state": "Ohio",
+      "name": "Ohio Twelfth District Court of Appeals",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "1001 Reinartz Blvd, Middletown, OH 45042",
+      "url": "https://12thdca.com/",
+      "fipsHint": "39017",
+      "county": "Butler"
+    },
+    {
+      "state": "Louisiana",
+      "name": "Louisiana Second Circuit Court of Appeal",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "430 Fannin Street, Shreveport, LA 71101",
+      "url": "https://www.la2nd.org/",
+      "fipsHint": "22017",
+      "county": "Caddo"
+    },
+    {
+      "state": "Louisiana",
+      "name": "Louisiana Third Circuit Court of Appeal",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "1000 Main Street, Lake Charles, LA 70615",
+      "url": "https://www.la3circuit.org/",
+      "fipsHint": "22019",
+      "county": "Calcasieu"
+    },
+    {
+      "state": "Louisiana",
+      "name": "Louisiana Fifth Circuit Court of Appeal",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "101 Derbigny Street, Gretna, LA 70053",
+      "url": "https://www.fifthcircuit.org/",
+      "fipsHint": "22051",
+      "county": "Jefferson"
+    },
+    {
+      "state": "Michigan",
+      "name": "Michigan Court of Appeals (Lansing - District 4)",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "Hall of Justice, 925 W. Ottawa Street, 2nd Floor, P.O. Box 30022, Lansing, MI 48909",
+      "url": "https://www.courts.michigan.gov/courts/court-of-appeals/",
+      "fipsHint": "26065",
+      "county": "Ingham"
+    },
+    {
+      "state": "California",
+      "name": "California Court of Appeal, Fourth District (Div. 2)",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "3389 Twelfth Street, Riverside, CA 92501",
+      "url": "https://appellate.courts.ca.gov/district-courts/4dca",
+      "fipsHint": "06065",
+      "county": "Riverside"
+    },
+    {
+      "state": "California",
+      "name": "California Court of Appeal, Fourth District (Div. 3)",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "Cruz Reynoso Courthouse, 601 W. Santa Ana Blvd, Santa Ana, CA 92701",
+      "url": "https://appellate.courts.ca.gov/district-courts/4dca",
+      "fipsHint": "06059",
+      "county": "Orange"
+    },
+    {
+      "state": "Alabama",
+      "name": "Alabama Court of Criminal Appeals",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "300 Dexter Avenue, Montgomery, AL 36104",
+      "url": "https://judicial.alabama.gov/appellate/criminalappeals",
+      "fipsHint": "01101",
+      "county": "Montgomery"
+    },
+    {
+      "state": "Tennessee",
+      "name": "Tennessee Court of Appeals, Eastern Section (Knoxville)",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "Supreme Court Building, 505 Main Street, Suite 200, Knoxville, TN 37902",
+      "url": "https://www.tncourts.gov/courts/court-appeals",
+      "fipsHint": "47093",
+      "county": "Knox"
+    },
+    {
+      "state": "Tennessee",
+      "name": "Tennessee Court of Appeals, Western Section (Jackson)",
+      "jurisdiction": "state",
+      "level": "intermediate",
+      "address": "Western Division Supreme Court Building, 6 Highway 45 By-Pass, Jackson, TN 38301",
+      "url": "https://www.tncourts.gov/courts/court-appeals",
+      "fipsHint": "47113",
+      "county": "Madison"
+    }
+  ]
+}

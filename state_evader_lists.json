@@ -1,0 +1,211 @@
+{
+  "_version": 2,
+  "_updated": "2026-04-21",
+  "_note": "Public 'child support evader' / 'most wanted parent' / 'deadbeat parent' programs maintained by state child-support enforcement agencies. The mere existence of such a list contradicts any claim of near-100% collection. When a state files federal OCSE reports showing >=80% current-support collection rate AND simultaneously maintains an ongoing public evader registry, the two claims cannot both be true — that's the `paradox_public_evaders_vs_collection_claims` flag.",
+  "_coverage_notes": "Researched against each state's official enforcement agency April 2026. Entries are LIVE state-agency programs only — we exclude county-level registries (sheriffs, DAs, individual counties) since those are not the state's own claim. States that publish only lien dockets (ND, WI) are included as a separate category because they still surface public arrearage names without the 'evader' framing. Discontinued programs are noted but `hasList: false` so they don't fire the paradox flag.",
+  "_county_level_only_not_included": {
+    "Arkansas":     "Faulkner County Sheriff",
+    "Maryland":     "Baltimore County deadbeatsearch.baltimorecountymd.gov",
+    "Michigan":     "Oakland County Sheriff's Office fugitive list",
+    "New York":     "Nassau + Suffolk counties (state-level bill S1987 never implemented)",
+    "Pennsylvania": "Bucks County Domestic Relations; Franklin County Sheriff",
+    "Tennessee":    "Hamilton County Sheriff's Office"
+  },
+  "states": {
+    "Alabama": {
+      "hasList": true,
+      "programName": "Ten Most Wanted Delinquent Obligors (statutory)",
+      "url": "https://dhr.alabama.gov/child-support-enforcement-division/",
+      "agency": "Alabama Department of Human Resources — Child Support Enforcement Division",
+      "publishesExactDebtAmount": true,
+      "publishesPhoto": true,
+      "appealsProcessDocumented": false,
+      "notes": "Authorized by Ala. Code §30-3-8. 10 obligors per county published in newspapers at least 2×/year + on DHR website (including name, DOB, county, last known address, children, arrearage). Statutorily required; web presence appears intermittent — publication is sometimes PDF poster / press release rather than a standing list."
+    },
+    "Arizona": {
+      "hasList": true,
+      "programName": "Wanted Child Support Evaders",
+      "url": "https://des.az.gov/services/child-and-family/child-support-services/wanted-child-support-evaders",
+      "agency": "Arizona Department of Economic Security — Division of Child Support Services",
+      "publishesExactDebtAmount": true,
+      "publishesPhoto": true,
+      "appealsProcessDocumented": true,
+      "notes": "Documented criteria: open IV-D case, arrears ≥12 months AND ≥$5,000, no payment in last 6 months (excluding tax intercepts), not in bankruptcy, not on TANF/SSI/SSD. Policy published at dcsspolicy.azdes.gov. One of the more due-process-documented programs."
+    },
+    "California": {
+      "hasList": true,
+      "programName": "California's Most Wanted Parents",
+      "url": "https://childsupport.ca.gov/most-wanted/",
+      "agency": "California Department of Child Support Services",
+      "publishesExactDebtAmount": true,
+      "publishesPhoto": true,
+      "appealsProcessDocumented": false
+    },
+    "Florida": {
+      "hasList": true,
+      "programName": "Most Wanted Delinquent Parents",
+      "url": "https://childsupport.floridarevenue.com/childsupport/Home/MostWanted",
+      "agency": "Florida Department of Revenue — Child Support Program",
+      "publishesExactDebtAmount": true,
+      "publishesPhoto": true,
+      "appealsProcessDocumented": false
+    },
+    "Georgia": {
+      "hasList": true,
+      "programName": "Georgia Deadbeat Parents (Top 10)",
+      "url": "https://dhs.georgia.gov/division-child-support-services",
+      "agency": "Georgia Division of Child Support Services",
+      "publishesExactDebtAmount": true,
+      "publishesPhoto": true,
+      "notes": "Program page was moved April 2026. Landing at the Division of Child Support Services homepage which links to the active Top 10 list."
+    },
+    "Illinois": {
+      "hasList": true,
+      "programName": "Deadbeat Parents Program",
+      "url": "https://hfs.illinois.gov/childsupport.html",
+      "agency": "Illinois Department of Healthcare and Family Services"
+    },
+    "Indiana": {
+      "hasList": true,
+      "programName": "Most Wanted Child Support Delinquents",
+      "agency": "Indiana Department of Child Services — Child Support Bureau"
+    },
+    "Kansas": {
+      "hasList": true,
+      "programName": "Child Support Evaders",
+      "url": "https://dcfforms.dcf.ks.gov/ChildSupportEvaders/Pages/default.aspx",
+      "agency": "Kansas Department for Children and Families — Child Support Services",
+      "publishesExactDebtAmount": true,
+      "publishesPhoto": true,
+      "appealsProcessDocumented": false,
+      "notes": "Program went live 2018, was briefly deleted April 2019 under Gov. Kelly citing low utility, then restored. Entries require >$5,000 owed; updated quarterly. URL has historically been unstable — verify current status periodically."
+    },
+    "Kentucky": {
+      "hasList": true,
+      "programName": "Most Wanted Delinquent Parents",
+      "agency": "Kentucky Cabinet for Health and Family Services"
+    },
+    "Louisiana": {
+      "hasList": true,
+      "programName": "Child Support Delinquent Payors + 'Most Wanted'",
+      "url": "https://www.dcfs.louisiana.gov/directory/child-support-delinquent-payors",
+      "agency": "Louisiana Department of Children and Family Services",
+      "publishesExactDebtAmount": true,
+      "publishesPhoto": true,
+      "appealsProcessDocumented": false,
+      "notes": "Two-tier system: (1) a full searchable database of ~53,000 delinquent payors (by name/city/parish/amount); (2) a featured 'Most Wanted' subset requiring ≥$10,000 owed with photos. The searchable database is unusually broad — criteria is no-payment-in-6-months."
+    },
+    "Massachusetts": {
+      "hasList": true,
+      "programName": "Most Wanted Delinquent Parents",
+      "url": "https://www.mass.gov/service-details/most-wanted-delinquent-parents",
+      "agency": "Massachusetts Department of Revenue — Child Support Enforcement"
+    },
+    "Missouri": {
+      "hasList": true,
+      "programName": "Most Wanted Child Support Evaders",
+      "url": "https://dss.mo.gov/cse/",
+      "agency": "Missouri Family Support Division",
+      "notes": "Specific /mostwanted/ path was retired. Family Support Division CSE homepage is the current entry point."
+    },
+    "New Mexico": {
+      "hasList": true,
+      "programName": "Bench Warrant Program (replaces prior 25 Most Wanted list)",
+      "url": "https://www.hsd.state.nm.us/public-information-and-communications/bench-warrant-program/",
+      "agency": "New Mexico Health Care Authority (formerly HSD) — Child Support Services Division",
+      "publishesExactDebtAmount": false,
+      "publishesPhoto": false,
+      "appealsProcessDocumented": true,
+      "notes": "Replaced the quarterly '25 Most Wanted' list. Publishes names of non-custodial parties with outstanding child support bench warrants. Annual August amnesty window documented; appeal/resolution = come current or post bond. Names rather than photos/exact arrears."
+    },
+    "Ohio": {
+      "hasList": true,
+      "programName": "Most Wanted Delinquent Parents",
+      "url": "https://jfs.ohio.gov/",
+      "agency": "Ohio Department of Job and Family Services — Office of Child Support",
+      "notes": "Legacy /ocs/mostwanted.stm page was retired in the 2024 site migration. Landing at ODJFS root."
+    },
+    "Oklahoma": {
+      "hasList": true,
+      "programName": "OCSS Most Wanted Missing Parents Program",
+      "url": "https://oklahoma.gov/okdhs/services/child-support-services.html",
+      "agency": "Oklahoma Human Services — Oklahoma Child Support Services",
+      "publishesExactDebtAmount": true,
+      "publishesPhoto": true,
+      "appealsProcessDocumented": false,
+      "notes": "Authorized by 56 O.S. §240.24 and OAC 340:25-5-19. Historic URL (okdhs.org) redirected to oklahoma.gov. Current main CSS page linked; specific Most Wanted subsection is reached from the child support services page. Allowed fields: name, photo, last known address, arrearage."
+    },
+    "South Carolina": {
+      "hasList": true,
+      "programName": "Most Wanted Non-Paying Parents",
+      "agency": "South Carolina Department of Social Services — Child Support Services Division"
+    },
+    "Texas": {
+      "hasList": true,
+      "programName": "Child Support Evaders",
+      "url": "https://csapps.oag.texas.gov/evaders/all/",
+      "agency": "Texas Attorney General — Child Support Division",
+      "categories": ["Current Evaders", "Arrested Evaders"],
+      "publishesExactDebtAmount": true,
+      "publishesPhoto": true,
+      "publishesChildCount": true,
+      "appealsProcessDocumented": false,
+      "removalCriteriaDocumented": false
+    },
+    "Virginia": {
+      "hasList": true,
+      "programName": "Most Wanted Delinquent Parents",
+      "url": "https://www.dss.virginia.gov/",
+      "agency": "Virginia Department of Social Services — Division of Child Support Enforcement",
+      "notes": "The /family/most_wanted/ path was taken down in the recent site migration. DSS root is the current verifiable entry; the DCSE section is linked from there."
+    },
+    "_lien_docket_registries": {
+      "_comment": "Not 'most wanted' framing, but still public-record exposure of parents in arrears. Included for transparency; these do NOT fire the paradox flag because they're categorically different (debt-record search vs. shame-list).",
+      "North Dakota": {
+        "hasList": false,
+        "programName": "Child Support Lien Registry",
+        "url": "https://www.childsupport.dhs.nd.gov/partners/lien-registry",
+        "agency": "North Dakota HHS Child Support",
+        "notes": "Public lien-search tool. No photos, no arrest framing."
+      },
+      "Wisconsin": {
+        "hasList": false,
+        "programName": "Child Support Lien Docket",
+        "url": "https://liendocket.wisconsin.gov/",
+        "agency": "Wisconsin Department of Children and Families",
+        "notes": "Statewide public searchable lien docket of ALL parents with child support liens (no arrears threshold). Names + lien amounts are public; no photos."
+      }
+    },
+    "_discontinued_or_unverified": {
+      "_comment": "States with historical programs whose current status couldn't be confirmed in April 2026. Listed so we don't mark them as 'no program' when they may just have moved behind PDFs or press releases.",
+      "Mississippi": {
+        "programName": "Statutorily authorized (Miss. Code §43-19), no persistent web page found",
+        "agency": "Mississippi Department of Human Services — Division of Child Support Enforcement",
+        "notes": "State law authorizes publication; historical 'Ten Most Wanted' press releases. No standing public page on mdhs.ms.gov as of April 2026."
+      },
+      "South Dakota": {
+        "programName": "Most Wanted Poster Program (print-only/intermittent since 1995)",
+        "agency": "South Dakota DSS Division of Child Support",
+        "notes": "Distributed offline via press; no scrapable web page found."
+      },
+      "Washington": {
+        "programName": "DCS Most Wanted (historical)",
+        "url": "https://fortress.wa.gov/dshs/csips/mostwanted/",
+        "agency": "Washington DSHS Division of Child Support",
+        "notes": "Historic URL returns HTTP 400 as of April 2026; dshs.wa.gov no longer appears to link it. Likely discontinued."
+      },
+      "New York": {
+        "programName": "Deadbeats Most Wanted List (S1987, 2013)",
+        "agency": "NY Office of Temporary and Disability Assistance",
+        "notes": "Statute directs OTDA to publish >$10,000 arrears list (capped at 500); never launched on OTDA.ny.gov. Nassau and Suffolk counties publish their own."
+      }
+    },
+    "_explicitly_no_program": [
+      "Alaska","Colorado","Connecticut","Delaware","DC","Hawaii","Idaho","Iowa",
+      "Maine","Maryland (state-level)","Michigan (state-level)","Minnesota","Montana","Nebraska",
+      "Nevada","New Hampshire","New Jersey","North Carolina","Oregon",
+      "Pennsylvania (state-level)","Rhode Island","Tennessee (state-level)",
+      "Utah (explicitly does not publish)","Vermont","West Virginia","Wyoming"
+    ]
+  }
+}

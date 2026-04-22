@@ -1,0 +1,168 @@
+# ═══════════════════════════════════════════════════════════════
+# Unsealed — .gitignore
+# ═══════════════════════════════════════════════════════════════
+# Keep out of the public repo:
+#   1. Anything that could leak server credentials, IPs, or the
+#      operator's dev environment
+#   2. Submitted case data (zero-knowledge guarantee — must never
+#      leave the server)
+#   3. Local build artifacts, OS cruft, editor swap files
+# ═══════════════════════════════════════════════════════════════
+
+# ─── CREDENTIALS & SECRETS ────────────────────────────────────
+# NEVER commit these. They live on the server only.
+api_keys.env
+config.php
+*.env
+*.env.local
+.env*
+!.env.example
+*.key
+*.pem
+*.pfx
+*.p12
+id_rsa*
+id_ed25519*
+id_ecdsa*
+*authorized_keys*
+known_hosts
+ssh_config
+
+# ─── SUBMISSION DATA ──────────────────────────────────────────
+# The submissions database is the single source of truth for user
+# cases. Zero-knowledge guarantee means it must never be committed.
+data/
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+order_hashes.tsv
+press_inquiries*
+profile_queue.json
+
+# ─── CLAUDE CODE / AI ASSISTANT LOCAL CONFIG ──────────────────
+# Contains approval patterns that may include command examples
+# with credentials embedded.
+.claude/settings.local.json
+.claude/user_context.json
+.claude/**/*.sqlite
+.claude/logs/
+
+# ─── LOCAL DEV HELPERS ────────────────────────────────────────
+# Any file starting with underscore is a local dev helper — merge
+# scripts, deploy tools, audit scripts, one-shot migrations. Not
+# useful to external contributors and often contain IP addresses,
+# batch-specific data, or server paths.
+_*
+# Pyc cache
+__pycache__/
+*.pyc
+*.pyo
+
+# ─── DEPLOY ARTIFACTS ─────────────────────────────────────────
+# The server-side canonical file is index.html (mirror of the main
+# HTML). Keep the authoritative copy (family_court_full_platform_v2.html)
+# and let the deploy script regenerate the mirror.
+index.html
+
+# ─── EDITOR / OS CRUFT ────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+*.bak
+*.orig
+*.tmp
+.history/
+
+# ─── NODE / BUILD (if any contributor adds build tooling later) ─
+node_modules/
+dist/
+build/
+.cache/
+coverage/
+*.log
+npm-debug.log*
+yarn-error.log
+
+# ─── BACKUPS ──────────────────────────────────────────────────
+*.backup
+*.old
+*-backup
+backup/
+
+# ─── LIVE DATA DUMPS ──────────────────────────────────────────
+# These are downloaded snapshots of live data. Can be regenerated;
+# don't commit to avoid stale data in repo.
+live_*.html.cache
+*.live.json
+
+# ─── TEMP ────────────────────────────────────────────────────
+/tmp/
+tmp/
+scratch/
+
+# ─── RAW SOURCE WORKBOOKS ────────────────────────────────────
+# The ACF Excel workbooks are huge (30MB+) and already ingested
+# into acf_state_data.json. Contributors work from the JSON, not
+# the raw Excel. Keep the originals out of the repo.
+ACF Excel/
+*.xlsx
+*.xls
+*.xlsm
+
+# ─── ORPHANED VULNERABLE PAGES (deleted from server) ─────────
+# These files called api.anthropic.com directly from the browser,
+# leaking user IP + case details. Server copies are purged. Local
+# copies are kept out of git so they don't accidentally get
+# redeployed or picked up by contributors.
+ai_complaint_module.html
+document_scanner.html
+rep_letter_ratings.html
+template_detector.html
+live_data_integration.html
+live_data_layer.html
+prosedadai_integration.html
+earnings_state_module.html
+revenue_scanner_financial.html
+legislative_module.html
+judge_module.html
+attorney_module.html
+court_professional_directory.html
+court_map.html
+family_court_full_platform.html
+submit_form_enhance.js
+
+# ─── MISC DEV NOTES ───────────────────────────────────────────
+# Internal planning + setup docs that reference server paths,
+# credentials, or operator workflow. Replaced by CONTRIBUTING.md
+# and SECURITY.md for public contributors.
+anonymous_key_guide.md
+API_KEYS_SETUP.md
+deployment_guide.md
+data_integrity_audit.md
+attorney_intake_process.md
+ingestion_*.md
+operator_*.md
+
+# ─── BACKUP ARCHIVES ─────────────────────────────────────────
+# Old versioned zips created during development. Snapshot cruft
+# — never belongs in a code repo.
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+
+# ─── ENHANCEMENT / INTAKE SCRATCH ─────────────────────────────
+# Files that were workbench-style iterations, now either merged
+# into the main app or superseded. Not part of the public code.
+enhanced_campaign_finance.js
+court_directory.json
+attorney_intake_*.json

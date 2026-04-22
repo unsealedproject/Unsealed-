@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="referrer" content="no-referrer"/>
+<title>State profile — Unsealed</title>
+<style>
+:root{--bg:#07080b;--bg2:#0d0f14;--bg3:#11141a;--border:#1c2028;--border2:#2a2f38;--text:#d6d4d0;--text2:#9a9690;--text3:#6e6c66;--teal:#3eb890;--blue:#4888ff;--red:#c85858;--amber:#e0a040;--green:#80c450}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,Inter,system-ui,sans-serif;font-size:13px;line-height:1.55}
+.top{display:flex;align-items:center;gap:16px;padding:14px 24px;border-bottom:1px solid var(--border);background:var(--bg2)}
+.top a{color:var(--teal);text-decoration:none;font-size:12px}
+.top h1{margin:0;font-size:16px;font-weight:500}
+.wrap{max-width:1160px;margin:0 auto;padding:24px}
+.sec{margin-bottom:28px}
+.sec h2{font-size:14px;font-weight:500;color:var(--text2);margin:0 0 12px 0;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:10px}
+.grid .cell{background:var(--bg2);border:1px solid var(--border);border-radius:7px;padding:10px 12px}
+.grid .cell .lbl{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.04em}
+.grid .cell .val{font-size:18px;font-weight:600;font-family:'DM Mono',monospace;margin-top:3px}
+.table{width:100%;border-collapse:collapse;font-size:11.5px;background:var(--bg2);border-radius:8px;overflow:hidden}
+.table th,.table td{padding:6px 10px;text-align:left;border-bottom:1px solid var(--border)}
+.table th{background:var(--bg3);color:var(--text3);font-size:10px;text-transform:uppercase;letter-spacing:.04em}
+.badge{display:inline-block;padding:2px 7px;border-radius:4px;font-size:10px;font-weight:500;background:var(--bg3);color:var(--text2)}
+.badge.red{background:rgba(200,88,88,.15);color:#f09090}
+.badge.green{background:rgba(128,196,80,.15);color:#80c450}
+a{color:var(--teal)}
+.note{font-size:11px;color:var(--text3);font-style:italic}
+.meta{font-size:10px;color:var(--text3);margin-top:4px}
+.loading{padding:40px;text-align:center;color:var(--text3)}
+@media(max-width:720px){.grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="top">
+  <a href="/">← Unsealed home</a>
+  <a href="/#courtmap">← Map</a>
+  <h1 id="state-title">Loading…</h1>
+</div>
+<div class="wrap">
+  <div id="content" class="loading">Loading state profile…</div>
+</div>
+<script>
+// No analytics, no tracking, no third-party scripts.
+const params = new URLSearchParams(location.search);
+// Canonicalize legacy aliases and abbreviations so bookmarks / old links work.
+const STATE_ALIASES = {
+  'DC':'District of Columbia','D.C.':'District of Columbia','Dist. Of Col.':'District of Columbia',
+  'Washington DC':'District of Columbia','Washington, DC':'District of Columbia',
+  'Delaware 2/':'Delaware','New Mexico 3/':'New Mexico','North Carolina 1/':'North Carolina',
+  'Puerto Rico 1/':'Puerto Rico','Virgin Islands 1/':'Virgin Islands','Virgin Islands 2/':'Virgin Islands',
+};
+const STATE = STATE_ALIASES[params.get('s')] || params.get('s');
+
+const STATE_FIPS = {"Alabama":"01","Alaska":"02","Arizona":"04","Arkansas":"05","California":"06","Colorado":"08","Connecticut":"09","Delaware":"10","District of Columbia":"11","Florida":"12","Georgia":"13","Hawaii":"15","Idaho":"16","Illinois":"17","Indiana":"18","Iowa":"19","Kansas":"20","Kentucky":"21","Louisiana":"22","Maine":"23","Maryland":"24","Massachusetts":"25","Michigan":"26","Minnesota":"27","Mississippi":"28","Missouri":"29","Montana":"30","Nebraska":"31","Nevada":"32","New Hampshire":"33","New Jersey":"34","New Mexico":"35","New York":"36","North Carolina":"37","North Dakota":"38","Ohio":"39","Oklahoma":"40","Oregon":"41","Pennsylvania":"42","Rhode Island":"44","South Carolina":"45","South Dakota":"46","Tennessee":"47","Texas":"48","Utah":"49","Vermont":"50","Virginia":"51","Washington":"53","West Virginia":"54","Wisconsin":"55","Wyoming":"56","Guam":"66","Puerto Rico":"72","Virgin Islands":"78"};
+
+function fmtM(v){ return v != null ? '$' + Math.round(v/1e6).toLocaleString() + 'M' : '—'; }
+function fmtN(v){ return v != null ? Number(v).toLocaleString() : '—'; }
+function fmtPct(v){ return v != null ? (v*100).toFixed(1) + '%' : '—'; }
+function fmtD(v){ return v != null ? '$' + Math.round(v).toLocaleString() : '—'; }
+
+async function loadAll(){
+  if (!STATE || !STATE_FIPS[STATE]) {
+    document.getElementById('content').innerHTML = '<div class="note">No state specified. <a href="/">Return home</a>.</div>';
+    return;
+  }
+  document.title = STATE + ' — Unsealed';
+  document.getElementById('state-title').textContent = STATE;
+
+  // Load all data in parallel.
+  const [acfR, judgesR, evadersR, countsR, appealsR] = await Promise.allSettled([
+    fetch('/acf_state_data.json').then(r => r.json()),
+    fetch('/judges_verified.json').then(r => r.json()),
+    fetch('/state_evader_lists.json').then(r => r.json()),
+    fetch('/api_evaders.php?op=state&state=' + encodeURIComponent(STATE)).then(r => r.json()).catch(()=>null),
+    fetch('/appeals_courts.json').then(r => r.json()),
+  ]);
+
+  const acf = acfR.status === 'fulfilled' ? acfR.value : null;
+  const judges = judgesR.status === 'fulfilled' ? judgesR.value : null;
+  const evaders = evadersR.status === 'fulfilled' ? evadersR.value : null;
+  const counts  = countsR.status === 'fulfilled' ? countsR.value : null;
+  const appeals = appealsR.status === 'fulfilled' ? appealsR.value : null;
+
+  render({ acf, judges, evaders, counts, appeals });
+}
+
+function render(data){
+  const { acf, judges, evaders, counts, appeals } = data;
+  const sd = acf && acf.states && acf.states[STATE];
+  const years = acf && acf.fiscalYearsCovered ? acf.fiscalYearsCovered : [];
+  const latestYear = years.length ? years[years.length-1] : null;
+
+  const parts = [];
+
+  // Headline ACF metrics
+  if (sd && latestYear) {
+    const m = sd.metrics || {};
+    const d = sd.derived || {};
+    const get = (series, yr) => series && (series[yr] != null ? series[yr] : (function(){ const ks = Object.keys(series||{}).sort(); return ks.length ? series[ks[ks.length-1]] : null; })());
+    const ivd = get(m.distributedCollections, latestYear);
+    const cases = get(m.caseload, latestYear);
+    const arrears = get(m.arrears, latestYear);
+    const kids = get(m.childrenInCases, latestYear);
+    const staff = get(m.fteStaff, latestYear);
+    const incentive = get(m.incentivePaymentActuals, latestYear);
+    const rate = get(d.collectionRate, latestYear);
+    const arrRate = (cases && get(m.casesWithArrears, latestYear)) ? get(m.casesWithArrears, latestYear) / cases : null;
+
+    parts.push(`<div class="sec">
+      <h2>HHS OCSE Data — FY${latestYear}</h2>
+      <div class="grid">
+        <div class="cell"><div class="lbl">IV-D collected</div><div class="val" style="color:var(--blue)">${fmtM(ivd)}</div></div>
+        <div class="cell"><div class="lbl">Open cases</div><div class="val">${fmtN(cases)}</div></div>
+        <div class="cell"><div class="lbl">Children in cases</div><div class="val">${fmtN(kids)}</div></div>
+        <div class="cell"><div class="lbl">Total arrears</div><div class="val" style="color:var(--red)">${fmtM(arrears)}</div></div>
+        <div class="cell"><div class="lbl">Collection rate</div><div class="val" style="color:${rate&&rate>=0.65?'var(--green)':rate&&rate>=0.55?'var(--amber)':'var(--red)'}">${fmtPct(rate)}</div></div>
+        <div class="cell"><div class="lbl">Cases with arrears</div><div class="val">${fmtPct(arrRate)}</div></div>
+        <div class="cell"><div class="lbl">IV-D staff (FTE)</div><div class="val">${fmtN(staff)}</div></div>
+        <div class="cell"><div class="lbl">Federal incentive</div><div class="val">${fmtM(incentive)}</div></div>
+      </div>
+      <div class="meta">Source: HHS OCSE Preliminary Data FY2017–FY${latestYear} — ingested from the published Excel workbooks.</div>
+    </div>`);
+
+    // 8-year history table
+    const metricKeys = [
+      ['IV-D collected ($M)',  s => s.distributedCollections, v => v != null ? '$'+Math.round(v/1e6).toLocaleString()+'M' : '—'],
+      ['Arrears ($M)',          s => s.arrears,                v => v != null ? '$'+Math.round(v/1e6).toLocaleString()+'M' : '—'],
+      ['Caseload',              s => s.caseload,               v => v != null ? Number(v).toLocaleString() : '—'],
+      ['Collection rate',       null,                           null],
+    ];
+    let tbl = '<div class="sec"><h2>8-year history</h2><table class="table"><thead><tr><th>Metric</th>';
+    years.forEach(y => { tbl += '<th>FY'+y+'</th>'; });
+    tbl += '</tr></thead><tbody>';
+    ['distributedCollections','arrears','caseload'].forEach(k => {
+      const lbl = {distributedCollections:'IV-D collected',arrears:'Arrears',caseload:'Caseload'}[k];
+      const isM = (k==='distributedCollections'||k==='arrears');
+      tbl += '<tr><td><strong>'+lbl+'</strong></td>';
+      years.forEach(y => {
+        const v = m[k] ? m[k][y] : null;
+        tbl += '<td>'+(v != null ? (isM ? '$'+Math.round(v/1e6).toLocaleString()+'M' : Number(v).toLocaleString()) : '—')+'</td>';
+      });
+      tbl += '</tr>';
+    });
+    tbl += '<tr><td><strong>Collection rate</strong></td>';
+    years.forEach(y => {
+      const v = d.collectionRate && d.collectionRate[y];
+      tbl += '<td>'+(v != null ? (v*100).toFixed(1)+'%' : '—')+'</td>';
+    });
+    tbl += '</tr></tbody></table></div>';
+    parts.push(tbl);
+
+    // Flags
+    const flags = (sd.flags || []).filter(f => f && f.count > 0 || f && f.triggered);
+    if (flags.length) {
+      parts.push(`<div class="sec"><h2>ACF fraud / irregularity flags</h2>${
+        flags.map(f => `<div style="padding:8px 10px;background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--amber);border-radius:5px;margin-bottom:6px"><strong style="font-size:11.5px">${f.flag || f.type || '(flag)'}</strong>${f.note ? '<div class="meta">'+f.note+'</div>' : ''}</div>`).join('')
+      }</div>`);
+    }
+  } else {
+    parts.push('<div class="sec"><h2>HHS OCSE Data</h2><div class="note">No ACF data available for this state.</div></div>');
+  }
+
+  // Evader registry
+  if (evaders && evaders.states && evaders.states[STATE]) {
+    const e = evaders.states[STATE];
+    const count = counts && counts.data ? counts.data.count : null;
+    parts.push(`<div class="sec">
+      <h2>Public "evader" / deadbeat parent registry</h2>
+      <div class="grid">
+        <div class="cell"><div class="lbl">Program</div><div class="val" style="font-size:14px">${e.programName || '—'}</div></div>
+        <div class="cell"><div class="lbl">Agency</div><div class="val" style="font-size:12px">${e.agency || '—'}</div></div>
+        <div class="cell"><div class="lbl">Named on list</div><div class="val" style="color:var(--red)">${count != null ? count.toLocaleString() : 'Not scraped'}</div></div>
+        <div class="cell"><div class="lbl">Published</div><div class="val" style="font-size:12px">${[e.publishesPhoto?'photos':null,e.publishesExactDebtAmount?'exact debt':null,e.publishesChildCount?'child counts':null].filter(Boolean).join(', ')||'—'}</div></div>
+      </div>
+      ${e.url ? '<div class="meta">Registry: <a href="'+e.url+'" target="_blank" rel="noopener">'+e.url+'</a></div>' : ''}
+    </div>`);
+  }
+
+  // Judges + jurisdictions
+  if (judges && judges.jurisdictions) {
+    const stateJx = judges.jurisdictions.filter(jx => jx.state === STATE);
+    const populated = stateJx.filter(jx => jx.status === 'populated');
+    const pending   = stateJx.filter(jx => jx.status !== 'populated');
+    parts.push(`<div class="sec">
+      <h2>Jurisdictions &amp; judges</h2>
+      <div class="grid">
+        <div class="cell"><div class="lbl">Counties total</div><div class="val">${stateJx.length}</div></div>
+        <div class="cell"><div class="lbl">Populated</div><div class="val" style="color:var(--green)">${populated.length}</div></div>
+        <div class="cell"><div class="lbl">Pending</div><div class="val">${pending.length}</div></div>
+        <div class="cell"><div class="lbl">Judges verified</div><div class="val">${populated.reduce((s,j)=>s+(j.judges?.length||0),0)}</div></div>
+      </div>
+      ${populated.length ? '<table class="table" style="margin-top:10px"><thead><tr><th>County</th><th>Court</th><th>Judges</th><th>Directory</th></tr></thead><tbody>' +
+        populated.map(j => '<tr><td>'+j.county+'</td><td style="font-size:10.5px;color:var(--text2)">'+(j.courtSystem||'—')+'</td><td>'+(j.judges?.length||0)+'</td><td>'+(j.directoryUrl?'<a href="'+j.directoryUrl+'" target="_blank" rel="noopener">↗</a>':'—')+'</td></tr>').join('')
+        + '</tbody></table>' : '<div class="note">No populated jurisdictions yet.</div>'}
+    </div>`);
+  }
+
+  // Appellate courts + their justices (from appeals_courts.json)
+  if (appeals && appeals.courts) {
+    const stateAc = appeals.courts.filter(c => c.state === STATE);
+    if (stateAc.length) {
+      parts.push(`<div class="sec">
+        <h2>Appellate courts</h2>
+        <table class="table"><thead><tr><th>Court</th><th>Level</th><th>Justices</th><th>Website</th></tr></thead><tbody>${
+          stateAc.map(c => '<tr><td>'+c.name+'</td><td><span class="badge">'+(c.level||'—')+'</span></td><td>'+(c.judges?c.judges.length:'—')+'</td><td>'+(c.url?'<a href="'+c.url+'" target="_blank" rel="noopener">↗</a>':'—')+'</td></tr>').join('')
+        }</tbody></table>`);
+
+      // If any court has a justices roster, render it as an expandable block.
+      const withJudges = stateAc.filter(c => Array.isArray(c.judges) && c.judges.length);
+      withJudges.forEach(c => {
+        parts.push(`<div style="margin-top:10px;background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:10px 12px">
+          <div style="font-weight:500;font-size:12.5px;margin-bottom:6px">${c.name}</div>
+          <div style="font-size:10.5px;color:var(--text3);margin-bottom:6px">Currently-sitting justices (${c.judges.length}) — <em>research-quality data, verify against court roster before citing</em></div>
+          <table class="table"><thead><tr><th>Name</th><th>Role</th><th>Took office</th><th>Selection</th></tr></thead><tbody>${
+            c.judges.map(j => `<tr><td>${j.name||'—'}</td><td>${j.role||'—'}</td><td>${j.tookOffice||'—'}</td><td><span class="badge">${j.electedOrAppointed||'—'}</span></td></tr>`).join('')
+          }</tbody></table></div>`);
+      });
+      parts.push('</div>');
+    }
+  }
+
+  // Federal representatives (live from api_congress)
+  parts.push(`<div class="sec"><h2>Federal representatives (live)</h2><div id="reps">Loading…</div></div>`);
+
+  document.getElementById('content').className = '';
+  document.getElementById('content').innerHTML = parts.join('');
+
+  // Async-load reps
+  loadReps();
+}
+
+async function loadReps(){
+  const abMap = {"Alabama":"AL","Alaska":"AK","Arizona":"AZ","Arkansas":"AR","California":"CA","Colorado":"CO","Connecticut":"CT","Delaware":"DE","Florida":"FL","Georgia":"GA","Hawaii":"HI","Idaho":"ID","Illinois":"IL","Indiana":"IN","Iowa":"IA","Kansas":"KS","Kentucky":"KY","Louisiana":"LA","Maine":"ME","Maryland":"MD","Massachusetts":"MA","Michigan":"MI","Minnesota":"MN","Mississippi":"MS","Missouri":"MO","Montana":"MT","Nebraska":"NE","Nevada":"NV","New Hampshire":"NH","New Jersey":"NJ","New Mexico":"NM","New York":"NY","North Carolina":"NC","North Dakota":"ND","Ohio":"OH","Oklahoma":"OK","Oregon":"OR","Pennsylvania":"PA","Rhode Island":"RI","South Carolina":"SC","South Dakota":"SD","Tennessee":"TN","Texas":"TX","Utah":"UT","Vermont":"VT","Virginia":"VA","Washington":"WA","West Virginia":"WV","Wisconsin":"WI","Wyoming":"WY"};
+  const ab = abMap[STATE] || '';
+  const box = document.getElementById('reps');
+  if (!ab || !box) return;
+  try {
+    const r = await fetch('/api_congress.php?op=members_by_state&state='+ab+'&current=true');
+    const j = await r.json();
+    const mems = (j && j.data && j.data.members) || [];
+    if (!mems.length) { box.innerHTML = '<div class="note">No federal delegation data available.</div>'; return; }
+    const senators = mems.filter(m => /senate/i.test(((m.terms||{}).item||[{}]).slice(-1)[0].chamber || m.chamber || ''));
+    const house    = mems.filter(m => !/senate/i.test(((m.terms||{}).item||[{}]).slice(-1)[0].chamber || m.chamber || ''));
+    box.innerHTML = `<table class="table"><thead><tr><th>Name</th><th>Chamber</th><th>Party</th><th>District</th></tr></thead><tbody>${
+      mems.map(m => {
+        const chamber = m.chamber || (((m.terms||{}).item||[{}]).slice(-1)[0].chamber) || '';
+        const isH = /house/i.test(chamber);
+        return '<tr><td>'+(m.name||'—')+'</td><td>'+(isH?'US House':'US Senate')+'</td><td>'+(m.partyName||m.party||'—')+'</td><td>'+(m.district != null ? 'Dist '+m.district : '—')+'</td></tr>';
+      }).join('')
+    }</tbody></table>`;
+  } catch(e) {
+    box.innerHTML = '<div class="note">Federal delegation: could not load.</div>';
+  }
+}
+
+loadAll();
+</script>
+</body>
+</html>

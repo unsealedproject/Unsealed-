@@ -1,0 +1,32 @@
+{
+  "source": "https://www.afccnet.org/About/Board-of-Directors",
+  "accessedAt": "2026-04-22",
+  "notes": "Public governance positions disclosed by AFCC on its own website. These individuals serve in officer or director roles and are therefore publicly identified AFCC members. Non-officer rank-and-file members are documented in IRS Form 990 filings (https://projects.propublica.org/nonprofits/organizations/391647468) but are not reproduced here.",
+  "officers": [
+    {"name":"Hon. Dolores A. Bomrad (Ret.)","role":"President","category":"judge"},
+    {"name":"Hon. Tom Altobelli","role":"President Elect","category":"judge"},
+    {"name":"Kathleen McNamara, PhD","role":"Vice President","category":"evaluator"},
+    {"name":"Hon. Herman Walker, Jr.","role":"Secretary","category":"judge"},
+    {"name":"Lawrence Jay Braunstein, JD","role":"Treasurer","category":"attorney"},
+    {"name":"Michael A. Saini, PhD","role":"Past President","category":"evaluator"}
+  ],
+  "directors": [
+    {"name":"Chioma Ajoku, JD, PhD, ABPP","role":"Director","category":"attorney"},
+    {"name":"Hon. Liberty Aldrich (Ret.)","role":"Director","category":"judge"},
+    {"name":"David Blacker, JD, CFLS","role":"Director","category":"attorney"},
+    {"name":"Hon. Randall Fuller","role":"Director","category":"judge"},
+    {"name":"April Harris-Britt, PhD","role":"Director","category":"evaluator"},
+    {"name":"Joi M. Hollis, LPC, PhD","role":"Director","category":"evaluator"},
+    {"name":"Alexander D. Jones, JD, MSW","role":"Director","category":"attorney"},
+    {"name":"Jennifer E. Joseph, JD","role":"Director","category":"attorney"},
+    {"name":"Hon. Mark Juhas","role":"Director","category":"judge"},
+    {"name":"Beth F. McCormack, JD","role":"Director","category":"attorney"},
+    {"name":"Stacey E. Platt, JD","role":"Director","category":"attorney"},
+    {"name":"Nolanda Robert, MS, CCFC","role":"Director","category":"evaluator"},
+    {"name":"Terry Singh, PhD, ABPP","role":"Director","category":"evaluator"}
+  ],
+  "externalSources": [
+    {"label":"ProPublica Nonprofit Explorer — AFCC Form 990 filings","url":"https://projects.propublica.org/nonprofits/organizations/391647468","note":"Lists board members, officers, and key employees for each filing year. Public membership rosters are NOT on the 990."},
+    {"label":"AFCC member search (requires login / membership)","url":"https://www.afccnet.org/Directory","note":"AFCC's internal directory is member-only; membership status of specific judges/attorneys/evaluators must be confirmed through a combination of conference attendance lists, committee rosters, published articles in AFCC journals (FCR), and state-chapter leadership pages."}
+  ]
+}

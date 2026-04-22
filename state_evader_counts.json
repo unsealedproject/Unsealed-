@@ -1,0 +1,25 @@
+{
+  "_version": 1,
+  "_updated": "2026-04-21",
+  "_note": "Counts of parents publicly named on each state's 'most wanted' / 'evader' / 'delinquent parent' registry. Used to quantify the paradox: a state claiming a high OCSE collection rate AND publicly naming N parents as evaders admits that at least N cases are uncollected — making any claim of near-100% collection quantitatively impossible. Counts are refreshed by api_evaders.php (24h cache). Where the state's page is a JavaScript SPA, the count here is a manually-verified seed value (method='seed', as_of date reflects last human verification). Where the page is server-rendered, api_evaders.php live-counts entries via per-state parsers (method='scrape').",
+  "states": {
+    "Alabama":        {"count": 670,  "as_of": "2026-04-21", "method": "statutory_ceiling", "notes": "Ala. Code §30-3-8 authorizes publication of 10 per county × 67 counties; actual published list varies by county and intermittent PDF posters."},
+    "Arizona":        {"count": null, "as_of": "2026-04-21", "method": "spa",   "notes": "des.az.gov/services/child-and-family/child-support-services/wanted-child-support-evaders — JS-rendered, count not scraped."},
+    "California":     {"count": null, "as_of": "2026-04-21", "method": "spa",   "notes": "childsupport.ca.gov/most-wanted/ — JS-rendered list; featured entries typically ~15."},
+    "Florida":        {"count": null, "as_of": "2026-04-21", "method": "spa",   "notes": "childsupport.floridarevenue.com/childsupport/Home/MostWanted — JS-rendered."},
+    "Georgia":        {"count": 10,   "as_of": "2026-04-21", "method": "by_design", "notes": "Officially a 'Top 10' list."},
+    "Illinois":       {"count": null, "as_of": "2026-04-21", "method": "spa",   "notes": "hfs.illinois.gov/childsupport/ — deadbeat list page structure varies."},
+    "Indiana":        {"count": null, "as_of": "2026-04-21", "method": "unknown"},
+    "Kansas":         {"count": null, "as_of": "2026-04-21", "method": "spa",   "notes": "dcfforms.dcf.ks.gov SharePoint list; threshold >$5,000."},
+    "Kentucky":       {"count": null, "as_of": "2026-04-21", "method": "unknown"},
+    "Louisiana":      {"count": 53000, "as_of": "2026-04-21", "method": "agency_disclosed", "notes": "State-disclosed size of searchable delinquent-payor database at dcfs.louisiana.gov — not just the 'Most Wanted' subset. Criterion: no-payment-in-6-months."},
+    "Massachusetts":  {"count": null, "as_of": "2026-04-21", "method": "spa"},
+    "Missouri":       {"count": null, "as_of": "2026-04-21", "method": "spa"},
+    "New Mexico":     {"count": null, "as_of": "2026-04-21", "method": "bench_warrant_list", "notes": "Replaced numeric '25 Most Wanted' with ongoing bench-warrant roster; count fluctuates, not a fixed-N list."},
+    "Ohio":           {"count": null, "as_of": "2026-04-21", "method": "spa"},
+    "Oklahoma":       {"count": null, "as_of": "2026-04-21", "method": "unknown"},
+    "South Carolina": {"count": null, "as_of": "2026-04-21", "method": "unknown"},
+    "Texas":          {"count": null, "as_of": "2026-04-21", "method": "scrape", "notes": "csapps.oag.texas.gov/evaders/all — api_evaders.php counts unique /evaders/<slug> hrefs as a server-rendered floor."},
+    "Virginia":       {"count": null, "as_of": "2026-04-21", "method": "spa"}
+  }
+}

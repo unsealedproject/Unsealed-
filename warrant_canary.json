@@ -1,0 +1,33 @@
+{
+  "version": 2,
+  "lastVerified": "2026-04-21",
+  "verifiedBy": "Unsealed Project operators",
+  "nextVerificationBy": "2026-05-11",
+  "statement": "As of the Last Verified date above, the Unsealed Project has not received any warrants, subpoenas, national-security letters, FISA orders, gag orders, or other compelled-disclosure demands directed at submitters or the platform.",
+  "anonymity": {
+    "weDoNotCollect": [
+      "Names, email addresses, phone numbers, or postal addresses",
+      "IP addresses — the web server's access log is disabled (nginx `access_log off`)",
+      "Device fingerprints, cookies, session IDs, or any tracking identifiers",
+      "Browser User-Agent, request headers, or any metadata beyond the submission body",
+      "Case numbers, docket numbers, or any identifier that could map a row back to a specific filing",
+      "Geolocation of any kind"
+    ],
+    "weDoStore": [
+      "Statistical fields of each case submission: state, county, year, financial figures, outcome, custody %, order type, appointee costs, etc.",
+      "Public-official names only when mentioned in their official capacity (judges and attorneys who appeared on record)",
+      "A one-way hash of each submission token for duplicate prevention — the plaintext token lives only in the submitter's browser and cannot be recovered from the hash"
+    ],
+    "whatSubpoenaReachesIfServed": "The entirety of submissions.db. By design it contains only aggregated case fields — no names, no IPs, no accounts, no login history, no session data, no headers. There is no subscriber list, no user table, no access log. A subpoena response would consist of the same rows any researcher can request for aggregate analysis; no row contains information capable of identifying a submitter."
+  },
+  "items": [
+    "No National Security Letters received",
+    "No FISA court orders received",
+    "No subpoenas of any kind received",
+    "No gag orders received",
+    "No law-enforcement data requests received",
+    "No compelled-disclosure requests of any kind received"
+  ],
+  "note": "This notice will be removed, or its date allowed to go stale, if any of the above changes. Silence is not safety. If the Last Verified date is more than 20 days old (the typical statutory response window for a filing), treat this canary as potentially compromised and adjust your disclosures accordingly. We commit to re-verifying at least every 20 days.",
+  "contact": "unsealedproject@proton.me"
+}
