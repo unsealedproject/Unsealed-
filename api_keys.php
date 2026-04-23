@@ -60,14 +60,53 @@ if (!defined('FCA_API_KEYS_LOADED')) {
     }
 
     /**
+     * Return the client's IP. We deliberately do NOT trust
+     * X-Forwarded-For — nginx is the direct-facing reverse proxy and there
+     * is no CDN or additional hop, so REMOTE_ADDR is always the true peer.
+     * Trusting XFF would let a client spoof a different "IP" per request
+     * and bypass every rate limit by rotating the header. The returned
+     * string is sanitized to IPv4/IPv6 chars only.
+     */
+    function fca_client_ip(): string {
+        $ip = (string)($_SERVER['REMOTE_ADDR'] ?? '');
+        $ip = preg_replace('/[^0-9a-fA-F.:]/', '', $ip);
+        return $ip !== '' ? $ip : 'unknown';
+    }
+
+    /**
+     * HMAC-SHA256 bucket key for rate-limit counter files. MD5 was
+     * cryptographically fine here (collision, not preimage, is what matters
+     * for this use), but using a keyed hash with an on-disk secret means
+     * the counter-file naming is not predictable to anyone who reads the
+     * source on GitHub. First call generates the secret if missing.
+     */
+    function fca_rate_hash(string $ip): string {
+        static $secret = null;
+        if ($secret === null) {
+            $path = '/etc/fca/rate_limit.secret';
+            if (is_file($path) && is_readable($path)) {
+                $secret = trim(@file_get_contents($path));
+            }
+            if (!$secret) {
+                // Fresh server secret, 32 bytes hex. Written 0600 so only the
+                // FPM user can read it. We don't error if write fails —
+                // fall back to in-memory-only secret for the request lifetime.
+                $secret = bin2hex(random_bytes(32));
+                @file_put_contents($path, $secret);
+                @chmod($path, 0600);
+            }
+        }
+        return hash_hmac('sha256', $ip, $secret);
+    }
+
+    /**
      * Per-IP hourly rate-limit check. Returns true if allowed, false if over limit.
      * Prefix namespaces the counter so limits are per-endpoint.
      */
     function fca_rate_ok(string $prefix, int $limit_per_hour): bool {
-        $ip = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'] ?? 'unknown';
-        $ip = preg_replace('/[^0-9a-fA-F.:,]/', '', explode(',', $ip)[0]);
-        $rl = sys_get_temp_dir() . '/uns_' . $prefix . '_rl_' . md5($ip) . '.json';
-        $rld = is_file($rl) ? (json_decode(@file_get_contents($rl), true) ?: []) : [];
+        $ip   = fca_client_ip();
+        $rl   = sys_get_temp_dir() . '/uns_' . $prefix . '_rl_' . fca_rate_hash($ip) . '.json';
+        $rld  = is_file($rl) ? (json_decode(@file_get_contents($rl), true) ?: []) : [];
         $hour = date('YmdH');
         if (($rld['h'] ?? '') !== $hour) $rld = ['c' => 0, 'h' => $hour];
         if (($rld['c'] ?? 0) >= $limit_per_hour) return false;

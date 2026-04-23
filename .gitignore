@@ -42,12 +42,10 @@ press_inquiries*
 profile_queue.json
 
 # ─── CLAUDE CODE / AI ASSISTANT LOCAL CONFIG ──────────────────
-# Contains approval patterns that may include command examples
-# with credentials embedded.
-.claude/settings.local.json
-.claude/user_context.json
-.claude/**/*.sqlite
-.claude/logs/
+# Exclude the entire .claude/ directory. It contains approval patterns,
+# transcripts, and tool-state DBs that may include command examples with
+# credentials embedded — none of that belongs in a public repo.
+.claude/
 
 # ─── LOCAL DEV HELPERS ────────────────────────────────────────
 # Any file starting with underscore is a local dev helper — merge

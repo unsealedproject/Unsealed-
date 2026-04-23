@@ -60,7 +60,13 @@ if ($method === 'GET') {
         $out[] = $d;
     }
     $pending = 0;
-    $r = $db->query("SELECT COUNT(*) AS c FROM submissions WHERE release_at > '$now'");
+    // Parameterized — never concatenate $now directly into SQL. It's a
+    // server-generated timestamp so injection is not actually possible here,
+    // but mixing styles invites regressions when a later dev copies the
+    // pattern and accidentally inlines user input.
+    $pst = $db->prepare('SELECT COUNT(*) AS c FROM submissions WHERE release_at > :now');
+    $pst->bindValue(':now', $now, SQLITE3_TEXT);
+    $r = $pst->execute();
     if ($r) { $row = $r->fetchArray(SQLITE3_ASSOC); $pending = (int)($row['c'] ?? 0); }
     echo json_encode(['ok' => true, 'cases' => $out, 'count' => count($out), 'pending' => $pending]);
     exit;
@@ -72,18 +78,16 @@ if ($method !== 'POST') {
     exit;
 }
 
-$rawIp = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'] ?? '';
-$ip = preg_replace('/[^0-9a-fA-F.:,]/', '', explode(',', $rawIp)[0]);
-$rlf = sys_get_temp_dir() . '/uns_rl_' . md5($ip) . '.json';
-$rld = file_exists($rlf) ? (json_decode(file_get_contents($rlf), true) ?? []) : [];
-if (($rld['h'] ?? '') !== date('YmdH')) $rld = ['c' => 0, 'h' => date('YmdH')];
-if (($rld['c'] ?? 0) >= RATE_LIMIT) {
+// Rate limit by REMOTE_ADDR only. X-Forwarded-For is deliberately NOT
+// trusted — nginx has no upstream proxy, so any XFF came from the client
+// and would let them spoof a different identity per request. The counter
+// file is keyed by HMAC-SHA256 with an on-disk server secret.
+require_once __DIR__ . '/api_keys.php';
+if (!fca_rate_ok('submit', RATE_LIMIT)) {
     http_response_code(429);
     echo json_encode(['error' => 'Rate limit — try again later.']);
     exit;
 }
-$rld['c']++;
-file_put_contents($rlf, json_encode($rld), LOCK_EX);
 
 $raw = file_get_contents('php://input', false, null, 0, MAX_BODY);
 if (!$raw) { http_response_code(400); echo json_encode(['error' => 'Empty body']); exit; }

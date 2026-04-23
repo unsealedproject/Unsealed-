@@ -29,20 +29,15 @@ header('Referrer-Policy: no-referrer');
 $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 if ($method === 'OPTIONS') { http_response_code(200); exit; }
 
-// Per-IP rate limit (same pattern as api_submit.php). IPs are not stored —
-// just hashed into a per-hour temp file.
-$rawIp = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'] ?? '';
-$ip    = preg_replace('/[^0-9a-fA-F.:,]/', '', explode(',', $rawIp)[0]);
-$rlf   = sys_get_temp_dir() . '/uns_tok_rl_' . md5($ip) . '.json';
-$rld   = file_exists($rlf) ? (json_decode(file_get_contents($rlf), true) ?? []) : [];
-if (($rld['h'] ?? '') !== date('YmdH')) $rld = ['c' => 0, 'h' => date('YmdH')];
-if (($rld['c'] ?? 0) >= RATE_LIMIT) {
+// Per-IP rate limit. IPs are not stored — REMOTE_ADDR is HMAC-hashed into
+// a per-hour temp file. We ignore X-Forwarded-For on purpose (no trusted
+// proxy in front of nginx).
+require_once __DIR__ . '/api_keys.php';
+if (!fca_rate_ok('tok', RATE_LIMIT)) {
     http_response_code(429);
     echo json_encode(['ok' => false, 'error' => 'Rate limit — try again later.']);
     exit;
 }
-$rld['c']++;
-file_put_contents($rlf, json_encode($rld), LOCK_EX);
 
 function getDB(): SQLite3 {
     $db = new SQLite3(DB_PATH, SQLITE3_OPEN_READWRITE);

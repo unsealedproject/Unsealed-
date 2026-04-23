@@ -32,19 +32,14 @@ $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 if ($method === 'OPTIONS') { http_response_code(200); exit; }
 if ($method !== 'POST') { http_response_code(405); echo json_encode(['ok'=>false,'error'=>'Method not allowed']); exit; }
 
-// Rate limit (per-hour bucket)
-$rawIp = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'] ?? '';
-$ip    = preg_replace('/[^0-9a-fA-F.:,]/', '', explode(',', $rawIp)[0]);
-$rlf   = sys_get_temp_dir() . '/uns_press_' . md5($ip) . '.json';
-$rld   = file_exists($rlf) ? (json_decode(file_get_contents($rlf), true) ?? []) : [];
-if (($rld['h'] ?? '') !== date('YmdH')) $rld = ['c' => 0, 'h' => date('YmdH')];
-if (($rld['c'] ?? 0) >= RATE_LIMIT) {
+// Rate limit (per-hour bucket). Uses REMOTE_ADDR only (ignores XFF) +
+// HMAC-SHA256 counter-file key. See api_keys.php / fca_rate_ok().
+require_once __DIR__ . '/api_keys.php';
+if (!fca_rate_ok('press', RATE_LIMIT)) {
     http_response_code(429);
     echo json_encode(['ok'=>false,'error'=>'Rate limit: 10 inquiries per hour.']);
     exit;
 }
-$rld['c']++;
-file_put_contents($rlf, json_encode($rld), LOCK_EX);
 
 $raw = file_get_contents('php://input', false, null, 0, MAX_BODY);
 $body = $raw ? json_decode($raw, true) : null;

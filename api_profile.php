@@ -22,7 +22,11 @@
  */
 
 // ── CONFIG ─────────────────────────────────────────────────────
-define('QUEUE_FILE',  __DIR__ . '/data/profile_queue.json');
+// Queue lives in SQLite so concurrent POSTs don't race (previously a JSON
+// file with LOCK_EX on writes — but LOCK_EX doesn't help across a
+// read-decode-append-encode-write cycle; concurrent callers could both
+// read the same snapshot and one would clobber the other's entries).
+define('QUEUE_DB',    __DIR__ . '/data/profile_queue.db');
 define('ADMIN_EMAIL', 'unsealedproject@proton.me');
 define('RATE_LIMIT',  20);   // max submissions per IP per hour
 define('MAX_SIZE',    65536); // 64KB max body size
@@ -40,19 +44,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // ── RATE LIMIT ─────────────────────────────────────────────────
-$ip = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'] ?? 'unknown';
-$ip = preg_replace('/[^0-9a-fA-F.:,]/', '', explode(',', $ip)[0]);
-
-$rl_file = sys_get_temp_dir() . '/unsealed_profile_rl_' . md5($ip) . '.json';
-$rl_data = file_exists($rl_file) ? json_decode(file_get_contents($rl_file), true) : ['count' => 0, 'hour' => date('YmdH')];
-if ($rl_data['hour'] !== date('YmdH')) { $rl_data = ['count' => 0, 'hour' => date('YmdH')]; }
-if ($rl_data['count'] >= RATE_LIMIT) {
+// REMOTE_ADDR only (XFF ignored), HMAC-SHA256 counter key.
+require_once __DIR__ . '/api_keys.php';
+if (!fca_rate_ok('profile', RATE_LIMIT)) {
     http_response_code(429);
     echo json_encode(['error' => 'Rate limit exceeded — please try again later.']);
     exit;
 }
-$rl_data['count']++;
-file_put_contents($rl_file, json_encode($rl_data), LOCK_EX);
 
 // ── READ BODY ──────────────────────────────────────────────────
 $raw = file_get_contents('php://input', false, null, 0, MAX_SIZE);
@@ -145,43 +143,57 @@ if (empty($queued)) {
 }
 
 // ── SAVE TO QUEUE ──────────────────────────────────────────────
-$data_dir = dirname(QUEUE_FILE);
+// The /data/ directory is blocked at the nginx level (fca-security.conf
+// returns 404 for any /data/* request) so the DB file is not reachable
+// via the web. No .htaccess shim needed — nginx doesn't read those.
+$data_dir = dirname(QUEUE_DB);
 if (!is_dir($data_dir)) {
     mkdir($data_dir, 0750, true);
 }
 
-// Protect the data directory
-$htaccess = $data_dir . '/.htaccess';
-if (!file_exists($htaccess)) {
-    file_put_contents($htaccess, "Deny from all\n");
-}
-
-$existing = [];
-if (file_exists(QUEUE_FILE)) {
-    $existing = json_decode(file_get_contents(QUEUE_FILE), true) ?? [];
-}
-
-array_push($existing, ...$queued);
-
-// Keep most recent 5000 pending entries
-if (count($existing) > 5000) {
-    $existing = array_slice($existing, -5000);
-}
-
-$written = file_put_contents(QUEUE_FILE, json_encode($existing, JSON_PRETTY_PRINT), LOCK_EX);
-if ($written === false) {
-    error_log('api_profile.php: could not write queue file');
+try {
+    $qdb = new SQLite3(QUEUE_DB);
+    $qdb->busyTimeout(5000);
+    $qdb->exec('PRAGMA journal_mode=WAL;');
+    $qdb->exec('CREATE TABLE IF NOT EXISTS profile_queue (
+        id TEXT PRIMARY KEY NOT NULL,
+        payload TEXT NOT NULL,
+        received_at INTEGER NOT NULL
+    )');
+} catch (Throwable $e) {
+    error_log('api_profile.php: queue DB open failed: ' . $e->getMessage());
     http_response_code(500);
-    echo json_encode(['error' => 'Could not save profiles — check server permissions']);
+    echo json_encode(['error' => 'Server storage unavailable']);
     exit;
 }
 
+// Insert each queued profile atomically — SQLite handles concurrent
+// writers via the WAL + busyTimeout combination above. No race.
+$stmt = $qdb->prepare('INSERT OR IGNORE INTO profile_queue (id, payload, received_at) VALUES (:id, :pl, :t)');
+$now  = time();
+$inserted = 0;
+foreach ($queued as $clean) {
+    $stmt->bindValue(':id', $clean['id'],              SQLITE3_TEXT);
+    $stmt->bindValue(':pl', json_encode($clean),       SQLITE3_TEXT);
+    $stmt->bindValue(':t',  $now,                      SQLITE3_INTEGER);
+    if (@$stmt->execute()) $inserted++;
+    $stmt->reset();
+}
+
+// Trim to the most recent 5000 pending entries (rolling cap).
+@$qdb->exec('DELETE FROM profile_queue WHERE id NOT IN (
+    SELECT id FROM profile_queue ORDER BY received_at DESC LIMIT 5000
+)');
+
+$totalRow = $qdb->querySingle('SELECT COUNT(*) AS c FROM profile_queue', true);
+$total = (int)($totalRow['c'] ?? 0);
+
 // ── EMAIL ALERT (optional — requires sendmail configured) ──────
-if (ADMIN_EMAIL && count($existing) % 10 === 0) {  // Alert every 10 new profiles
-    $subject = '[Unsealed] New profile submissions in queue: ' . count($existing) . ' total';
-    $body    = "New profile contributions received.\n\nTotal in queue: " . count($existing) .
+if (ADMIN_EMAIL && $total > 0 && $total % 10 === 0) {  // Alert every 10 new profiles
+    $subject = '[Unsealed] New profile submissions in queue: ' . $total . ' total';
+    $body    = "New profile contributions received.\n\nTotal in queue: " . $total .
                "\nLatest type: " . ($queued[0]['entityType'] ?? 'unknown') .
-               "\n\nReview at: /admin or directly in data/profile_queue.json";
+               "\n\nReview the queue DB at " . QUEUE_DB;
     @mail(ADMIN_EMAIL, $subject, $body, 'From: noreply@unsealed.is');
 }
 
@@ -189,8 +201,8 @@ if (ADMIN_EMAIL && count($existing) % 10 === 0) {  // Alert every 10 new profile
 http_response_code(200);
 echo json_encode([
     'ok'      => true,
-    'queued'  => count($queued),
+    'queued'  => $inserted,
     'skipped' => $skipped,
-    'total'   => count($existing),
+    'total'   => $total,
     'message' => 'Profile contributions received — under review before publishing. Thank you.'
 ]);

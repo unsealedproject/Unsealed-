@@ -65,10 +65,14 @@ function http_get_json(string $url, int $timeoutSec = 15): ?array {
 }
 
 function score_bill(string $haystack, array $keywords): int {
+    // Word-boundary match so "PFA" doesn't match "PFAS" (a chemical contaminant),
+    // "alienation" doesn't match "naturalization", etc. preg_quote-ing each
+    // keyword lets multi-word phrases like "child support" still work.
     $h = strtolower($haystack);
     $n = 0;
     foreach ($keywords as $kw) {
-        if (strpos($h, strtolower($kw)) !== false) $n++;
+        $pat = '/\b' . preg_quote(strtolower($kw), '/') . '\b/';
+        if (preg_match($pat, $h)) $n++;
     }
     return $n;
 }
@@ -113,30 +117,44 @@ if ($legiscanKey) {
 
 // ── FEDERAL BILLS via Congress.gov ────────────────────────────────────
 if ($congressKey) {
-    // /bill/{congress}/{billType} with query filter — use current Congress (119th = 2025-2026)
+    // Congress.gov has NO title-search endpoint for bills, so we paginate
+    // through the current Congress's bills sorted by updateDate desc, then
+    // filter by keyword client-side. 8 pages × 250 bills × 2 chambers =
+    // 4000 most-recently-updated bills scanned per run — more than enough
+    // to catch every active family-court bill.
     $congress = 119;
     $types = ['hr', 's'];  // House + Senate; skip resolutions
+    $pageSize = 250;
+    $maxPages = 8;
     foreach ($types as $t) {
-        $url = "https://api.congress.gov/v3/bill/{$congress}/{$t}?format=json&limit=100&api_key=" . urlencode($congressKey);
-        $data = http_get_json($url, 20);
-        if (!$data) continue;
-        $bills = $data['bills'] ?? [];
-        foreach ($bills as $b) {
-            $title = $b['title'] ?? '';
-            $rel = score_bill($title, $GLOBALS['KEYWORDS']);
-            if ($rel === 0) continue;
-            $key = 'cgr-' . ($b['number'] ?? '') . '-' . $t;
-            $latestAction = $b['latestAction'] ?? [];
-            $collected[$key] = [
-                'source'       => 'congress',
-                'billId'       => strtoupper($t) . ($b['number'] ?? ''),
-                'jurisdiction' => 'Federal',
-                'title'        => $title,
-                'status'       => $latestAction['text'] ?? '',
-                'statusDate'   => $latestAction['actionDate'] ?? '',
-                'url'          => $b['url'] ?? '',
-                'relevance'    => $rel,
-            ];
+        for ($page = 0; $page < $maxPages; $page++) {
+            $offset = $page * $pageSize;
+            $url = "https://api.congress.gov/v3/bill/{$congress}/{$t}"
+                 . "?format=json&sort=updateDate+desc&limit={$pageSize}&offset={$offset}"
+                 . "&api_key=" . urlencode($congressKey);
+            $data = http_get_json($url, 20);
+            if (!$data) break;
+            $bills = $data['bills'] ?? [];
+            if (!count($bills)) break;
+            foreach ($bills as $b) {
+                $title = $b['title'] ?? '';
+                $rel = score_bill($title, $GLOBALS['KEYWORDS']);
+                if ($rel === 0) continue;
+                $key = 'cgr-' . $t . '-' . ($b['number'] ?? '');
+                $latestAction = $b['latestAction'] ?? [];
+                $collected[$key] = [
+                    'source'       => 'congress',
+                    'billId'       => strtoupper($t) . ($b['number'] ?? ''),
+                    'jurisdiction' => 'Federal',
+                    'title'        => $title,
+                    'status'       => $latestAction['text'] ?? '',
+                    'statusDate'   => $latestAction['actionDate'] ?? '',
+                    'url'          => $b['url'] ?? '',
+                    'relevance'    => $rel,
+                ];
+            }
+            // If we got fewer bills than the page size, we've hit the end.
+            if (count($bills) < $pageSize) break;
         }
     }
 }

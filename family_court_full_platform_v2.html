@@ -585,7 +585,7 @@ select.drop:disabled{opacity:.35;cursor:not-allowed}
      load. Now served from our own origin so no third-party sees traffic. -->
 <script src="/lib/d3.min.js"></script>
 <script src="/lib/topojson.min.js"></script>
-<script src="court_map_module.js?v=2026042295" defer></script>
+<script src="court_map_module.js?v=2026042307" defer></script>
 </head>
 <body>
 
@@ -2214,22 +2214,6 @@ select.drop:disabled{opacity:.35;cursor:not-allowed}
   <div class="ib amber">In 39 states, at least some family-court judges are selected by election. Their campaign donors are often the same attorneys who appear in their courtrooms. Vote-them-out is the single most direct accountability tool available in those states.</div>
   <div class="metrics" id="electionMetrics"></div>
 
-  <div class="stitle">How judges are selected, by state</div>
-  <div id="electionsMethodTable" style="margin-bottom:1rem"></div>
-
-  <div class="stitle">Judges in database with an inferred next election</div>
-  <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;flex-wrap:wrap">
-    <label style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em">Filter:</label>
-    <select id="elec-filter-state" class="cmp-select" style="width:auto;padding:5px 8px;font-size:11px" onchange="renderElections()">
-      <option value="">All states</option>
-    </select>
-    <select id="elec-filter-year" class="cmp-select" style="width:auto;padding:5px 8px;font-size:11px" onchange="renderElections()">
-      <option value="">Any upcoming year</option>
-      <option>2026</option><option>2027</option><option>2028</option><option>2029</option><option>2030</option>
-    </select>
-  </div>
-  <div id="electionCards" style="margin-bottom:1rem"></div>
-
   <div class="stitle">Generate a voter guide for your county</div>
   <div class="add-form">
     <div class="fr2">
@@ -2241,7 +2225,31 @@ select.drop:disabled{opacity:.35;cursor:not-allowed}
   </div>
 
   <div class="stitle">Lobbying money — who funds the status quo</div>
-  <div id="lobbyTable"></div>
+  <div id="lobbyTable" style="margin-bottom:1rem"></div>
+
+  <div class="stitle">How judges are selected, by state</div>
+  <div id="electionsMethodTable" style="margin-bottom:1rem"></div>
+
+  <!-- Judges-with-inferred-next-election list moved to the bottom of the
+       pane. Low-signal for anyone not in the state being shown, so it now
+       REQUIRES a state pick before rendering cards — an Ohio user shouldn't
+       scroll through Florida judges by default. The method table sits
+       directly above as context. -->
+  <div class="stitle">Judges in database with an inferred next election</div>
+  <div class="ib" style="font-size:11px;color:var(--text3);line-height:1.6;margin-bottom:8px">Pick your state to see judges with an inferred next election year. Year is derived from when they took office plus the state's term length — actual ballot date depends on whether the seat is elected, on retention, or up for reappointment.</div>
+  <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;flex-wrap:wrap">
+    <label style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em">State:</label>
+    <select id="elec-filter-state" class="cmp-select" style="width:auto;padding:5px 8px;font-size:11px" onchange="renderElections()">
+      <option value="">Select your state…</option>
+    </select>
+    <label style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em">Year:</label>
+    <select id="elec-filter-year" class="cmp-select" style="width:auto;padding:5px 8px;font-size:11px" onchange="renderElections()">
+      <option value="">Any upcoming year</option>
+      <option>2026</option><option>2027</option><option>2028</option><option>2029</option><option>2030</option>
+    </select>
+    <button type="button" class="btn" style="padding:4px 10px;font-size:11px" onclick="_electionsShowAll()">Show all states anyway</button>
+  </div>
+  <div id="electionCards"></div>
 </div>
 
 <!-- LEGISLATION -->
@@ -2299,14 +2307,14 @@ select.drop:disabled{opacity:.35;cursor:not-allowed}
   <div class="ib red">The financial architecture of family court is structural. Every professional is paid per appointment. Every continuance is a billing event. Every order is a revenue node. This section maps total extraction per family.</div>
   <div class="metrics" id="finMetrics"></div>
   <div class="two-col">
-    <div class="cb"><h3>Actual income vs court-imputed income — by state</h3><canvas id="incomeChart" height="220"></canvas></div>
-    <div class="cb"><h3>Support as % of actual income — case distribution</h3><canvas id="supportPctChart" height="220"></canvas></div>
+    <div class="cb"><h3 id="incomeChartTitle">IV-D collections distributed by state — top 20</h3><canvas id="incomeChart" height="220"></canvas></div>
+    <div class="cb"><h3 id="supportPctChartTitle">Arrears owed by state — top 20</h3><canvas id="supportPctChart" height="220"></canvas></div>
   </div>
   <div class="two-col">
-    <div class="cb"><h3>In-kind spending vs support ordered vs credited</h3><canvas id="inkindChart" height="200"></canvas></div>
-    <div class="cb"><h3>Arrears — principal vs interest vs retroactive</h3><canvas id="arrearsChart" height="200"></canvas></div>
+    <div class="cb"><h3 id="inkindChartTitle">National IV-D money flow — admin spend vs collections, 8 fiscal years</h3><canvas id="inkindChart" height="200"></canvas></div>
+    <div class="cb"><h3 id="arrearsChartTitle">Current-support distributed vs arrears backlog</h3><canvas id="arrearsChart" height="200"></canvas></div>
   </div>
-  <div class="cb" style="margin-bottom:1rem"><h3>Total cost architecture — avg per contested case</h3><canvas id="totalCostChart" height="200"></canvas></div>
+  <div class="cb" style="margin-bottom:1rem"><h3 id="totalCostChartTitle">Federal incentive pool estimate by state — top 15</h3><canvas id="totalCostChart" height="200"></canvas></div>
   <div class="metrics" id="enfMetrics"></div>
 
   <!-- Bonus / incentive compensation explainer. Federal IV-D incentive money
@@ -2327,15 +2335,26 @@ select.drop:disabled{opacity:.35;cursor:not-allowed}
        states by their weighted total. Hit 80%+ on all five measures and
        your state maxes out the formula. This is the structural reason
        "high arrears + high collections" coexist: you get paid for both. -->
-  <div class="stitle" style="margin-top:18px">Federal IV-D incentive scoring — the five measures (42 USC 658a)</div>
+  <div class="stitle" style="margin-top:18px">How the federal government pays states to run child-support cases</div>
   <div class="ib purple" style="font-size:11.5px;line-height:1.7">
-    Federal law scores every state on five performance measures. Each measure earns an "applicable percentage" from 0% (below threshold) to 100% (top tier). States then multiply their percentage by their caseload to compute a "maximum incentive base amount." The national pool (set by Congress — ~$534M in FY2024) is split across states proportionally to these bases. Optimizing any one measure increases your share; optimizing all five maximizes it. This is why you see states aggressively pursuing paternity establishment, order establishment, current collections, arrears collections, AND cost-effectiveness all at once — every measure is money.
+    <strong>Plain version:</strong> the federal government runs a yearly bonus pool (~$534M in FY2024) and splits it among states based on 5 scorecards. The better a state scores, the bigger its check. This page shows each scorecard, the rules it uses, and where every state currently stands.
+    <br><br>
+    <strong>Why this matters to you:</strong> every scorecard is a reason your state pushes cases a certain way. States aren't just trying to collect support — they're also trying to hit specific bureaucratic targets that earn them federal money. When a case feels aggressive, automated, or inflexible, this is often the reason why. You're looking at the incentives behind the behavior.
+    <br><br>
+    <strong>How to read each card below:</strong>
+    <ul style="margin:6px 0 0 18px;padding:0;font-size:11px;line-height:1.6">
+      <li><strong>Rules table</strong> — how federal law converts a state's performance on this measure into an "applicable %" (100% = max bonus, 0% = no bonus).</li>
+      <li><strong>Colored strip</strong> — every reporting state dropped into its current tier. Teal = top tier (maxing this measure), amber = mid-tier, orange/red = below floor.</li>
+      <li><strong>Hover the colored segments</strong> to see which states are in each tier.</li>
+    </ul>
   </div>
   <div id="ivdIncentiveTables" style="margin-bottom:1rem"></div>
 
-  <!-- Per-state gauge: which rung is each state sitting on for each measure,
-       based on the most recent ACF data. -->
-  <div class="stitle" style="margin-top:8px">Where each state sits on each measure (most recent ACF data)</div>
+  <!-- Per-state table — every state's placement on every measure at once. -->
+  <div class="stitle" style="margin-top:8px">Every state, every measure — side-by-side</div>
+  <div class="ib" style="font-size:11px;line-height:1.65">
+    Same data, different view. Each row is one state; each pair of columns is a measure. The left column in each pair is the state's actual number; the right is the applicable % that number earns. Green = maxing the measure. Red = below the floor, earning zero on that measure.
+  </div>
   <div id="ivdStateScoring"></div>
 </div>
 
@@ -2714,6 +2733,25 @@ select.drop:disabled{opacity:.35;cursor:not-allowed}
 // values with no source. State Grades tab now derives grade + arrears rate
 // + collection rate purely from acf_state_data.json (all 50 states, FY2024).
 
+// ── HTML-SANITIZE HELPERS ─────────────────────────────────────
+// Used everywhere third-party API responses (Congress.gov, CourtListener,
+// FEC, ACF, OpenStates, FollowTheMoney) or user-submitted fields are
+// interpolated into innerHTML. Constants and numbers I format myself
+// don't need these — only untrusted strings do. Defense-in-depth:
+// attackers control submission fields and could theoretically control
+// upstream API responses if the upstream is compromised.
+function _esc(s){
+  return String(s == null ? '' : s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+// Allow only http(s) URLs in href/src attributes. Blocks javascript:,
+// data:, vbscript:, file:, and other scheme-based injection vectors.
+function _safeUrl(u){
+  const raw = String(u || '').trim();
+  return /^https?:\/\//i.test(raw) ? _esc(raw) : '#';
+}
+
 let JUDGES = [];
 let JURISDICTIONS = [];  // all jurisdictions (populated + pending) for state/county cascade
 
@@ -2848,8 +2886,53 @@ const APPEALS=[];
 // Real legislation now comes ONLY from legislation_feed.json (server-side
 // cron populated from the Congress.gov API + state legislature APIs). When
 // that file is empty, the Legislation tab shows "awaiting data" instead of
-// unsourced bills.
-const LEGISLATION=[];
+// unsourced bills. filterLeg() hydrates this on first render.
+let LEGISLATION=[];
+let _LEG_LOADED = false;
+// Map raw Congress.gov "latestAction" text into one of our three
+// status buckets: active, committee, dead. Conservative — anything
+// ambiguous stays in "committee" rather than false-promising "active".
+function _mapLegStatus(raw){
+  const s = (raw||'').toLowerCase();
+  if (!s) return 'committee';
+  if (s.indexOf('signed') >= 0 || s.indexOf('became public law') >= 0 ||
+      s.indexOf('enacted') >= 0 || s.indexOf('passed house') >= 0 ||
+      s.indexOf('passed senate') >= 0 || s.indexOf('agreed to') >= 0 ||
+      s.indexOf('passed/agreed') >= 0) return 'active';
+  if (s.indexOf('vetoed') >= 0 || s.indexOf('failed') >= 0 ||
+      s.indexOf('dead') >= 0 || s.indexOf('withdrawn') >= 0 ||
+      s.indexOf('died') >= 0) return 'dead';
+  return 'committee';
+}
+async function _loadLegislationFromFeed(){
+  if (_LEG_LOADED) return;
+  try {
+    const r = await fetch('legislation_feed.json?_='+Date.now(), {cache:'no-store'});
+    if (!r.ok) throw new Error('HTTP '+r.status);
+    const d = await r.json();
+    const bills = (d && d.bills) || [];
+    LEGISLATION = bills.map(b => {
+      const jurisdiction = b.jurisdiction || '';
+      const level = (jurisdiction.toLowerCase() === 'federal') ? 'federal' : 'state';
+      return {
+        name:       (b.billId ? b.billId + ' — ' : '') + (b.title || 'Untitled bill'),
+        level:      level,
+        state:      level === 'state' ? jurisdiction : '',
+        sponsor:    b.source === 'legiscan' ? 'State legislature' : 'US Congress',
+        status:     _mapLegStatus(b.status),
+        rawStatus:  b.status || '',
+        statusDate: b.statusDate || '',
+        summary:    (b.status ? ('Latest action (' + (b.statusDate || 'date unknown') + '): ' + b.status) : 'No action recorded yet.'),
+        opposedBy:  '',
+        contactUrl: b.url || '#',
+      };
+    });
+    _LEG_LOADED = true;
+  } catch(e) {
+    LEGISLATION = [];
+    _LEG_LOADED = true;
+  }
+}
 
 // SEED removed — was 5 fully-fabricated case submissions with made-up judge
 // names (Rebecca Morrison, Karen Williams, Timothy Baker, Laura Torres,
@@ -2977,7 +3060,7 @@ function pb(p){const m={R:'pR Republican',D:'pD Democrat'};const[c,l]=(m[p]||'ta
 function jRev(j){const s=j.s,col=s.annual*s.avgSupport*12,ivdA=Math.round(col*.066),ivdI=Math.round(col*.05),spin=Math.round(s.annual*(s.galRate/100*s.avgGalCost+s.psychRate/100*s.avgPsychCost+s.pcRate/100*s.avgPcCost));return{ivdA,ivdI,spin,total:ivdA+ivdI};}
 function aBias(a){const fp=a.falseAlleg>0?Math.round((a.falseAlleg-a.falseFound)/a.falseAlleg*100):0,ep=Math.min(100,a.exParte*20),tot=a.wins.m+a.wins.f+a.wins.j,sr=tot>0?Math.round((a.typRep==='Mother'?a.wins.m:a.wins.f)/tot*100):50,cf=Math.min(100,a.campaignDonations.length*25);return{fp,ep,sr,cf,comp:Math.round(fp*.35+ep*.25+Math.abs(sr-50)*.2+cf*.2)};}
 function aRev(a){return{annual:Math.round(a.casesPerYear*a.avgFee),career:Math.round(a.casesPerYear*a.avgFee*(2025-a.licensed))};}
-function tlbl(t){return{GAL:'Guardian ad Litem',PC:'Parenting Coordinator',Psych:'Psychologist/Evaluator',Expert:'Expert Witness'}[t]||t;}
+function tlbl(t){return{GAL:'Guardian ad Litem',PC:'Parenting Coordinator',Psych:'Psychologist/Evaluator',Expert:'Expert Witness'}[t]||_esc(t);}
 function tcls(t){return{GAL:'at-gal',PC:'at-pc',Psych:'at-psych',Expert:'at-expert'}[t]||'';}
 function generateToken(){const a='ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789';return Array.from({length:32},()=>a[Math.floor(Math.random()*a.length)]).join('').match(/.{8}/g).join('-');}
 
@@ -3188,19 +3271,20 @@ const ThresholdLinesPlugin = {
 };
 try { if (typeof Chart !== 'undefined' && Chart.register) Chart.register(ThresholdLinesPlugin); } catch(e) {}
 
-// Convenience: the 5-tier IV-D current-support collection bands. Colors are
-// intentionally saturated so they read at any chart size.
+// 5-tier IV-D bands. Kept intentionally SUBTLE — bars carry the signal,
+// bands are ambient context. Label text always light because the label
+// pill renders on a near-black backdrop.
 const IVD_THRESHOLD_BANDS_COLL = [
-  { from: 0,  to: 50, label: 'below 50% — $0 incentive',      color: 'rgba(210,40,40,0.92)',  labelColor: '#ffffff', borderTop:'rgba(255,255,255,0.45)' },
-  { from: 50, to: 60, label: '50-60% floor — 50% applicable', color: 'rgba(245,110,40,0.88)', labelColor: '#ffffff', borderTop:'rgba(255,255,255,0.45)' },
-  { from: 60, to: 70, label: '60-70% — 60-80% applicable',    color: 'rgba(245,200,70,0.75)', labelColor: '#2a1a00', borderTop:'rgba(255,255,255,0.38)' },
-  { from: 70, to: 80, label: '70-80% — 80-100% applicable',   color: 'rgba(170,220,100,0.65)',labelColor: '#1a2a00', borderTop:'rgba(255,255,255,0.34)' },
-  { from: 80, to:100, label: '80%+ MAX — 100% applicable',    color: 'rgba(60,200,170,0.72)', labelColor: '#ffffff', borderTop:'rgba(255,255,255,0.45)' },
+  { from: 0,  to: 50, label: 'below 50% — $0 incentive',      color: 'rgba(210,40,40,0.22)',  labelColor: '#ffd4d4', borderTop:'rgba(255,255,255,0.18)' },
+  { from: 50, to: 60, label: '50-60% floor — 50% applicable', color: 'rgba(245,110,40,0.22)', labelColor: '#ffd9b8', borderTop:'rgba(255,255,255,0.18)' },
+  { from: 60, to: 70, label: '60-70% — 60-80% applicable',    color: 'rgba(245,200,70,0.20)', labelColor: '#ffe8a8', borderTop:'rgba(255,255,255,0.16)' },
+  { from: 70, to: 80, label: '70-80% — 80-100% applicable',   color: 'rgba(170,220,100,0.20)',labelColor: '#d8f0b0', borderTop:'rgba(255,255,255,0.16)' },
+  { from: 80, to:100, label: '80%+ MAX — 100% applicable',    color: 'rgba(60,200,170,0.22)', labelColor: '#b8f0e0', borderTop:'rgba(255,255,255,0.18)' },
 ];
 const IVD_THRESHOLD_BANDS_ARR = [
-  { from: 0,  to: 50, label: 'under 50% of cases in arrears',       color: 'rgba(80,206,178,0.68)', labelColor: '#d0fff0', borderTop:'rgba(255,255,255,0.18)' },
-  { from: 50, to: 70, label: '50-70% — structural shortfall',       color: 'rgba(240,196,80,0.62)', labelColor: '#fff3d0', borderTop:'rgba(255,255,255,0.18)' },
-  { from: 70, to:100, label: '70%+ — widespread non-compliance',    color: 'rgba(220,70,70,0.70)',  labelColor: '#ffe0e0', borderTop:'rgba(255,255,255,0.22)' },
+  { from: 0,  to: 50, label: 'under 50% of cases in arrears',       color: 'rgba(80,206,178,0.20)', labelColor: '#b8f0e0', borderTop:'rgba(255,255,255,0.14)' },
+  { from: 50, to: 70, label: '50-70% — structural shortfall',       color: 'rgba(240,196,80,0.20)', labelColor: '#ffe8a8', borderTop:'rgba(255,255,255,0.14)' },
+  { from: 70, to:100, label: '70%+ — widespread non-compliance',    color: 'rgba(220,70,70,0.22)',  labelColor: '#ffd4d4', borderTop:'rgba(255,255,255,0.18)' },
 ];
 function copyToken(){navigator.clipboard.writeText(document.getElementById('tokenValue').textContent).catch(()=>{});}
 // Print/download helpers — give the submitter a way to save the token that
@@ -3235,7 +3319,7 @@ function downloadToken(){
   document.body.appendChild(a); a.click();
   setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1000);
 }
-const GC={color:'rgba(255,255,255,0.04)'};const TC={color:'#6b6866'};
+const GC={color:'rgba(255,255,255,0.10)'};const TC={color:'#9c9a96'};
 function median(arr){const s=[...arr].sort((a,b)=>a-b);const m=Math.floor(s.length/2);return s.length%2?s[m]:(s[m-1]+s[m])/2;}
 function chiSquareTest(observed){const total=observed.reduce((s,v)=>s+v,0);if(!total)return{chiSq:0,pValue:1};const expected=total/observed.length;const chiSq=observed.reduce((s,o)=>s+Math.pow(o-expected,2)/expected,0);const df=observed.length-1;let p=Math.exp(-chiSq/2),t=p,k=df;while(k>2){k-=2;t*=chiSq/k;p+=t;}return{chiSq,pValue:Math.min(1,p)};}
 
@@ -3472,9 +3556,9 @@ function _renderJudgeFinancialLinks(state, name){
   const src = STATE_FINANCIAL_DISCLOSURE_SOURCES[state];
   if (!src) return '';
   return `<div style="background:var(--bg3);padding:10px 12px;border-radius:6px;margin-bottom:8px">
-    <div style="font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px">Public financial-disclosure sources · ${state}</div>
-    <div style="font-size:10px;color:var(--text3);margin-bottom:6px">Search "${name.replace(/^(Hon\.|Judge|Justice)\s+/i,'').trim()}" on each:</div>
-    ${src.map(s=>`<div style="font-size:11px;padding:2px 0"><a href="${s.url}" target="_blank" rel="noopener" style="color:var(--teal)">${s.name} ↗</a></div>`).join('')}
+    <div style="font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px">Public financial-disclosure sources · ${_esc(state)}</div>
+    <div style="font-size:10px;color:var(--text3);margin-bottom:6px">Search "${_esc(name.replace(/^(Hon\.|Judge|Justice)\s+/i,'').trim())}" on each:</div>
+    ${src.map(s=>`<div style="font-size:11px;padding:2px 0"><a href="${_safeUrl(s.url)}" target="_blank" rel="noopener" style="color:var(--teal)">${_esc(s.name)} ↗</a></div>`).join('')}
   </div>`;
 }
 
@@ -3491,21 +3575,21 @@ function _renderEnrichment(container, j, data) {
   if (data.cl && data.cl.person) {
     const p = data.cl.person;
     const bioRows = [];
-    if (p.date_dob)   bioRows.push(`<span>Born ${p.date_dob}</span>`);
-    if (p.dob_city)   bioRows.push(`<span>${p.dob_city}${p.dob_state?', '+p.dob_state:''}</span>`);
-    if (p.religion)   bioRows.push(`<span>Religion: ${p.religion}</span>`);
-    if (p.gender)     bioRows.push(`<span>${p.gender}</span>`);
+    if (p.date_dob)   bioRows.push(`<span>Born ${_esc(p.date_dob)}</span>`);
+    if (p.dob_city)   bioRows.push(`<span>${_esc(p.dob_city)}${p.dob_state?', '+_esc(p.dob_state):''}</span>`);
+    if (p.religion)   bioRows.push(`<span>Religion: ${_esc(p.religion)}</span>`);
+    if (p.gender)     bioRows.push(`<span>${_esc(p.gender)}</span>`);
     const profileUrl = p.absolute_url ? 'https://www.courtlistener.com' + p.absolute_url : '';
     parts.push(`<div style="background:var(--bg3);padding:10px 12px;border-radius:6px;margin-bottom:8px">
       <div style="font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px">CourtListener bio</div>
       <div style="font-size:11px;color:var(--text2);display:flex;gap:12px;flex-wrap:wrap">${bioRows.join(' · ') || 'Match found but bio fields empty.'}</div>
-      ${profileUrl?`<div style="margin-top:5px"><a href="${profileUrl}" target="_blank" style="color:var(--teal);font-size:10px">Full CourtListener profile ↗</a></div>`:''}
+      ${profileUrl?`<div style="margin-top:5px"><a href="${_safeUrl(profileUrl)}" target="_blank" style="color:var(--teal);font-size:10px">Full CourtListener profile ↗</a></div>`:''}
     </div>`);
 
     if (data.cl.political && data.cl.political.length) {
       parts.push(`<div style="background:var(--bg3);padding:10px 12px;border-radius:6px;margin-bottom:8px">
         <div style="font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px">Political affiliations</div>
-        ${data.cl.political.map(a=>`<div style="font-size:11px;color:var(--text2);padding:2px 0">${a.political_party||'—'}${a.source?` · ${a.source}`:''}${a.date_start?` · ${a.date_start}`:''}${a.date_end?` – ${a.date_end}`:''}</div>`).join('')}
+        ${data.cl.political.map(a=>`<div style="font-size:11px;color:var(--text2);padding:2px 0">${_esc(a.political_party||'—')}${a.source?` · ${_esc(a.source)}`:''}${a.date_start?` · ${_esc(a.date_start)}`:''}${a.date_end?` – ${_esc(a.date_end)}`:''}</div>`).join('')}
       </div>`);
     }
 
@@ -3513,7 +3597,7 @@ function _renderEnrichment(container, j, data) {
       const top = data.cl.positions.slice(0, 6);
       parts.push(`<div style="background:var(--bg3);padding:10px 12px;border-radius:6px;margin-bottom:8px">
         <div style="font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px">Judicial positions (${data.cl.positions.length})</div>
-        ${top.map(pos=>`<div style="font-size:11px;color:var(--text2);padding:2px 0">${pos.position_type_label||pos.position_type||'—'} · ${pos.court_str||pos.organization_name||''}${pos.date_start?` (${pos.date_start}${pos.date_termination?`–${pos.date_termination}`:'–present'})`:''}</div>`).join('')}
+        ${top.map(pos=>`<div style="font-size:11px;color:var(--text2);padding:2px 0">${_esc(pos.position_type_label||pos.position_type||'—')} · ${_esc(pos.court_str||pos.organization_name||'')}${pos.date_start?` (${_esc(pos.date_start)}${pos.date_termination?`–${_esc(pos.date_termination)}`:'–present'})`:''}</div>`).join('')}
       </div>`);
     }
 
@@ -3522,7 +3606,7 @@ function _renderEnrichment(container, j, data) {
         <div style="font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px">Financial disclosures filed (${data.cl.disclosures.length})</div>
         ${data.cl.disclosures.slice(0,5).map(d=>{
           const url = d.absolute_url ? 'https://www.courtlistener.com'+d.absolute_url : '';
-          return `<div style="font-size:11px;color:var(--text2);padding:2px 0">Year ${d.year||'—'} · ${d.report_type||d.filing_type||'Report'}${url?` · <a href="${url}" target="_blank" style="color:var(--teal)">view ↗</a>`:''}</div>`;
+          return `<div style="font-size:11px;color:var(--text2);padding:2px 0">Year ${_esc(d.year||'—')} · ${_esc(d.report_type||d.filing_type||'Report')}${url?` · <a href="${_safeUrl(url)}" target="_blank" style="color:var(--teal)">view ↗</a>`:''}</div>`;
         }).join('')}
       </div>`);
     }
@@ -3532,7 +3616,7 @@ function _renderEnrichment(container, j, data) {
     const total = data.fec.donations.reduce((s,d)=>s+(d.amount||0),0);
     parts.push(`<div style="background:var(--bg3);padding:10px 12px;border-radius:6px;margin-bottom:8px">
       <div style="font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px">FEC federal donations from this name — $${total.toLocaleString()} total (${data.fec.donations.length} records)</div>
-      ${data.fec.donations.slice(0,10).map(d=>`<div style="font-size:11px;color:var(--text2);display:flex;justify-content:space-between;padding:2px 0;gap:8px"><span style="overflow:hidden;text-overflow:ellipsis">${d.date||'—'} → ${d.committee||'unknown committee'}</span><strong style="color:var(--amber);flex-shrink:0">$${(d.amount||0).toLocaleString()}</strong></div>`).join('')}
+      ${data.fec.donations.slice(0,10).map(d=>`<div style="font-size:11px;color:var(--text2);display:flex;justify-content:space-between;padding:2px 0;gap:8px"><span style="overflow:hidden;text-overflow:ellipsis">${_esc(d.date||'—')} → ${_esc(d.committee||'unknown committee')}</span><strong style="color:var(--amber);flex-shrink:0">$${(d.amount||0).toLocaleString()}</strong></div>`).join('')}
       <div style="font-size:9px;color:var(--text3);margin-top:5px;font-style:italic">Same-name matches — verify against judge's jurisdiction before drawing conclusions.</div>
     </div>`);
   }
@@ -3540,12 +3624,12 @@ function _renderEnrichment(container, j, data) {
   if (data.ftm && data.ftm.candidates && data.ftm.candidates.length) {
     parts.push(`<div style="background:var(--bg3);padding:10px 12px;border-radius:6px;margin-bottom:8px">
       <div style="font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px">FollowTheMoney — state judicial campaigns (${data.ftm.candidates.length})</div>
-      ${data.ftm.candidates.slice(0,6).map(c=>`<div style="font-size:11px;color:var(--text2);padding:2px 0">${c.name||c.candidate_name||'—'} · ${c.office||c.office_sought||'judicial'}${c.year?` · ${c.year}`:''}${c.total_raised?` · raised $${Number(c.total_raised).toLocaleString()}`:''}</div>`).join('')}
+      ${data.ftm.candidates.slice(0,6).map(c=>`<div style="font-size:11px;color:var(--text2);padding:2px 0">${_esc(c.name||c.candidate_name||'—')} · ${_esc(c.office||c.office_sought||'judicial')}${c.year?` · ${_esc(c.year)}`:''}${c.total_raised?` · raised $${Number(c.total_raised).toLocaleString()}`:''}</div>`).join('')}
     </div>`);
   }
 
   if (!parts.length) {
-    container.innerHTML = `<div style="padding:10px;color:var(--text3);font-size:11px;text-align:center;font-style:italic">No public-record matches found for ${j.name}. (APIs may be unconfigured — see server setup.)</div>`;
+    container.innerHTML = `<div style="padding:10px;color:var(--text3);font-size:11px;text-align:center;font-style:italic">No public-record matches found for ${_esc(j.name)}. (APIs may be unconfigured — see server setup.)</div>`;
     return;
   }
   container.innerHTML = parts.join('');
@@ -3742,7 +3826,7 @@ function renderRecentActivity(){
   wrap.style.display = 'block';
   sub.textContent = entries.length + ' state-week entries — ISO-week bucket, no day granularity, no identifiers';
   feed.innerHTML = entries.slice(0, 24).map(e =>
-    `<div style="background:var(--bg3);border:1px solid var(--border);border-radius:5px;padding:7px 9px;display:flex;justify-content:space-between;gap:8px;align-items:center"><div><div style="font-size:11px;font-weight:500">${e.state}</div><div style="font-size:9.5px;color:var(--text3);font-family:'DM Mono',monospace">${e.week}</div></div><div style="color:var(--teal);font-family:'DM Mono',monospace;font-size:14px">${e.n}</div></div>`
+    `<div style="background:var(--bg3);border:1px solid var(--border);border-radius:5px;padding:7px 9px;display:flex;justify-content:space-between;gap:8px;align-items:center"><div><div style="font-size:11px;font-weight:500">${_esc(e.state)}</div><div style="font-size:9.5px;color:var(--text3);font-family:'DM Mono',monospace">${_esc(e.week)}</div></div><div style="color:var(--teal);font-family:'DM Mono',monospace;font-size:14px">${e.n}</div></div>`
   ).join('');
 }
 function _isoWeek(d){
@@ -3803,7 +3887,7 @@ async function openStateSidePanel(stateName){
     const flags = (sd.flags || []).filter(f => f);
     if (flags.length) {
       parts.push(`<div style="margin-bottom:12px"><div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">ACF irregularity flags</div>` +
-        flags.map(f => `<div style="padding:7px 10px;background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--amber);border-radius:5px;margin-bottom:5px;font-size:11px"><strong>${f.type||f.flag||'flag'}</strong>${f.explanation?'<div style="font-size:10px;color:var(--text3);margin-top:3px">'+f.explanation+'</div>':''}</div>`).join('') +
+        flags.map(f => `<div style="padding:7px 10px;background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--amber);border-radius:5px;margin-bottom:5px;font-size:11px"><strong>${_esc(f.type||f.flag||'flag')}</strong>${f.explanation?'<div style="font-size:10px;color:var(--text3);margin-top:3px">'+_esc(f.explanation)+'</div>':''}</div>`).join('') +
         `</div>`);
     }
   } else {
@@ -3816,7 +3900,7 @@ async function openStateSidePanel(stateName){
     const populated = stateJx.filter(jx => jx.status === 'populated');
     parts.push(`<div style="margin-bottom:12px"><div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Jurisdictions</div>
       <div style="font-size:11px;color:var(--text2)">${stateJx.length} total · <strong style="color:var(--green)">${populated.length}</strong> populated · ${populated.reduce((s,j)=>s+(j.judges?.length||0),0)} judges verified</div>
-      ${populated.slice(0,15).map(j => '<div style="padding:4px 0;font-size:10.5px;border-bottom:1px dotted var(--border)"><strong>'+j.county+'</strong> · '+(j.judges?.length||0)+' judges · <span style="color:var(--text3)">'+(j.courtSystem||'').slice(0,60)+'</span></div>').join('')}
+      ${populated.slice(0,15).map(j => '<div style="padding:4px 0;font-size:10.5px;border-bottom:1px dotted var(--border)"><strong>'+_esc(j.county)+'</strong> · '+(j.judges?.length||0)+' judges · <span style="color:var(--text3)">'+_esc((j.courtSystem||'').slice(0,60))+'</span></div>').join('')}
       ${populated.length>15?'<div style="font-size:10px;color:var(--text3);margin-top:4px">+'+(populated.length-15)+' more — see full profile</div>':''}
     </div>`);
   }
@@ -3826,7 +3910,7 @@ async function openStateSidePanel(stateName){
     const stateAc = appealsJson.courts.filter(c => c.state === stateName);
     if (stateAc.length) {
       parts.push(`<div style="margin-bottom:12px"><div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Appellate courts</div>
-        ${stateAc.map(c => '<div style="padding:4px 0;font-size:10.5px"><strong>'+c.name+'</strong> <span style="color:var(--text3)">· '+(c.level||'—')+'</span>'+(c.judges&&c.judges.length?' · <span style="color:var(--teal)">'+c.judges.length+' justices</span>':'')+'</div>').join('')}
+        ${stateAc.map(c => '<div style="padding:4px 0;font-size:10.5px"><strong>'+_esc(c.name)+'</strong> <span style="color:var(--text3)">· '+_esc(c.level||'—')+'</span>'+(c.judges&&c.judges.length?' · <span style="color:var(--teal)">'+c.judges.length+' justices</span>':'')+'</div>').join('')}
       </div>`);
     }
   }
@@ -3939,10 +4023,10 @@ async function _autofillMilPay(forcePush){
   if (res) {
     res.style.display = 'block';
     res.innerHTML =
-      '<strong style="color:var(--teal)">DFAS 2026 pay: ' + rank + (yos?' @ '+yos+'yr':'') + '</strong> · ' +
+      '<strong style="color:var(--teal)">DFAS 2026 pay: ' + _esc(rank) + (yos?' @ '+_esc(yos)+'yr':'') + '</strong> · ' +
       'Basic <strong>$' + (basic!=null?basic.toLocaleString():'—') + '</strong>' +
       ' · BAS <strong>$' + bas.toFixed(2) + '</strong>' +
-      ' · BAH <strong>$' + (bah||0).toLocaleString() + '</strong> <span style="color:var(--text3);font-size:10px">(' + bahSource + (bahMhaName?' · '+bahMhaName:'') + ')</span>' +
+      ' · BAH <strong>$' + (bah||0).toLocaleString() + '</strong> <span style="color:var(--text3);font-size:10px">(' + bahSource + (bahMhaName?' · '+_esc(bahMhaName):'') + ')</span>' +
       (duty>0 ? ' · Duty pays <strong>$' + duty.toLocaleString() + '</strong>' : '') +
       ' → <strong style="color:var(--teal)">Combined $' + Math.round(combined).toLocaleString() + '/mo</strong>' +
       '<br><span style="color:var(--text3);font-size:10px">' +
@@ -4116,7 +4200,7 @@ function runCalculator(){
       const fipsMap = {Alabama:"01",Alaska:"02",Arizona:"04",Arkansas:"05",California:"06",Colorado:"08",Connecticut:"09",Delaware:"10",Florida:"12",Georgia:"13",Hawaii:"15",Idaho:"16",Illinois:"17",Indiana:"18",Iowa:"19",Kansas:"20",Kentucky:"21",Louisiana:"22",Maine:"23",Maryland:"24",Massachusetts:"25",Michigan:"26",Minnesota:"27",Mississippi:"28",Missouri:"29",Montana:"30",Nebraska:"31",Nevada:"32","New Hampshire":"33","New Jersey":"34","New Mexico":"35","New York":"36","North Carolina":"37","North Dakota":"38",Ohio:"39",Oklahoma:"40",Oregon:"41",Pennsylvania:"42","Rhode Island":"44","South Carolina":"45","South Dakota":"46",Tennessee:"47",Texas:"48",Utah:"49",Vermont:"50",Virginia:"51",Washington:"53","West Virginia":"54",Wisconsin:"55",Wyoming:"56"};
       const fips = fipsMap[state]; const fin = fips && FIN50[fips];
       if (!fin) return '';
-      return `<div class="stitle">What we DO know about ${state} (HHS OCSE FY${fin.year||''})</div>
+      return `<div class="stitle">What we DO know about ${_esc(state)} (HHS OCSE FY${_esc(fin.year||'')})</div>
         <div style="font-size:11px;color:var(--text2);line-height:1.9">
         <div>IV-D collected annually: <strong>$${fin.ivd}M</strong></div>
         <div>Open IV-D cases: <strong>${fin.cases.toLocaleString()}</strong></div>
@@ -4129,7 +4213,7 @@ function runCalculator(){
     document.getElementById('calcTotal').textContent='—';
     document.getElementById('calcBreakdown').innerHTML =
       `<div class="ib amber" style="margin-top:6px">
-        Not enough submitted cases in ${state} yet to compute a reliable average. We require at least ${MIN} verified submissions before publishing cost estimates — otherwise the numbers are just guesses. Current: <strong>${base.length} in ${state}</strong>.
+        Not enough submitted cases in ${_esc(state)} yet to compute a reliable average. We require at least ${MIN} verified submissions before publishing cost estimates — otherwise the numbers are just guesses. Current: <strong>${base.length} in ${_esc(state)}</strong>.
       </div>${acfNote}`;
     document.getElementById('calcRisks').innerHTML='';
     document.getElementById('calcAdvice').innerHTML='';
@@ -4160,7 +4244,7 @@ function runCalculator(){
   const total=Math.round((atty?avgA:0)+avgF+(galR/100*avgGal)+(psychR/100*avgPsych)+(pcR/100*avgPc));
   document.getElementById('calcResults').style.display='block';
   document.getElementById('calcTotal').textContent=fmt(total);
-  document.getElementById('calcBreakdown').innerHTML=`<div class="stitle">Cost breakdown (${n} ${state} cases)</div>${[[`Attorney fees`,atty?fmt(avgA):'$0 (pro se)'],[`Court filing fees`,fmt(avgF)],[`GAL (${galR}% probability)`,fmt(Math.round(galR/100*avgGal))],[`Psych eval (${psychR}% probability)`,fmt(Math.round(psychR/100*avgPsych))],[`Parenting coordinator (${pcR}% prob.)`,fmt(Math.round(pcR/100*avgPc))]].map(([l,v])=>`<div class="calc-item"><span class="calc-label">${l}</span><span class="calc-value" style="color:var(--red)">${v}</span></div>`).join('')}`;
+  document.getElementById('calcBreakdown').innerHTML=`<div class="stitle">Cost breakdown (${n} ${_esc(state)} cases)</div>${[[`Attorney fees`,atty?fmt(avgA):'$0 (pro se)'],[`Court filing fees`,fmt(avgF)],[`GAL (${galR}% probability)`,fmt(Math.round(galR/100*avgGal))],[`Psych eval (${psychR}% probability)`,fmt(Math.round(psychR/100*avgPsych))],[`Parenting coordinator (${pcR}% prob.)`,fmt(Math.round(pcR/100*avgPc))]].map(([l,v])=>`<div class="calc-item"><span class="calc-label">${l}</span><span class="calc-value" style="color:var(--red)">${v}</span></div>`).join('')}`;
   document.getElementById('calcRisks').innerHTML=`<div class="stitle">Risk factors</div><div style="margin-bottom:8px"><span class="risk-pill ${gagR>40?'risk-high':gagR>20?'risk-med':'risk-low'}">${gagR}% gag order</span><span class="risk-pill ${faR>30?'risk-high':faR>15?'risk-med':'risk-low'}">${faR}% false allegation</span><span class="risk-pill ${cpsR>40?'risk-high':cpsR>20?'risk-med':'risk-low'}">${cpsR}% CPS investigation</span><span class="risk-pill ${inflRate>50?'risk-high':inflRate>25?'risk-med':'risk-low'}">${inflRate}% income imputation (+${avgInfl}% avg)</span></div><div style="font-size:11px;color:var(--text2);line-height:1.8"><div>Expected non-primary custody: <strong style="color:var(--red)">${nonPrimPct}%</strong> (Census: 18%)</div><div>Median days without child before first order: <strong style="color:var(--red)">${avgDays} days</strong></div><div>Median months to first custody order: <strong style="color:var(--amber)">${avgMonths} months</strong></div>${inflRate>40?`<div>If income imputed +${avgInfl}%: court sees <strong style="color:var(--red)">${fmt(Math.round(income*(1+avgInfl/100)))}/mo</strong> instead of ${fmt(income)}/mo</div>`:''}</div>`;
   document.getElementById('calcAdvice').innerHTML=`<div class="stitle">Act on this now</div>${[inflRate>40?`<div class="ci" style="border-left-color:var(--amber);margin-bottom:6px"><strong>Income imputation risk HIGH</strong> — Document every income source now. Get a CPA letter. Courts impute when documentation is absent.</div>`:null,faR>30?`<div class="ci" style="border-left-color:var(--amber);margin-bottom:6px"><strong>False allegation risk ELEVATED</strong> — Use text only for all communication. Install a doorbell camera. Never be alone with the other party without a witness.</div>`:null,gagR>40?`<div class="ci" style="border-left-color:var(--amber);margin-bottom:6px"><strong>Gag order probability HIGH</strong> — Tell your story publicly NOW before any order is issued. A gag order cannot suppress what is already public.</div>`:null].filter(Boolean).join('')||'<div style="font-size:11px;color:var(--text3)">No extreme risk factors for this profile — but prepare for all scenarios documented in this dataset.</div>'}`;
 }
@@ -4189,16 +4273,13 @@ function renderStateCostChart(){
 // SUBMIT CASE
 // ============================================================
 // ── Order-upload verification (anti-fraud + autofill) ────────────────────
-// Uploaded PDF is hashed locally (SHA-256) then posted to api_order_verify.php
-// which sends the PDF to Claude Vision with a strict "no PII" prompt and
-// returns structured statistical fields only (judge, county, custody split,
-// support amount, flags). The server DOES NOT persist the PDF — only the
-// hash is stored alongside the submission record for dedup. User's device is
-// the only place the raw file exists.
-async function _sha256Hex(buf){
-  var h = await crypto.subtle.digest('SHA-256', buf);
-  return Array.from(new Uint8Array(h)).map(b=>b.toString(16).padStart(2,'0')).join('');
-}
+// Uploaded PDF is posted to api_order_verify.php which computes the SHA-256
+// server-side (never trust a client-submitted hash — a malicious client
+// could claim an arbitrary hash), sends the PDF to Claude Vision with a
+// strict "no PII" prompt, and returns structured statistical fields only
+// (judge, county, custody split, support amount, flags). The server DOES
+// NOT persist the PDF — only the server-computed hash is stored in an
+// SQLite dedup table. User's device is the only place the raw file exists.
 
 // Pick-an-attorney click handler. When the AI finds multiple attorneys in
 // an order (caption, signature, appearance) but the role-guessing misassigns
@@ -4266,14 +4347,14 @@ async function handleOrderUpload(e){
     status.innerHTML = '<span style="color:var(--red)">File too large (10 MB max).</span>';
     return;
   }
-  status.innerHTML = '⟳ Hashing file locally…';
-  var buf = await file.arrayBuffer();
-  var hash = await _sha256Hex(buf);
   status.innerHTML = '⟳ Sending to AI for extraction (names/addresses are stripped by the prompt)…';
 
+  // We do NOT compute the hash here any more — the server computes it from
+  // the uploaded bytes so a malicious client can't claim someone else's
+  // hash (and thereby pre-block legitimate submissions or DoS the dedup
+  // table).
   var fd = new FormData();
   fd.append('order', file);
-  fd.append('hash', hash);
 
   try {
     var r = await fetch('/api_order_verify.php', { method:'POST', body: fd });
@@ -4317,7 +4398,7 @@ async function handleOrderUpload(e){
       return;
     }
     if (!j.ok){
-      status.innerHTML = '<span style="color:var(--amber)">Could not verify: ' + (j.error||'unknown error') + '. You can still submit without verification.</span>';
+      status.innerHTML = '<span style="color:var(--amber)">Could not verify: ' + _esc(j.error||'unknown error') + '. You can still submit without verification.</span>';
       return;
     }
     // Remember hash on the submission for dedup + badge logic
@@ -4354,7 +4435,7 @@ async function handleOrderUpload(e){
           }
         }
         if (!matched) {
-          if (label) skippedFields.push(label + ' (AI said "' + str + '" but dropdown had no matching option — fill manually)');
+          if (label) skippedFields.push(label + ' (AI said "' + _esc(str) + '" but dropdown had no matching option — fill manually)');
           return false;
         }
         el.value = matched.value || matched.textContent;
@@ -4589,7 +4670,7 @@ async function handleOrderUpload(e){
       : '';
     summary.innerHTML = filledBlock + skippedBlock + attyBlock + missingAttorneyNote;
   } catch(err){
-    status.innerHTML = '<span style="color:var(--amber)">Upload failed: ' + err.message + '. You can still submit without verification.</span>';
+    status.innerHTML = '<span style="color:var(--amber)">Upload failed: ' + _esc(err.message) + '. You can still submit without verification.</span>';
   }
 }
 
@@ -4877,8 +4958,8 @@ async function submitCase(){
           (data.smallJx ? 'Small-jurisdiction privacy window' : 'Privacy release window') +
           '</strong><br>' +
           (data.smallJx ? 'Your county has few existing submissions, so your entry is on an extended window: <strong>' + weeks + ' weeks</strong> from now' : 'Your submission is queued for <strong>' + weeks + ' weeks</strong> from now') +
-          (releaseDate ? ' (~' + releaseDate + ')' : '') + '. ' +
-          (data.privacyNote || 'This breaks timestamp correlation with a specific court event. You can edit or delete it anytime with your token.');
+          (releaseDate ? ' (~' + _esc(releaseDate) + ')' : '') + '. ' +
+          _esc(data.privacyNote || 'This breaks timestamp correlation with a specific court event. You can edit or delete it anytime with your token.');
       }
     } else if (data.error) {
       throw new Error(data.error);
@@ -4927,7 +5008,7 @@ async function submitAdultChild(){
 function renderAdultChildFeed(){
   const el=document.getElementById('adultChildFeed');if(!el)return;
   if(!adultChildAccounts.length){el.innerHTML='<div class="no-results">No adult child accounts yet — be the first to share your experience.</div>';return;}
-  el.innerHTML=adultChildAccounts.slice().reverse().map(a=>`<div class="feed-card"><div class="feed-top"><span class="feed-state">${a.state}</span><span class="feed-meta">Age at case: ${a.age} · ~${a.year}</span></div><div style="font-size:11px;color:var(--text2);line-height:1.6;margin-bottom:6px">${a.desc.slice(0,350)}${a.desc.length>350?'...':''}</div><div class="tag-row"><span class="tag">${a.arrangement}</span>${a.preference==='expressed_ignored'?'<span class="tag d">Preference ignored by court</span>':''}${a.relationship>0?'<span class="tag d">Lost relationship with parent</span>':''}${a.therapy?'<span class="tag w">Sought therapy related to custody</span>':''}${a.harm>=1?'<span class="tag d">Court process was the harm</span>':''}</div></div>`).join('');
+  el.innerHTML=adultChildAccounts.slice().reverse().map(a=>`<div class="feed-card"><div class="feed-top"><span class="feed-state">${_esc(a.state)}</span><span class="feed-meta">Age at case: ${_esc(a.age)} · ~${_esc(a.year)}</span></div><div style="font-size:11px;color:var(--text2);line-height:1.6;margin-bottom:6px">${_esc(a.desc.slice(0,350))}${a.desc.length>350?'...':''}</div><div class="tag-row"><span class="tag">${_esc(a.arrangement)}</span>${a.preference==='expressed_ignored'?'<span class="tag d">Preference ignored by court</span>':''}${a.relationship>0?'<span class="tag d">Lost relationship with parent</span>':''}${a.therapy?'<span class="tag w">Sought therapy related to custody</span>':''}${a.harm>=1?'<span class="tag d">Court process was the harm</span>':''}</div></div>`).join('');
 }
 
 // ============================================================
@@ -4982,17 +5063,17 @@ function filterJudges(){
   // Offer the submit form as the next step rather than a silent blank grid.
   if (wc.length === 0 && st && county) {
     const jx = (JURISDICTIONS || []).find(j => j.state === st && j.county === county);
-    const complaintLink = jx && jx.jtcUrl ? `<div style="margin-top:10px;font-size:11px;color:var(--text3)">Judicial complaint process: <a href="${jx.jtcUrl}" target="_blank" style="color:var(--teal)">${jx.jtcName||'File a complaint'} ↗</a></div>` : '';
-    const dirLink = jx && jx.directoryUrl ? `<div style="font-size:11px;color:var(--text3)">Official court directory: <a href="${jx.directoryUrl}" target="_blank" style="color:var(--teal)">${jx.directoryUrl} ↗</a></div>` : '';
+    const complaintLink = jx && jx.jtcUrl ? `<div style="margin-top:10px;font-size:11px;color:var(--text3)">Judicial complaint process: <a href="${_safeUrl(jx.jtcUrl)}" target="_blank" style="color:var(--teal)">${_esc(jx.jtcName||'File a complaint')} ↗</a></div>` : '';
+    const dirLink = jx && jx.directoryUrl ? `<div style="font-size:11px;color:var(--text3)">Official court directory: <a href="${_safeUrl(jx.directoryUrl)}" target="_blank" style="color:var(--teal)">${_esc(jx.directoryUrl)} ↗</a></div>` : '';
     document.getElementById('jGrid').innerHTML =
       `<div style="padding:28px;background:var(--bg2);border:1px dashed var(--border2);border-radius:10px;text-align:center;grid-column:1/-1">
-         <div style="font-size:16px;color:var(--text);font-weight:500;margin-bottom:8px">No judges yet for ${county}, ${st}</div>
+         <div style="font-size:16px;color:var(--text);font-weight:500;margin-bottom:8px">No judges yet for ${_esc(county)}, ${_esc(st)}</div>
          <div style="font-size:12px;color:var(--text3);line-height:1.7;margin-bottom:14px">This jurisdiction is scaffolded but no judge data has been submitted yet.<br>You can contribute by submitting a case below — anonymously, without identifying details.</div>
-         <button class="btn primary" onclick="prefillSubmitForCounty('${st.replace(/'/g,"\\'")}','${county.replace(/'/g,"\\'")}')" style="padding:10px 20px">📋 Submit your case for ${county}</button>
+         <button class="btn primary" onclick="prefillSubmitForCounty('${st.replace(/'/g,"\\'")}','${county.replace(/'/g,"\\'")}')" style="padding:10px 20px">📋 Submit your case for ${_esc(county)}</button>
          ${complaintLink}${dirLink}
        </div>`;
     document.getElementById('jMetrics').innerHTML =
-      `<div class="metric"><div class="ml">${county}</div><div class="mv" style="font-size:14px;color:var(--text3)">Pending</div></div>`;
+      `<div class="metric"><div class="ml">${_esc(county)}</div><div class="mv" style="font-size:14px;color:var(--text3)">Pending</div></div>`;
     return;
   }
   document.getElementById('jGrid').innerHTML=wc.map(({j,ci})=>{
@@ -5007,7 +5088,7 @@ function filterJudges(){
     const statRow = insufficient
       ? ''
       : `<div class="ss4" style="margin-top:8px"><div class="ss"><div class="ssl">→ mother</div><div class="ssv red">${s.toMother}%</div></div><div class="ss"><div class="ssl">Non-prim</div><div class="ssv red">${s.avgNonPrimPct}%</div></div><div class="ss"><div class="ssl">Gag/yr</div><div class="ssv purple">${s.gagOrders}</div></div><div class="ss"><div class="ssl">IV-D/yr</div><div class="ssv green">${fmt(r.total)}</div></div></div>`;
-    return`<div class="card${selJ===j.id?' selected':''}${j.campaignFinance.length?' flagged':''}" onclick="selJudge('${j.id}')" style="border-left:3px solid ${borderColor}"><div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:10px"><div class="avatar" style="${avS(j.initials)}">${j.initials}</div><div style="flex:1"><div class="card-name">${j.name}</div><div class="card-sub">${j.court}<br>${j.county} · ${j.state}</div></div>${rightBadge}</div>${midBar}${statRow}<div class="tag-row" style="margin-top:6px">${pb(j.party)}${j.afccMember?'<span class="tag p">AFCC</span>':''}${j.campaignFinance.length?'<span class="tag d">Campaign $</span>':''}${j.complaints.length?`<span class="tag d">${j.complaints.length} report${j.complaints.length>1?'s':''}</span>`:''}</div></div>`;
+    return`<div class="card${selJ===j.id?' selected':''}${j.campaignFinance.length?' flagged':''}" onclick="selJudge('${j.id}')" style="border-left:3px solid ${borderColor}"><div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:10px"><div class="avatar" style="${avS(j.initials)}">${_esc(j.initials)}</div><div style="flex:1"><div class="card-name">${_esc(j.name)}</div><div class="card-sub">${_esc(j.court)}<br>${_esc(j.county)} · ${_esc(j.state)}</div></div>${rightBadge}</div>${midBar}${statRow}<div class="tag-row" style="margin-top:6px">${pb(j.party)}${j.afccMember?'<span class="tag p">AFCC</span>':''}${j.campaignFinance.length?'<span class="tag d">Campaign $</span>':''}${j.complaints.length?`<span class="tag d">${j.complaints.length} report${j.complaints.length>1?'s':''}</span>`:''}</div></div>`;
   }).join('');
   // Only judges with ≥MIN_CASES submissions contribute to aggregate metrics.
   // Avoids a "$0 / 0 / 0" headline that would misrepresent the dataset.
@@ -5045,33 +5126,33 @@ function selJudge(id){
     ? `<div style="text-align:center;padding:10px;background:var(--bg3);border-radius:8px;min-width:110px"><div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;font-weight:500">Data pending</div><div style="font-size:22px;font-weight:700;font-family:monospace;color:var(--text2);margin-top:4px">${ds.cases}/${MIN_CASES}</div><div style="font-size:9px;color:var(--text3);margin-top:3px;line-height:1.4">Need ${MIN_CASES-ds.cases} more submissions<br>for grading</div></div>`
     : `<div style="text-align:center;padding:10px;background:var(--bg3);border-radius:8px"><div style="font-size:28px;font-weight:700;font-family:monospace;color:${ci.color}">${ci.grade}</div><div style="font-size:13px;font-family:monospace;color:${ci.color}">${ci.score}/100</div><div style="font-size:9px;color:var(--text3);margin-top:3px">${ci.label}</div></div>`;
   const metricsBlock = insufficient
-    ? `<div style="padding:18px;background:var(--bg3);border:1px dashed var(--border2);border-radius:8px;margin-bottom:1rem;text-align:center"><div style="font-size:14px;color:var(--text2);font-weight:500;margin-bottom:6px">Insufficient data to grade this judge</div><div style="font-size:11px;color:var(--text3);line-height:1.7">Statistics, custody distribution, and the corruption index require a minimum of ${MIN_CASES} verified case submissions.<br>Currently <strong style="color:var(--text2)">${ds.cases}</strong> submitted for ${j.name}.<br>Use the form below to contribute your case — anonymously, without identifying details.</div></div>`
+    ? `<div style="padding:18px;background:var(--bg3);border:1px dashed var(--border2);border-radius:8px;margin-bottom:1rem;text-align:center"><div style="font-size:14px;color:var(--text2);font-weight:500;margin-bottom:6px">Insufficient data to grade this judge</div><div style="font-size:11px;color:var(--text3);line-height:1.7">Statistics, custody distribution, and the corruption index require a minimum of ${MIN_CASES} verified case submissions.<br>Currently <strong style="color:var(--text2)">${ds.cases}</strong> submitted for ${_esc(j.name)}.<br>Use the form below to contribute your case — anonymously, without identifying details.</div></div>`
     : `<div class="stitle">Corruption Index — Component Breakdown</div><div style="padding:12px;background:var(--bg3);border-radius:8px;margin-bottom:1rem">${[['Outcome deviation from census (20%)',ci.components.outcome,'#f09090'],['Income inflation rate (15%)',ci.components.income,'#f08040'],['Appointment order rate (15%)',ci.components.appointments,'#78aee0'],['Enforcement intensity (10%)',ci.components.enforcement,'#f09090'],['Gag order rate (15%)',ci.components.suppression,'#b090e8'],['Campaign finance conflicts (10%)',ci.components.campaign,'#f0b840'],['Child removal rate (10%)',ci.components.removal,'#f09090'],['Pro se discrimination (5%)',ci.components.prose,'#f0c060']].map(([l,v,c])=>`<div class="brow"><div class="brl">${l}</div><div class="brtr"><div class="brf" style="width:${Math.round(v)}%;background:${c}"></div></div><div class="brv">${Math.round(v)}%</div></div>`).join('')}</div><div class="money-block"><div class="mb-title">Estimated annual state revenue generated by this judge</div><div class="money-grid3"><div class="mg"><div class="mgl">IV-D admin match (66%)</div><div class="mgv" style="color:var(--red)">${fmt(r.ivdA)}</div><div class="mgs">${s.annual} cases × $${s.avgSupport}/mo × 12</div></div><div class="mg"><div class="mgl">IV-D performance incentive</div><div class="mgv" style="color:var(--amber)">${fmt(r.ivdI)}</div><div class="mgs">~5% of annual collections</div></div><div class="mg"><div class="mgl">Spinoff appointment costs</div><div class="mgv" style="color:var(--blue)">${fmt(r.spin)}</div><div class="mgs">GAL ${s.galRate}% · Psych ${s.psychRate}% · PC ${s.pcRate}%</div></div></div></div><div class="bs-grid"><div class="bs"><div class="bsl">Annual cases</div><div class="bsv blue">${s.annual}</div></div><div class="bs"><div class="bsl">Avg support</div><div class="bsv red">$${s.avgSupport}/mo</div></div><div class="bs"><div class="bsl">Income inflation</div><div class="bsv red">+${s.incInfl}%</div></div><div class="bs"><div class="bsl">Children removed</div><div class="bsv amber">${s.removed}</div></div><div class="bs"><div class="bsl">Gag orders/yr</div><div class="bsv purple">${s.gagOrders}</div></div><div class="bs"><div class="bsl">Continuances/case</div><div class="bsv ${s.continuancesPerCase>5?'red':''}">${s.continuancesPerCase}</div></div><div class="bs"><div class="bsl">Pro se avg %</div><div class="bsv red">${s.proSeOutcome}%</div></div><div class="bs"><div class="bsl">Represented avg %</div><div class="bsv">${s.repOutcome}%</div></div><div class="bs"><div class="bsl">Ex parte PFAs/yr</div><div class="bsv purple">${s.poIssuedExParte||0}</div></div><div class="bs"><div class="bsl">% made final</div><div class="bsv ${s.poIssuedExParte>0 && (s.poMadeFinal/s.poIssuedExParte)>0.7?'red':''}">${s.poIssuedExParte>0?Math.round(s.poMadeFinal/s.poIssuedExParte*100):0}%</div></div><div class="bs"><div class="bsl">Warrants issued/yr</div><div class="bsv ${s.warrantsIssued>s.annual*0.3?'red':''}">${s.warrantsIssued||0}</div></div><div class="bs"><div class="bsl">Incarceration rate</div><div class="bsv ${s.incarcerationRate>20?'red':''}">${Math.round(s.incarcerationRate||0)}%</div></div></div><div style="margin-bottom:1rem"><div style="font-size:11px;font-weight:500;color:var(--text2);margin-bottom:6px">Custody distribution</div><div class="cbar"><div class="cbar-seg" style="width:${s.toMother}%;background:#C24040;color:#fff">${s.toMother}%</div><div class="cbar-seg" style="width:${s.toFather}%;background:#378ADD;color:#fff">${s.toFather}%</div><div class="cbar-seg" style="width:${s.joint}%;background:#639922;color:#fff">${s.joint}%</div></div><div class="cbar-labels"><span style="color:#C24040">Mother ${s.toMother}%</span><span style="color:#378ADD">Father ${s.toFather}%</span><span style="color:#639922">Joint ${s.joint}%</span></div></div>`;
-  document.getElementById('jDetail').innerHTML=`<div class="detail-hdr"><div class="avatar-lg" style="${avS(j.initials)}">${j.initials}</div><div style="flex:1"><div class="detail-name">${j.name}</div><div class="detail-sub">${j.court} · ${j.county} · ${j.state}<br>${j.electedOrAppointed==='elected'?'Elected':'Appointed'} ${j.appointed}</div><div class="detail-badges">${pb(j.party)}${j.afccMember?'<span class="tag p">AFCC member</span>':''}${j.memberships.map(m=>`<span class="tag">${m}</span>`).join('')}</div><div style="display:flex;gap:10px;margin-top:8px;flex-wrap:wrap">${j.jtcUrl?`<a href="${j.jtcUrl}" target="_blank" style="font-size:10px;color:var(--blue);text-decoration:none">${j.jtcComm||'Judicial conduct commission'} ↗</a>`:''}${j.barUrl?`<a href="${j.barUrl}" target="_blank" style="font-size:10px;color:var(--blue);text-decoration:none">Bar verification ↗</a>`:''}${j.financialDisclosureUrl?`<a href="${j.financialDisclosureUrl}" target="_blank" style="font-size:10px;color:var(--blue);text-decoration:none">Financial disclosure (state portal) ↗</a>`:''}</div></div>${gradeBadge}</div>
-  ${j.background?`<div style="font-size:11px;color:var(--text3);line-height:1.6;margin-bottom:1rem;padding:9px;background:var(--bg3);border-radius:6px">${j.background}</div>`:''}
+  document.getElementById('jDetail').innerHTML=`<div class="detail-hdr"><div class="avatar-lg" style="${avS(j.initials)}">${_esc(j.initials)}</div><div style="flex:1"><div class="detail-name">${_esc(j.name)}</div><div class="detail-sub">${_esc(j.court)} · ${_esc(j.county)} · ${_esc(j.state)}<br>${j.electedOrAppointed==='elected'?'Elected':'Appointed'} ${_esc(j.appointed)}</div><div class="detail-badges">${pb(j.party)}${j.afccMember?'<span class="tag p">AFCC member</span>':''}${j.memberships.map(m=>`<span class="tag">${_esc(m)}</span>`).join('')}</div><div style="display:flex;gap:10px;margin-top:8px;flex-wrap:wrap">${j.jtcUrl?`<a href="${_safeUrl(j.jtcUrl)}" target="_blank" style="font-size:10px;color:var(--blue);text-decoration:none">${_esc(j.jtcComm||'Judicial conduct commission')} ↗</a>`:''}${j.barUrl?`<a href="${_safeUrl(j.barUrl)}" target="_blank" style="font-size:10px;color:var(--blue);text-decoration:none">Bar verification ↗</a>`:''}${j.financialDisclosureUrl?`<a href="${_safeUrl(j.financialDisclosureUrl)}" target="_blank" style="font-size:10px;color:var(--blue);text-decoration:none">Financial disclosure (state portal) ↗</a>`:''}</div></div>${gradeBadge}</div>
+  ${j.background?`<div style="font-size:11px;color:var(--text3);line-height:1.6;margin-bottom:1rem;padding:9px;background:var(--bg3);border-radius:6px">${_esc(j.background)}</div>`:''}
   ${(function(){
     // Contact + role panel — shown only when at least one field is populated.
     // Renders tel: and maps links for phone and address so they're actionable.
     const rows = [];
-    if (j.role)      rows.push(['Role',      j.role]);
-    if (j.division)  rows.push(['Division',  j.division]);
-    if (j.courtroom) rows.push(['Courtroom', j.courtroom]);
-    if (j.phone)     rows.push(['Phone',     `<a href="tel:${j.phone.replace(/[^0-9+]/g,'')}" style="color:var(--teal);text-decoration:none">${j.phone}</a>`]);
-    if (j.fax)       rows.push(['Fax',       j.fax]);
-    if (j.address)   rows.push(['Address',   `<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(j.address)}" target="_blank" style="color:var(--teal);text-decoration:none">${j.address} ↗</a>`]);
+    if (j.role)      rows.push(['Role',      _esc(j.role)]);
+    if (j.division)  rows.push(['Division',  _esc(j.division)]);
+    if (j.courtroom) rows.push(['Courtroom', _esc(j.courtroom)]);
+    if (j.phone)     rows.push(['Phone',     `<a href="tel:${j.phone.replace(/[^0-9+]/g,'')}" style="color:var(--teal);text-decoration:none">${_esc(j.phone)}</a>`]);
+    if (j.fax)       rows.push(['Fax',       _esc(j.fax)]);
+    if (j.address)   rows.push(['Address',   `<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(j.address)}" target="_blank" style="color:var(--teal);text-decoration:none">${_esc(j.address)} ↗</a>`]);
     if (!rows.length) return '';
     return `<div style="background:var(--bg3);border-radius:6px;padding:10px 12px;margin-bottom:1rem;display:grid;grid-template-columns:110px 1fr;gap:4px 10px;font-size:11px;line-height:1.5">
       ${rows.map(([k,v]) => `<div style="color:var(--text3);font-size:10px;text-transform:uppercase;letter-spacing:0.04em;padding-top:2px">${k}</div><div style="color:var(--text2)">${v}</div>`).join('')}
     </div>`;
   })()}
   ${metricsBlock}
-  ${j.campaignFinance.length?`<div class="stitle">Campaign Finance (public record)</div>${j.campaignFinance.map(d=>`<div class="cf-item"><div class="cf-donor">${d.donor}${d.role?` (${d.role})`:''}</div><div style="display:flex;gap:8px;align-items:center"><div class="cf-date">${d.date}</div><div style="font-size:9px;padding:2px 7px;border-radius:3px;background:${d.caseWithin&&d.caseWithin!=='N/A'?'var(--redbg)':'var(--bg3)'};color:${d.caseWithin&&d.caseWithin!=='N/A'?'var(--red)':'var(--text3)'}">Within: ${d.caseWithin}</div><div class="cf-amt">$${d.amount.toLocaleString()}</div></div></div>`).join('')}`:''}
-  ${j.nextElection?`<div class="stitle">Electoral accountability</div><div style="background:var(--amberbg);border-radius:6px;padding:10px;font-size:11px;color:var(--text2);line-height:1.7">Next election: <strong style="color:var(--amber)">${j.nextElection}</strong> · ${j.electionCounty}, ${j.state}<br>✓ Vote against them · ✓ Share this profile with voters · ✓ Support their opponent · ✓ Contact local journalists about their campaign finance record</div>`:''}
+  ${j.campaignFinance.length?`<div class="stitle">Campaign Finance (public record)</div>${j.campaignFinance.map(d=>`<div class="cf-item"><div class="cf-donor">${_esc(d.donor)}${d.role?` (${_esc(d.role)})`:''}</div><div style="display:flex;gap:8px;align-items:center"><div class="cf-date">${_esc(d.date)}</div><div style="font-size:9px;padding:2px 7px;border-radius:3px;background:${d.caseWithin&&d.caseWithin!=='N/A'?'var(--redbg)':'var(--bg3)'};color:${d.caseWithin&&d.caseWithin!=='N/A'?'var(--red)':'var(--text3)'}">Within: ${_esc(d.caseWithin)}</div><div class="cf-amt">$${d.amount.toLocaleString()}</div></div></div>`).join('')}`:''}
+  ${j.nextElection?`<div class="stitle">Electoral accountability</div><div style="background:var(--amberbg);border-radius:6px;padding:10px;font-size:11px;color:var(--text2);line-height:1.7">Next election: <strong style="color:var(--amber)">${_esc(j.nextElection)}</strong> · ${_esc(j.electionCounty)}, ${_esc(j.state)}<br>✓ Vote against them · ✓ Share this profile with voters · ✓ Support their opponent · ✓ Contact local journalists about their campaign finance record</div>`:''}
   <div class="stitle">Public records (CourtListener · FEC · FollowTheMoney)</div>
   <div id="judge-enrich-${j.id}"></div>
   <div class="stitle">Community reports (${j.complaints.length})</div>
-  <div id="jcl-${j.id}">${j.complaints.length?j.complaints.map(c=>`<div class="ci"><strong>${c.type}</strong>: ${c.desc}<div class="cim">${c.year} · ${c.outcome}</div></div>`).join(''):'<div style="font-size:11px;color:var(--text3);padding:6px">No reports yet.</div>'}</div>
-  <div class="add-form"><h4>Submit a documented pattern report for ${j.name}</h4>
+  <div id="jcl-${j.id}">${j.complaints.length?j.complaints.map(c=>`<div class="ci"><strong>${_esc(c.type)}</strong>: ${_esc(c.desc)}<div class="cim">${_esc(c.year)} · ${_esc(c.outcome)}</div></div>`).join(''):'<div style="font-size:11px;color:var(--text3);padding:6px">No reports yet.</div>'}</div>
+  <div class="add-form"><h4>Submit a documented pattern report for ${_esc(j.name)}</h4>
     <div class="fr2"><div class="fg"><label>Pattern type</label><select id="jc-type"><option>Income imputation — no record basis</option><option>Bias in ruling</option><option>Ignored evidence</option><option>Ex parte contact</option><option>Predetermined outcome</option><option>Gag order — overbroad</option><option>Campaign finance conflict</option><option>CPS involvement irregularity</option><option>AFCC ecosystem conflict</option><option>Continuances — billing pattern</option></select></div><div class="fg"><label>Year</label><input type="number" id="jc-year" placeholder="2023" min="1990" max="2030" step="1"/></div><div class="fg"><label>Outcome</label><select id="jc-outcome"><option>Trial verdict</option><option>Settled under duress</option><option>Modification denied</option><option>Appealed</option></select></div><div class="fg"><label>Custody % received</label><input type="number" id="jc-pct" placeholder="14"/></div></div>
     <div class="fg"><label>Description — full names of attorneys/appointees in official capacity appropriate</label><textarea id="jc-desc" placeholder="Document the pattern factually..."></textarea></div>
     <button class="btn primary" onclick="submitJC('${j.id}')">Submit report</button>
@@ -5088,7 +5169,7 @@ function submitJC(jid){
   const desc=document.getElementById('jc-desc').value;if(!desc)return;
   const c={type:document.getElementById('jc-type').value,year:document.getElementById('jc-year').value||'2024',outcome:document.getElementById('jc-outcome').value,pct:document.getElementById('jc-pct').value||'?',desc};
   const j=JUDGES.find(x=>x.id===jid);if(!j)return;j.complaints.push(c);
-  const el=document.getElementById('jcl-'+jid);if(el)el.innerHTML+=`<div class="ci"><strong>${c.type}</strong>: ${c.desc}<div class="cim">${c.year} · ${c.outcome}</div></div>`;
+  const el=document.getElementById('jcl-'+jid);if(el)el.innerHTML+=`<div class="ci"><strong>${_esc(c.type)}</strong>: ${_esc(c.desc)}<div class="cim">${_esc(c.year)} · ${_esc(c.outcome)}</div></div>`;
   document.getElementById('jc-ok-'+jid).style.display='block';document.getElementById('jc-desc').value='';filterJudges();
   setTimeout(()=>{const e=document.getElementById('jc-ok-'+jid);if(e)e.style.display='none';},4000);
 }
@@ -5104,7 +5185,7 @@ function filterAttorneys(){
   else if(sort==='revenue')list=[...list].sort((a,b)=>aRev(b).annual-aRev(a).annual);
   else if(sort==='false_alleg')list=[...list].sort((a,b)=>b.falseAlleg-a.falseAlleg);
   else if(sort==='continuances')list=[...list].sort((a,b)=>b.continuancesReq-a.continuancesReq);
-  document.getElementById('aGrid').innerHTML=list.map(a=>{const b=aBias(a),r=aRev(a),col=b.comp>50?'red':b.comp>25?'amber':'green';return`<div class="card${selA===a.id?' selected':''}${a.campaignDonations.length?' flagged':''}" onclick="selAtty('${a.id}')"><div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:10px"><div class="avatar" style="${avS(a.initials)}">${a.initials}</div><div><div class="card-name">${a.name}</div><div class="card-sub">Bar #${a.barNum} · ${a.state}<br>Represents: <strong>${a.typRep}</strong></div></div></div><div class="ss4"><div class="ss"><div class="ssl">False alleg</div><div class="ssv ${b.fp>50?'red':''}">${b.fp}%</div></div><div class="ss"><div class="ssl">Ex parte</div><div class="ssv ${a.exParte>0?'amber':''}">${a.exParte}</div></div><div class="ss"><div class="ssl">Cont./case</div><div class="ssv ${a.continuancesReq>5?'red':''}">${a.continuancesReq}</div></div><div class="ss"><div class="ssl">Bias</div><div class="ssv ${col}">${b.comp}</div></div></div><div class="ss3"><div class="ss"><div class="ssl">Annual rev.</div><div class="ssv green">${fmt(r.annual)}</div></div><div class="ss"><div class="ssl">Avg fee</div><div class="ssv">${fmt(a.avgFee)}</div></div><div class="ss"><div class="ssl">Career</div><div class="ssv amber">${fmt(r.career)}</div></div></div><div class="tag-row" style="margin-top:6px">${a.afccMember?'<span class="tag p">AFCC</span>':''}${a.campaignDonations.length?'<span class="tag d">Campaign donations</span>':''}</div></div>`;}).join('');
+  document.getElementById('aGrid').innerHTML=list.map(a=>{const b=aBias(a),r=aRev(a),col=b.comp>50?'red':b.comp>25?'amber':'green';return`<div class="card${selA===a.id?' selected':''}${a.campaignDonations.length?' flagged':''}" onclick="selAtty('${a.id}')"><div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:10px"><div class="avatar" style="${avS(a.initials)}">${_esc(a.initials)}</div><div><div class="card-name">${_esc(a.name)}</div><div class="card-sub">Bar #${_esc(a.barNum)} · ${_esc(a.state)}<br>Represents: <strong>${_esc(a.typRep)}</strong></div></div></div><div class="ss4"><div class="ss"><div class="ssl">False alleg</div><div class="ssv ${b.fp>50?'red':''}">${b.fp}%</div></div><div class="ss"><div class="ssl">Ex parte</div><div class="ssv ${a.exParte>0?'amber':''}">${a.exParte}</div></div><div class="ss"><div class="ssl">Cont./case</div><div class="ssv ${a.continuancesReq>5?'red':''}">${a.continuancesReq}</div></div><div class="ss"><div class="ssl">Bias</div><div class="ssv ${col}">${b.comp}</div></div></div><div class="ss3"><div class="ss"><div class="ssl">Annual rev.</div><div class="ssv green">${fmt(r.annual)}</div></div><div class="ss"><div class="ssl">Avg fee</div><div class="ssv">${fmt(a.avgFee)}</div></div><div class="ss"><div class="ssl">Career</div><div class="ssv amber">${fmt(r.career)}</div></div></div><div class="tag-row" style="margin-top:6px">${a.afccMember?'<span class="tag p">AFCC</span>':''}${a.campaignDonations.length?'<span class="tag d">Campaign donations</span>':''}</div></div>`;}).join('');
   document.getElementById('aMetrics').innerHTML=`<div class="metric"><div class="ml">Attorneys tracked</div><div class="mv">${ATTORNEYS.length}</div></div><div class="metric"><div class="ml">Combined annual revenue</div><div class="mv green">${fmt(ATTORNEYS.reduce((s,a)=>s+aRev(a).annual,0))}</div></div><div class="metric"><div class="ml">False allegations total</div><div class="mv red">${ATTORNEYS.reduce((s,a)=>s+a.falseAlleg,0)}</div></div><div class="metric"><div class="ml">Avg continuances/case</div><div class="mv amber">${+(ATTORNEYS.reduce((s,a)=>s+a.continuancesReq,0)/ATTORNEYS.length).toFixed(1)}</div></div>`;
 }
 
@@ -5113,16 +5194,16 @@ function selAtty(id){
   const a=ATTORNEYS.find(x=>x.id===id);if(!a)return;
   const b=aBias(a),r=aRev(a),col=b.comp>60?'var(--red)':b.comp>30?'var(--amber)':'var(--green)';
   const tot=a.wins.m+a.wins.f+a.wins.j;
-  document.getElementById('aDetail').innerHTML=`<div class="detail-hdr"><div class="avatar-lg" style="${avS(a.initials)}">${a.initials}</div><div><div class="detail-name">${a.name}</div><div class="detail-sub">Bar #${a.barNum} · ${a.state} · Licensed ${a.licensed} · Represents: <strong>${a.typRep}</strong></div><div class="detail-badges">${a.memberships.map(m=>`<span class="tag">${m}</span>`).join('')}${a.afccMember?'<span class="tag p">AFCC</span>':''}</div><a href="${a.barUrl}" target="_blank" style="font-size:10px;color:var(--blue);text-decoration:none;margin-top:5px;display:inline-block">Verify bar license ↗</a></div></div>
+  document.getElementById('aDetail').innerHTML=`<div class="detail-hdr"><div class="avatar-lg" style="${avS(a.initials)}">${_esc(a.initials)}</div><div><div class="detail-name">${_esc(a.name)}</div><div class="detail-sub">Bar #${_esc(a.barNum)} · ${_esc(a.state)} · Licensed ${_esc(a.licensed)} · Represents: <strong>${_esc(a.typRep)}</strong></div><div class="detail-badges">${a.memberships.map(m=>`<span class="tag">${_esc(m)}</span>`).join('')}${a.afccMember?'<span class="tag p">AFCC</span>':''}</div><a href="${_safeUrl(a.barUrl)}" target="_blank" style="font-size:10px;color:var(--blue);text-decoration:none;margin-top:5px;display:inline-block">Verify bar license ↗</a></div></div>
   <div style="background:var(--greenbg);border:1px solid rgba(128,196,80,.15);border-radius:8px;padding:12px;margin-bottom:1rem"><div style="font-size:10px;color:#507040;text-transform:uppercase;margin-bottom:4px">Estimated annual revenue</div><div style="font-size:24px;font-weight:500;font-family:monospace;color:var(--green)">${fmt(r.annual)}</div><div style="font-size:10px;color:var(--text3)">${a.casesPerYear} cases × $${a.avgFee.toLocaleString()} · Career: ${fmt(r.career)}</div></div>
   <div class="bs-grid"><div class="bs"><div class="bsl">False alleg rate</div><div class="bsv red">${b.fp}%</div><div class="bss">${a.falseAlleg} filed / ${a.falseFound} founded</div></div><div class="bs"><div class="bsl">Ex parte contacts</div><div class="bsv amber">${a.exParte}</div></div><div class="bs"><div class="bsl">Continuances/case</div><div class="bsv ${a.continuancesReq>5?'red':''}">${a.continuancesReq}</div></div><div class="bs"><div class="bsl">Bias score</div><div class="bsv" style="color:${col}">${b.comp}/100</div></div></div>
-  ${a.campaignDonations.length?`<div class="stitle">Campaign Donations to Presiding Judges</div>${a.campaignDonations.map(d=>`<div class="cf-item"><div class="cf-donor">${d.judge}</div><div style="display:flex;gap:8px"><div class="cf-date">${d.date}</div><div class="cf-amt">$${d.amount.toLocaleString()}</div></div></div>`).join('')}`:''}
+  ${a.campaignDonations.length?`<div class="stitle">Campaign Donations to Presiding Judges</div>${a.campaignDonations.map(d=>`<div class="cf-item"><div class="cf-donor">${_esc(d.judge)}</div><div style="display:flex;gap:8px"><div class="cf-date">${_esc(d.date)}</div><div class="cf-amt">$${d.amount.toLocaleString()}</div></div></div>`).join('')}`:''}
   <div class="stitle">Outcomes (${tot} tracked)</div>
   <div style="display:flex;gap:8px;margin-bottom:1rem"><div class="ss" style="flex:1;padding:10px"><div class="ssl">→ mother</div><div class="ssv red">${a.wins.m} (${Math.round(a.wins.m/tot*100)}%)</div></div><div class="ss" style="flex:1;padding:10px"><div class="ssl">→ father</div><div class="ssv blue">${a.wins.f} (${Math.round(a.wins.f/tot*100)}%)</div></div><div class="ss" style="flex:1;padding:10px"><div class="ssl">joint</div><div class="ssv green">${a.wins.j}</div></div><div class="ss" style="flex:1;padding:10px"><div class="ssl">avg duration</div><div class="ssv">${a.avgDuration}mo</div></div></div>
-  ${a.notes?`<div style="font-size:11px;color:var(--text2);padding:9px;background:var(--bg3);border-radius:6px;border-left:3px solid var(--amber);line-height:1.6;margin-bottom:1rem">${a.notes}</div>`:''}
+  ${a.notes?`<div style="font-size:11px;color:var(--text2);padding:9px;background:var(--bg3);border-radius:6px;border-left:3px solid var(--amber);line-height:1.6;margin-bottom:1rem">${_esc(a.notes)}</div>`:''}
   <div class="stitle">Community reports (${a.complaints.length})</div>
-  <div id="acl-${a.id}">${a.complaints.length?a.complaints.map(c=>`<div class="ci">${c.desc}<div class="cim">${c.year} · ${c.type}</div></div>`).join(''):'<div style="font-size:11px;color:var(--text3);padding:6px">No reports yet.</div>'}</div>
-  <div class="add-form"><h4>Submit a report for ${a.name}</h4>
+  <div id="acl-${a.id}">${a.complaints.length?a.complaints.map(c=>`<div class="ci">${_esc(c.desc)}<div class="cim">${_esc(c.year)} · ${_esc(c.type)}</div></div>`).join(''):'<div style="font-size:11px;color:var(--text3);padding:6px">No reports yet.</div>'}</div>
+  <div class="add-form"><h4>Submit a report for ${_esc(a.name)}</h4>
     <div class="fr2"><div class="fg"><label>Type</label><select id="ac-type-${a.id}"><option>False allegation</option><option>Ex parte contact</option><option>Campaign donation conflict</option><option>Continuances — billing</option><option>AFCC conflict</option><option>Evidence suppression</option></select></div><div class="fg"><label>Year</label><input type="number" id="ac-year-${a.id}" placeholder="2023" min="1990" max="2030" step="1"/></div></div>
     <div class="fg"><label>Description</label><textarea id="ac-desc-${a.id}"></textarea></div>
     <button class="btn primary" onclick="submitAC('${a.id}')">Submit</button>
@@ -5136,7 +5217,7 @@ function submitAC(aid){
   const r={type:document.getElementById('ac-type-'+aid)?.value,year:document.getElementById('ac-year-'+aid)?.value||'2024',desc};
   const a=ATTORNEYS.find(x=>x.id===aid);if(!a)return;a.complaints.push(r);
   if(r.type?.includes('allegation'))a.falseAlleg++;
-  const el=document.getElementById('acl-'+aid);if(el)el.innerHTML+=`<div class="ci">${r.desc}<div class="cim">${r.year} · ${r.type}</div></div>`;
+  const el=document.getElementById('acl-'+aid);if(el)el.innerHTML+=`<div class="ci">${_esc(r.desc)}<div class="cim">${_esc(r.year)} · ${_esc(r.type)}</div></div>`;
   document.getElementById('ac-ok-'+aid).style.display='block';filterAttorneys();
   setTimeout(()=>{const e=document.getElementById('ac-ok-'+aid);if(e)e.style.display='none';},3000);
 }
@@ -5147,7 +5228,7 @@ function submitAC(aid){
 function filterAp(){
   const t=document.getElementById('ap-type').value,st=document.getElementById('ap-state').value,q=document.getElementById('ap-search').value.toLowerCase();
   const list=APPOINTEES.filter(a=>(!t||a.type===t)&&(!st||a.state===st)&&(!q||a.name.toLowerCase().includes(q)));
-  document.getElementById('apGrid').innerHTML=list.map(a=>{const ini=(a.name.match(/\b[A-Z]/g)||[]).join('').slice(0,2)||a.name.slice(0,2).toUpperCase();return`<div class="card" onclick="selAp('${a.id}')"><div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:10px"><div class="avatar" style="${avS(ini)}">${ini}</div><div><div class="apt ${tcls(a.type)}">${tlbl(a.type)}</div><div class="card-name">${a.name}</div><div class="card-sub">${a.state} · ${a.court}</div></div></div><div class="ss3"><div class="ss"><div class="ssl">Avg cost</div><div class="ssv red">$${(a.avgTotal||0).toLocaleString()}</div></div><div class="ss"><div class="ssl">Pays</div><div class="ssv" style="font-size:8px;font-family:sans-serif">${a.pays}</div></div>${a.custMother!=null?`<div class="ss"><div class="ssl">Rec. mother</div><div class="ssv ${a.custMother>75?'red':a.custMother>60?'amber':'green'}">${a.custMother}%</div></div>`:''}</div><div class="tag-row" style="margin-top:8px">${a.afcc?'<span class="tag p">AFCC</span>':''}${a.cert.slice(0,2).map(c=>`<span class="tag">${c}</span>`).join('')}</div></div>`;}).join('');
+  document.getElementById('apGrid').innerHTML=list.map(a=>{const ini=(a.name.match(/\b[A-Z]/g)||[]).join('').slice(0,2)||a.name.slice(0,2).toUpperCase();return`<div class="card" onclick="selAp('${a.id}')"><div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:10px"><div class="avatar" style="${avS(ini)}">${_esc(ini)}</div><div><div class="apt ${tcls(a.type)}">${tlbl(a.type)}</div><div class="card-name">${_esc(a.name)}</div><div class="card-sub">${_esc(a.state)} · ${_esc(a.court)}</div></div></div><div class="ss3"><div class="ss"><div class="ssl">Avg cost</div><div class="ssv red">$${(a.avgTotal||0).toLocaleString()}</div></div><div class="ss"><div class="ssl">Pays</div><div class="ssv" style="font-size:8px;font-family:sans-serif">${_esc(a.pays)}</div></div>${a.custMother!=null?`<div class="ss"><div class="ssl">Rec. mother</div><div class="ssv ${a.custMother>75?'red':a.custMother>60?'amber':'green'}">${a.custMother}%</div></div>`:''}</div><div class="tag-row" style="margin-top:8px">${a.afcc?'<span class="tag p">AFCC</span>':''}${a.cert.slice(0,2).map(c=>`<span class="tag">${_esc(c)}</span>`).join('')}</div></div>`;}).join('');
   const n=APPOINTEES.length,avg=Math.round(APPOINTEES.reduce((s,a)=>s+(a.avgTotal||0),0)/n),avmr=Math.round(APPOINTEES.filter(a=>a.custMother!=null).reduce((s,a)=>s+a.custMother,0)/Math.max(1,APPOINTEES.filter(a=>a.custMother!=null).length)),afccCnt=APPOINTEES.filter(a=>a.afcc).length;
   document.getElementById('apMetrics').innerHTML=`<div class="metric"><div class="ml">Appointees tracked</div><div class="mv">${n}</div></div><div class="metric"><div class="ml">Avg cost/case</div><div class="mv red">$${avg.toLocaleString()}</div></div><div class="metric"><div class="ml">AFCC members</div><div class="mv purple">${afccCnt}/${n}</div></div><div class="metric"><div class="ml">Avg mother-primary rec.</div><div class="mv red">${avmr}%</div></div>`;
 }
@@ -5155,7 +5236,7 @@ function filterAp(){
 function selAp(id){
   const a=APPOINTEES.find(x=>x.id===id);if(!a)return;
   const ini=(a.name.match(/\b[A-Z]/g)||[]).join('').slice(0,2)||a.name.slice(0,2).toUpperCase();
-  document.getElementById('apDetail').innerHTML=`<div class="detail-hdr"><div class="avatar-lg" style="${avS(ini)}">${ini}</div><div><div class="detail-name">${a.name}</div><div class="detail-sub">${a.state} · ${a.court}</div><div class="detail-badges"><span class="apt ${tcls(a.type)}" style="font-size:11px">${tlbl(a.type)}</span>${a.afcc?'<span class="tag p">AFCC member</span>':''}${a.cert.map(c=>`<span class="tag">${c}</span>`).join('')}</div>${a.appointedBy?.length?`<div style="font-size:10px;color:var(--text3);margin-top:6px">Appointed by: ${a.appointedBy.join(', ')}</div>`:''}</div></div><div class="bs-grid-3"><div class="bs"><div class="bsl">Fee/hour</div><div class="bsv red">$${a.feeHour}/hr</div></div><div class="bs"><div class="bsl">Fee/report</div><div class="bsv amber">$${(a.feeReport||0).toLocaleString()}</div></div><div class="bs"><div class="bsl">Avg total/case</div><div class="bsv red">$${(a.avgTotal||0).toLocaleString()}</div></div>${a.custMother!=null?`<div class="bs"><div class="bsl">Rec. mother primary</div><div class="bsv red">${a.custMother}%</div></div>`:''}<div class="bs"><div class="bsl">Who pays</div><div class="bsv" style="font-size:11px;font-weight:400">${a.pays}</div></div><div class="bs"><div class="bsl">AFCC</div><div class="bsv ${a.afcc?'purple':''}">${a.afcc?'Yes':'No'}</div></div></div><div style="font-size:11px;padding:9px;background:var(--bg3);border-radius:6px;border-left:3px solid ${(a.custMother||0)>75?'var(--red)':'var(--amber)'};line-height:1.6;color:var(--text2)">${a.notes}</div>`;
+  document.getElementById('apDetail').innerHTML=`<div class="detail-hdr"><div class="avatar-lg" style="${avS(ini)}">${_esc(ini)}</div><div><div class="detail-name">${_esc(a.name)}</div><div class="detail-sub">${_esc(a.state)} · ${_esc(a.court)}</div><div class="detail-badges"><span class="apt ${tcls(a.type)}" style="font-size:11px">${tlbl(a.type)}</span>${a.afcc?'<span class="tag p">AFCC member</span>':''}${a.cert.map(c=>`<span class="tag">${_esc(c)}</span>`).join('')}</div>${a.appointedBy?.length?`<div style="font-size:10px;color:var(--text3);margin-top:6px">Appointed by: ${_esc(a.appointedBy.join(', '))}</div>`:''}</div></div><div class="bs-grid-3"><div class="bs"><div class="bsl">Fee/hour</div><div class="bsv red">$${a.feeHour}/hr</div></div><div class="bs"><div class="bsl">Fee/report</div><div class="bsv amber">$${(a.feeReport||0).toLocaleString()}</div></div><div class="bs"><div class="bsl">Avg total/case</div><div class="bsv red">$${(a.avgTotal||0).toLocaleString()}</div></div>${a.custMother!=null?`<div class="bs"><div class="bsl">Rec. mother primary</div><div class="bsv red">${a.custMother}%</div></div>`:''}<div class="bs"><div class="bsl">Who pays</div><div class="bsv" style="font-size:11px;font-weight:400">${_esc(a.pays)}</div></div><div class="bs"><div class="bsl">AFCC</div><div class="bsv ${a.afcc?'purple':''}">${a.afcc?'Yes':'No'}</div></div></div><div style="font-size:11px;padding:9px;background:var(--bg3);border-radius:6px;border-left:3px solid ${(a.custMother||0)>75?'var(--red)':'var(--amber)'};line-height:1.6;color:var(--text2)">${_esc(a.notes)}</div>`;
   document.getElementById('apDetail').classList.add('active');
 }
 
@@ -5183,7 +5264,7 @@ function renderAppeals(){
   mkChart('aoChart',{type:'doughnut',data:{labels:['Affirmed','Reversed','Remanded','Partial','Dismissed'],datasets:[{data:['Affirmed','Reversed','Remanded','Partial','Dismissed'].map(o=>APPEALS.filter(a=>a.outcome===o).length),backgroundColor:['#C24040','#639922','#BA7517','#378ADD','#444']}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{size:10},boxWidth:8,color:'#9a9690'}}}}});
   mkChart('acChart',{type:'bar',data:{labels:['Transcript','Filing','Attorney','Mailing'],datasets:[{data:['transcript','filing','attorney','mailing'].map(k=>Math.round(APPEALS.reduce((s,a)=>s+(a[k]||0),0)/APPEALS.length)),backgroundColor:['#378ADD','#BA7517','#C24040','#555']}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{ticks:{...TC,callback:v=>'$'+v.toLocaleString()},grid:GC},x:{ticks:TC,grid:{display:false}}}}});
   const cls={Affirmed:'aff',Reversed:'rev',Remanded:'rem',Partial:'par'};
-  document.getElementById('appealList').innerHTML=APPEALS.map(a=>{const tot=(a.transcript||0)+(a.filing||0)+(a.attorney||0)+(a.mailing||0);return`<div class="ap-card ${cls[a.outcome]||''}"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px"><div><div style="font-size:12px;font-weight:500">${a.court}</div><div style="font-size:10px;color:var(--text3)">${a.state} · ${a.year} · ${a.grounds}${a.judge?' · '+a.judge:''} · ${a.duration}mo</div></div><span class="ob ob-${(cls[a.outcome]||'dis')}">${a.outcome}</span></div><div style="font-size:11px;color:var(--text2);line-height:1.5;margin-bottom:5px">${a.notes}</div><div class="cost-bd"><div class="ci-cost">Transcript: <span>$${(a.transcript||0).toLocaleString()}</span></div><div class="ci-cost">Filing: <span>$${(a.filing||0).toLocaleString()}</span></div><div class="ci-cost">Attorney: <span>$${(a.attorney||0).toLocaleString()}</span></div><div class="ci-cost">Total: <span style="color:var(--red)">$${tot.toLocaleString()}</span></div></div></div>`;}).join('');
+  document.getElementById('appealList').innerHTML=APPEALS.map(a=>{const tot=(a.transcript||0)+(a.filing||0)+(a.attorney||0)+(a.mailing||0);return`<div class="ap-card ${cls[a.outcome]||''}"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px"><div><div style="font-size:12px;font-weight:500">${_esc(a.court)}</div><div style="font-size:10px;color:var(--text3)">${_esc(a.state)} · ${_esc(a.year)} · ${_esc(a.grounds)}${a.judge?' · '+_esc(a.judge):''} · ${a.duration}mo</div></div><span class="ob ob-${(cls[a.outcome]||'dis')}">${_esc(a.outcome)}</span></div><div style="font-size:11px;color:var(--text2);line-height:1.5;margin-bottom:5px">${_esc(a.notes)}</div><div class="cost-bd"><div class="ci-cost">Transcript: <span>$${(a.transcript||0).toLocaleString()}</span></div><div class="ci-cost">Filing: <span>$${(a.filing||0).toLocaleString()}</span></div><div class="ci-cost">Attorney: <span>$${(a.attorney||0).toLocaleString()}</span></div><div class="ci-cost">Total: <span style="color:var(--red)">$${tot.toLocaleString()}</span></div></div></div>`;}).join('');
 }
 
 function submitAppeal(){
@@ -5230,7 +5311,7 @@ async function renderNetwork(){
   html += '<div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Current AFCC Board (public record, afccnet.org)</div>';
   html += publicOfficers.map(p => {
     const cls = p.category === 'judge' ? 'judge' : p.category === 'attorney' ? 'attorney' : 'gal';
-    return `<span class="network-node ${cls}" title="${p.role}">${p.name}</span>`;
+    return `<span class="network-node ${cls}" title="${_esc(p.role)}">${_esc(p.name)}</span>`;
   }).join('');
   html += '</div>';
 
@@ -5238,7 +5319,7 @@ async function renderNetwork(){
     html += '<div style="margin-bottom:10px"><div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Additional AFCC members identified through case submissions</div>';
     html += submitterAFCC.map(p => {
       const cls = p.category === 'judge' ? 'judge' : p.category === 'attorney' ? 'attorney' : 'gal';
-      return `<span class="network-node ${cls}" title="${p.role}">${p.name}</span>`;
+      return `<span class="network-node ${cls}" title="${_esc(p.role)}">${_esc(p.name)}</span>`;
     }).join('');
     html += '</div>';
   } else {
@@ -5249,7 +5330,7 @@ async function renderNetwork(){
   html += '<div style="font-size:10px;color:var(--text3);border-top:1px solid var(--border);padding-top:8px;margin-top:8px;line-height:1.7">';
   html += '<strong>How to verify AFCC membership:</strong><br>';
   (roster.externalSources||[]).forEach(s => {
-    html += `· <a href="${s.url}" target="_blank" rel="noopener">${s.label}</a> — <span style="color:var(--text3)">${s.note||''}</span><br>`;
+    html += `· <a href="${_safeUrl(s.url)}" target="_blank" rel="noopener">${_esc(s.label)}</a> — <span style="color:var(--text3)">${_esc(s.note||'')}</span><br>`;
   });
   html += 'When a judge, their appointed GAL, and their ordered evaluator are all AFCC members, it creates a closed financial ecosystem. This is documented cross-referral — not a conspiracy theory.</div>';
 
@@ -5289,7 +5370,7 @@ async function renderNetwork(){
   const cfEl = document.getElementById('cfTable');
   if (cfEl) {
     cfEl.innerHTML = cfRows.length
-      ? cfRows.map(r=>`<div class="cf-item"><div class="cf-donor"><strong>${r.attorney}</strong>${r.bar?` Bar #${r.bar} · ${r.state}`:''}</div><div style="display:flex;gap:8px;align-items:center"><div class="cf-date">${r.date}</div><div style="font-size:9px;padding:2px 7px;border-radius:3px;background:${r.within==='2 years'?'var(--redbg)':'var(--bg3)'};color:${r.within==='2 years'?'var(--red)':'var(--text3)'}">→ ${r.judge} · ${r.within}</div><div class="cf-amt">$${r.amount.toLocaleString()}</div></div></div>`).join('')
+      ? cfRows.map(r=>`<div class="cf-item"><div class="cf-donor"><strong>${_esc(r.attorney)}</strong>${r.bar?` Bar #${_esc(r.bar)} · ${_esc(r.state)}`:''}</div><div style="display:flex;gap:8px;align-items:center"><div class="cf-date">${_esc(r.date)}</div><div style="font-size:9px;padding:2px 7px;border-radius:3px;background:${r.within==='2 years'?'var(--redbg)':'var(--bg3)'};color:${r.within==='2 years'?'var(--red)':'var(--text3)'}">→ ${_esc(r.judge)} · ${_esc(r.within)}</div><div class="cf-amt">$${r.amount.toLocaleString()}</div></div></div>`).join('')
       : '<div style="font-size:10.5px;color:var(--text3);padding:12px;text-align:center;line-height:1.65">No campaign-finance records from the case dataset yet. In the 39 states with judicial elections, state-published donor filings can be looked up through each state\'s campaign-finance portal (e.g., Texas Ethics Commission, Ohio Secretary of State, Florida Division of Elections). Submit a case noting attorney→judge donations to populate this table.</div>';
   }
 }
@@ -5389,8 +5470,21 @@ function _selectionLabel(method){
   }[method] || method);
 }
 
+// Escape hatch if the user really wants to see every state's upcoming
+// elections at once (journalist / policy researcher use case).
+function _electionsShowAll(){
+  window._electionsShowAllStates = true;
+  const s = document.getElementById('elec-filter-state');
+  if (s) s.value = '';
+  renderElections();
+}
+
 function renderElections(){
   const thisYear = new Date().getFullYear();
+  // If the user changes the state dropdown to an actual state, turn off
+  // the "show all" override so the behavior goes back to the default.
+  const stateVal = document.getElementById('elec-filter-state')?.value || '';
+  if (stateVal) window._electionsShowAllStates = false;
 
   // Annotate every elected judge with an inferred next-election year.
   const annotated = JUDGES.map(j => ({ ...j, nextElectionInferred: _inferNextElection(j) }));
@@ -5404,16 +5498,26 @@ function renderElections(){
     (!fYear  || String(j.nextElectionInferred) === fYear)
   ).sort((a,b) => a.nextElectionInferred - b.nextElectionInferred || a.name.localeCompare(b.name));
 
-  // Populate the state filter + voter-state dropdown with the actual roster
+  // Populate the state filter + voter-state dropdown with the actual roster.
+  // Default first option is "Select your state…" — we deliberately don't
+  // dump every state's judges on every visitor. An Ohio user shouldn't
+  // scroll through Florida judges by default.
+  //
+  // Previously this had an `options.length <= 1` guard that left the
+  // dropdown empty if renderElections() fired before loadJudgesFromJSON()
+  // finished. Now we always refresh when the roster has MORE states than
+  // the dropdown currently shows, preserving the user's current selection.
   const statesWithJudges = [...new Set(JUDGES.map(j=>j.state).filter(Boolean))].sort();
-  const filterStateEl = document.getElementById('elec-filter-state');
-  if (filterStateEl && filterStateEl.options.length <= 1) {
-    filterStateEl.innerHTML = '<option value="">All states</option>' + statesWithJudges.map(s=>`<option>${s}</option>`).join('');
-  }
-  const voterStateEl = document.getElementById('voter-state');
-  if (voterStateEl && voterStateEl.options.length <= 1) {
-    voterStateEl.innerHTML = '<option value="">Select state...</option>' + statesWithJudges.map(s=>`<option>${s}</option>`).join('');
-  }
+  const _repopulate = (el, placeholder) => {
+    if (!el) return;
+    // -1 accounts for the placeholder row.
+    if ((el.options.length - 1) >= statesWithJudges.length) return;
+    const current = el.value;
+    el.innerHTML = '<option value="">' + placeholder + '</option>' + statesWithJudges.map(s=>`<option>${_esc(s)}</option>`).join('');
+    if (current) el.value = current;
+  };
+  _repopulate(document.getElementById('elec-filter-state'), 'Select your state…');
+  _repopulate(document.getElementById('voter-state'),       'Select state...');
   _populateVoterCounties();
 
   // Top metrics
@@ -5457,7 +5561,13 @@ function renderElections(){
       <tbody>${methodRows}</tbody>
     </table>`;
 
-  // Cards for judges with upcoming elections
+  // Cards for judges with upcoming elections. Require a state pick unless
+  // the user explicitly flipped the "show all" flag.
+  if (!fState && !window._electionsShowAllStates) {
+    document.getElementById('electionCards').innerHTML =
+      `<div class="ib" style="color:var(--text3);font-size:11px;line-height:1.65">Select your state from the dropdown above to see judges with an inferred next election. Use <strong>Show all states anyway</strong> if you want the nationwide list.</div>`;
+    return;
+  }
   if (!filtered.length) {
     document.getElementById('electionCards').innerHTML =
       `<div class="ib" style="color:var(--text3)">No judges in the current filter match. Expand the state/year filter or add more judges to the database.</div>`;
@@ -5468,9 +5578,9 @@ function renderElections(){
       const method = _selectionLabel((JUDICIAL_SELECTION[j.state]||{}).method||'');
       return `<div style="padding:10px 12px;background:var(--bg2);border:1px solid var(--border);border-left:3px solid ${urgent?'#f09090':'var(--amber)'};border-radius:7px;margin-bottom:6px;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center">
         <div>
-          <div style="font-weight:500;font-size:12px">${j.name}</div>
-          <div style="font-size:10px;color:var(--text3)">${j.role||''}${j.role?' · ':''}${j.court||''} · ${j.county||''}, ${j.state}</div>
-          <div style="font-size:10px;color:var(--text3);margin-top:3px">${method} · took office ${j.appointed||'—'}</div>
+          <div style="font-weight:500;font-size:12px">${_esc(j.name)}</div>
+          <div style="font-size:10px;color:var(--text3)">${_esc(j.role||'')}${j.role?' · ':''}${_esc(j.court||'')} · ${_esc(j.county||'')}, ${_esc(j.state)}</div>
+          <div style="font-size:10px;color:var(--text3);margin-top:3px">${method} · took office ${_esc(j.appointed||'—')}</div>
         </div>
         <div style="text-align:right">
           <div style="font-size:9px;text-transform:uppercase;letter-spacing:.05em;color:var(--text3)">Next election</div>
@@ -5506,7 +5616,7 @@ function _populateVoterCounties(){
   (window.JUDGES || []).filter(j => j.state === st).forEach(j => { if (j.county) counties.add(j.county); });
   const sorted = [...counties].sort();
   cEl.innerHTML = '<option value="">All counties in state</option>' +
-    sorted.map(c => `<option value="${c.replace(/"/g,'&quot;')}">${c}</option>`).join('') +
+    sorted.map(c => `<option value="${_esc(c)}">${_esc(c)}</option>`).join('') +
     '<option value="__other__">Other (not listed)</option>';
 }
 
@@ -5522,19 +5632,48 @@ function generateVoterGuide(){
   const judges=JUDGES.filter(j=>j.state===state&&(!county||j.county.toLowerCase().includes(county.toLowerCase())));
   const el=document.getElementById('voterGuideOutput');
   if(!judges.length){el.innerHTML='<div class="ib">No tracked judges in that area yet. Submit cases mentioning your judge by name to build the profile.</div>';return;}
-  el.innerHTML=judges.map(j=>{const ci=corruptionIndex(j),r=jRev(j),cfT=j.campaignFinance.reduce((s,d)=>s+d.amount,0);return`<div style="background:var(--bg3);border-radius:8px;padding:12px;margin-bottom:8px;border-left:3px solid ${ci.color}"><div style="font-weight:500;font-size:13px">${j.name} — ${j.court}</div><div style="font-size:11px;color:var(--text2);margin:6px 0;line-height:1.7">Grade: <strong style="color:${ci.color}">${ci.grade} (${ci.score}/100)</strong> · Mother primary: <strong>${j.s.toMother}%</strong> · Non-primary avg: <strong style="color:var(--red)">${j.s.avgNonPrimPct}%</strong> · Gag orders/yr: <strong>${j.s.gagOrders}</strong> · Income inflation: <strong>+${j.s.incInfl}%</strong> · Children removed: <strong>${j.s.removed}</strong></div>${cfT>0?`<div style="font-size:11px;color:var(--text2)">Campaign contributions from family law attorneys: <strong style="color:var(--red)">$${cfT.toLocaleString()}</strong></div>`:''} ${j.nextElection?`<div style="font-size:11px;margin-top:4px;color:var(--amber)">Next election: <strong>${j.nextElection}</strong></div>`:''}<div style="font-size:10px;color:var(--text3);margin-top:4px">Source: Family Court Accountability Project — familycourtaccountability.is</div></div>`;}).join('');
+  el.innerHTML=judges.map(j=>{const ci=corruptionIndex(j),r=jRev(j),cfT=j.campaignFinance.reduce((s,d)=>s+d.amount,0);return`<div style="background:var(--bg3);border-radius:8px;padding:12px;margin-bottom:8px;border-left:3px solid ${ci.color}"><div style="font-weight:500;font-size:13px">${_esc(j.name)} — ${_esc(j.court)}</div><div style="font-size:11px;color:var(--text2);margin:6px 0;line-height:1.7">Grade: <strong style="color:${ci.color}">${_esc(ci.grade)} (${ci.score}/100)</strong> · Mother primary: <strong>${j.s.toMother}%</strong> · Non-primary avg: <strong style="color:var(--red)">${j.s.avgNonPrimPct}%</strong> · Gag orders/yr: <strong>${j.s.gagOrders}</strong> · Income inflation: <strong>+${j.s.incInfl}%</strong> · Children removed: <strong>${j.s.removed}</strong></div>${cfT>0?`<div style="font-size:11px;color:var(--text2)">Campaign contributions from family law attorneys: <strong style="color:var(--red)">$${cfT.toLocaleString()}</strong></div>`:''} ${j.nextElection?`<div style="font-size:11px;margin-top:4px;color:var(--amber)">Next election: <strong>${_esc(j.nextElection)}</strong></div>`:''}<div style="font-size:10px;color:var(--text3);margin-top:4px">Source: Family Court Accountability Project — familycourtaccountability.is</div></div>`;}).join('');
 }
 
 // ============================================================
 // LEGISLATION
 // ============================================================
-function filterLeg(){
+async function filterLeg(){
+  // Hydrate LEGISLATION on first call from the cron-populated feed.
+  await _loadLegislationFromFeed();
   const level=document.getElementById('leg-level').value,status=document.getElementById('leg-status').value;
   const list=LEGISLATION.filter(l=>(!level||l.level===level)&&(!status||l.status===status));
   const active=LEGISLATION.filter(l=>l.status==='active').length,dead=LEGISLATION.filter(l=>l.status==='dead').length,committee=LEGISLATION.filter(l=>l.status==='committee').length;
   document.getElementById('legMetrics').innerHTML=`<div class="metric"><div class="ml">Bills tracked</div><div class="mv">${LEGISLATION.length}</div></div><div class="metric"><div class="ml">Active/enacted</div><div class="mv green">${active}</div></div><div class="metric"><div class="ml">In committee</div><div class="mv amber">${committee}</div></div><div class="metric"><div class="ml">Dead/failed</div><div class="mv red">${dead}</div></div>`;
+  if(!LEGISLATION.length){
+    document.getElementById('legCards').innerHTML = '<div style="padding:24px;text-align:center;color:var(--text3);font-size:11.5px;line-height:1.7;background:var(--bg2);border:1px solid var(--border);border-radius:6px">Legislation feed is empty. The daily harvester at <code>fetch_legislation.php</code> scans the 119th Congress for bills whose titles contain family-court keywords (custody, child support, parental rights, foster care, GAL, etc.). Bills with titles that don\'t mention these specific terms are missed — many federal family-policy bills use generic names. State-legislature coverage requires a LegiScan API key, which is not yet configured.</div>';
+    return;
+  }
+  // Escape every third-party-sourced string before it touches innerHTML.
+  // Congress.gov controls bill titles + latest-action text; defense-in-depth
+  // against a malicious upstream injecting <script> or event handlers.
+  const esc = s => String(s == null ? '' : s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  // URLs get a stricter check: only http/https schemes permitted, otherwise
+  // drop to '#' so a javascript:/data: URL can't slip through the href.
+  const safeUrl = u => {
+    const raw = String(u || '');
+    return /^https?:\/\//i.test(raw) ? esc(raw) : '#';
+  };
   const lblColor={active:'var(--green)',committee:'var(--amber)',dead:'var(--text3)'};
-  document.getElementById('legCards').innerHTML=list.map(l=>`<div class="bill-card ${l.status}"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px"><div><div style="font-size:12px;font-weight:500">${l.name}</div><div style="font-size:10px;color:var(--text3)">${l.level==='federal'?'Federal':l.state||''} · ${l.sponsor||'Sponsor TBD'}</div></div><span class="bill-status" style="background:${l.status==='active'?'var(--greenbg)':l.status==='committee'?'var(--amberbg)':'var(--bg3)'};color:${lblColor[l.status]}">${l.status.toUpperCase()}</span></div><div style="font-size:11px;color:var(--text2);line-height:1.6;margin-bottom:6px">${l.summary}</div>${l.opposedBy?`<div style="font-size:10px;color:var(--red);margin-bottom:6px">Opposed by: ${l.opposedBy}</div>`:''}<a href="${l.contactUrl}" target="_blank" class="btn teal" style="font-size:10px;padding:4px 10px;text-decoration:none;display:inline-block">Contact your representative ↗</a></div>`).join('');
+  document.getElementById('legCards').innerHTML=list.map(l=>{
+    const name    = esc(l.name);
+    const state   = esc(l.level==='federal'?'Federal':(l.state||''));
+    const sponsor = esc(l.sponsor||'Sponsor TBD');
+    const status  = esc((l.status||'').toUpperCase());
+    const summary = esc(l.summary||'');
+    const opposedBy = esc(l.opposedBy||'');
+    const url     = safeUrl(l.contactUrl);
+    const statusClass = ['active','committee','dead'].includes(l.status) ? l.status : 'committee';
+    const bg = statusClass==='active'?'var(--greenbg)':statusClass==='committee'?'var(--amberbg)':'var(--bg3)';
+    return `<div class="bill-card ${statusClass}"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px"><div><div style="font-size:12px;font-weight:500">${name}</div><div style="font-size:10px;color:var(--text3)">${state} · ${sponsor}</div></div><span class="bill-status" style="background:${bg};color:${lblColor[statusClass]}">${status}</span></div><div style="font-size:11px;color:var(--text2);line-height:1.6;margin-bottom:6px">${summary}</div>${opposedBy?`<div style="font-size:10px;color:var(--red);margin-bottom:6px">Opposed by: ${opposedBy}</div>`:''}<a href="${url}" target="_blank" rel="noopener" class="btn teal" style="font-size:10px;padding:4px 10px;text-decoration:none;display:inline-block">View on Congress.gov ↗</a></div>`;
+  }).join('');
 }
 
 // ============================================================
@@ -5565,29 +5704,174 @@ function renderChildren(){
 // ============================================================
 // FINANCIAL
 // ============================================================
-function renderFinancial(){
+async function renderFinancial(){
   if(chartsDrawn.fin)return;chartsDrawn.fin=true;
-  const n=allCases.length,avgTC=Math.round(allCases.reduce((s,c)=>s+totalCost(c),0)/n);
-  const inf=allCases.filter(c=>c.income&&c.courtIncome>c.income);
-  const avgInfl=inf.length?Math.round(inf.reduce((s,c)=>s+incInfl(c),0)/inf.length):0;
-  const arR=Math.round(allCases.filter(c=>c.arrears).length/n*100),totTax=allCases.reduce((s,c)=>s+(c.taxAmt||0),0);
-  document.getElementById('finMetrics').innerHTML=`<div class="metric"><div class="ml">Avg total case cost</div><div class="mv red">$${avgTC.toLocaleString()}</div></div><div class="metric"><div class="ml">Avg income inflation</div><div class="mv red">+${avgInfl}%</div></div><div class="metric"><div class="ml">Arrears rate</div><div class="mv amber">${arR}%</div></div><div class="metric"><div class="ml">Tax refunds intercepted</div><div class="mv red">$${totTax.toLocaleString()}</div></div>`;
-  const sts=[...new Set(allCases.filter(c=>c.income).map(c=>c.state))];
-  mkChart('incomeChart',{type:'bar',data:{labels:sts,datasets:[{label:'Actual',data:sts.map(s=>Math.round(allCases.filter(c=>c.state===s&&c.income).reduce((a,c)=>a+c.income,0)/Math.max(1,allCases.filter(c=>c.state===s&&c.income).length))),backgroundColor:'rgba(120,174,224,0.7)'},{label:'Imputed',data:sts.map(s=>Math.round(allCases.filter(c=>c.state===s&&c.income).reduce((a,c)=>a+(c.courtIncome||c.income),0)/Math.max(1,allCases.filter(c=>c.state===s&&c.income).length))),backgroundColor:'rgba(240,144,144,0.7)'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{size:9},boxWidth:8,color:'#9a9690'}}},scales:{y:{ticks:{...TC,callback:v=>'$'+v.toLocaleString()},grid:GC},x:{ticks:{...TC,font:{size:9}},grid:{display:false}}}}});
-  const sp=allCases.filter(c=>c.income&&c.support).map(c=>Math.round(c.support/c.income*100));
-  mkChart('supportPctChart',{type:'bar',data:{labels:sp.map((_,i)=>'C'+(i+1)),datasets:[{data:sp,backgroundColor:sp.map(p=>p>40?'rgba(240,144,144,0.9)':p>25?'rgba(240,184,64,0.8)':'rgba(120,174,224,0.7)')}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{ticks:{...TC,callback:v=>v+'%'},grid:GC},x:{ticks:{display:false},grid:{display:false}}}}});
-  const ik=allCases.filter(c=>c.inkind>0);
-  mkChart('inkindChart',{type:'bar',data:{labels:['Support ordered/mo','Parent spends/mo','Amount credited'],datasets:[{data:[Math.round(ik.reduce((s,c)=>s+(c.support||0),0)/Math.max(1,ik.length)),Math.round(ik.reduce((s,c)=>s+c.inkind,0)/Math.max(1,ik.length)),Math.round(ik.reduce((s,c)=>s+(c.inkindCounted||0),0)/Math.max(1,ik.length))],backgroundColor:['#378ADD','#639922','#BA7517']}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{ticks:{...TC,callback:v=>'$'+v.toLocaleString()},grid:GC},x:{ticks:TC,grid:{display:false}}}}});
-  const ac=allCases.filter(c=>c.arrears),principal=ac.reduce((s,c)=>s+(c.arrearsAmt||0),0),interest=ac.reduce((s,c)=>s+(c.arrearsInterest||0),0),retro=allCases.reduce((s,c)=>s+(c.retro||0),0);
-  mkChart('arrearsChart',{type:'doughnut',data:{labels:['Principal','Interest accrued','Retroactive orders'],datasets:[{data:[principal,interest,retro],backgroundColor:['#C24040','#BA7517','#534AB7']}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{size:10},boxWidth:8,color:'#9a9690'}}}}});
-  const cats=['Attorney fees','Court filing','GAL','Psych eval','PC','Expert','Supervised vis.','Reuni. therapy','Drug testing'];
-  const catV=[allCases.reduce((s,c)=>s+(c.attorneys||0),0),allCases.reduce((s,c)=>s+(c.filing||0),0),allCases.reduce((s,c)=>s+(c.galCost||0),0),allCases.reduce((s,c)=>s+(c.psychCost||0),0),allCases.reduce((s,c)=>s+(c.pcCost||0),0),allCases.reduce((s,c)=>s+(c.expertCost||0),0),allCases.reduce((s,c)=>s+(c.supVisCost||0)*12,0),allCases.reduce((s,c)=>s+(c.reuniCost||0),0),allCases.reduce((s,c)=>s+(c.drugCost||0),0)].map(v=>Math.round(v/n));
-  mkChart('totalCostChart',{type:'bar',data:{labels:cats,datasets:[{data:catV,backgroundColor:['#C24040','#BA7517','#378ADD','#534AB7','#1D9E75','#639922','#9a4040','#7040a0','#888']}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{ticks:{...TC,callback:v=>'$'+v.toLocaleString()},grid:GC},x:{ticks:{...TC,font:{size:9},maxRotation:30},grid:{display:false}}}}});
-  const enfs=['Tax intercepts','License suspensions','Passports revoked','Wage garnishments','Contempt total','Jail days total'];
-  const enfV=[allCases.filter(c=>c.taxInt).length,allCases.filter(c=>c.licSusp).length,allCases.filter(c=>c.passport).length,allCases.filter(c=>c.wage).length,allCases.reduce((s,c)=>s+(c.contempt||0),0),allCases.reduce((s,c)=>s+(c.jail||0),0)];
-  document.getElementById('enfMetrics').innerHTML=enfs.map((e,i)=>`<div class="metric"><div class="ml">${e}</div><div class="mv red">${enfV[i]}</div></div>`).join('');
   renderBonusExplainer();
   renderIVDIncentiveTables();
+
+  // Financial tab is sourced from the OCSE/ACF Preliminary Data — real
+  // government dollar totals — not submitted cases. This differs from
+  // State Grades (which focuses on RATES). Here we surface the ABSOLUTE
+  // dollar flow: what the IV-D system extracts, holds in arrears, and
+  // returns to families per year.
+  const acf = await loadACFData();
+  if (!acf || !acf.states) {
+    document.getElementById('finMetrics').innerHTML =
+      '<div class="metric" style="grid-column:1/-1"><div class="ml">ACF data unavailable</div><div class="mv">—</div></div>';
+    return;
+  }
+  const latestYear = (acf.fiscalYearsCovered || []).slice(-1)[0];
+  const years = (acf.fiscalYearsCovered || []).slice().sort((a,b)=>a-b);
+
+  // Helper: pick the latest-available year for a metric, falling back if
+  // a state doesn't report the current one.
+  const pick = series => {
+    if (!series) return null;
+    if (series[latestYear] != null) return series[latestYear];
+    const ks = Object.keys(series).sort();
+    return ks.length ? series[ks[ks.length-1]] : null;
+  };
+
+  // National totals for headline metrics.
+  let natCollections = 0, natArrears = 0, natAdmin = 0, natCaseload = 0, natStaff = 0;
+  // State-level vectors for the per-state charts.
+  const byState = []; // [{name, collections, arrears, admin, caseload, costEff, incentiveEst}]
+  for (const [name, st] of Object.entries(acf.states)) {
+    const m = st.metrics || {};
+    const collections = pick(m.distributedCollections) || 0;
+    const arrears     = pick(m.arrears) || 0;
+    const admin       = pick(m.adminExpenditures) || 0;
+    const caseload    = pick(m.caseload) || 0;
+    const staff       = pick(m.fteStaff) || 0;
+    const costEff     = pick(m.costEffectivenessRatio) || null;
+    const incent      = pick(m.incentivePaymentEstimates) || pick(m.incentivePaymentActuals) || 0;
+    natCollections += collections;
+    natArrears     += arrears;
+    natAdmin       += admin;
+    natCaseload    += caseload;
+    natStaff       += staff;
+    byState.push({ name, collections, arrears, admin, caseload, costEff, incentiveEst: incent });
+  }
+
+  // Headline dollars. Formatted in billions / millions for readability.
+  const fmt$ = v => {
+    if (v >= 1e9) return '$' + (v/1e9).toFixed(1) + 'B';
+    if (v >= 1e6) return '$' + (v/1e6).toFixed(1) + 'M';
+    if (v >= 1e3) return '$' + Math.round(v/1e3).toLocaleString() + 'K';
+    return '$' + Math.round(v).toLocaleString();
+  };
+  const fmtInt = v => Math.round(v).toLocaleString();
+  document.getElementById('finMetrics').innerHTML =
+    `<div class="metric"><div class="ml">Total IV-D collections (FY${latestYear})</div><div class="mv">${fmt$(natCollections)}</div></div>
+     <div class="metric"><div class="ml">Total arrears owed nationally</div><div class="mv red">${fmt$(natArrears)}</div></div>
+     <div class="metric"><div class="ml">Total admin spend (FY${latestYear})</div><div class="mv amber">${fmt$(natAdmin)}</div></div>
+     <div class="metric"><div class="ml">Active IV-D caseload</div><div class="mv">${fmtInt(natCaseload)}</div></div>`;
+
+  // Top-20 by distributed collections ($).
+  const topColl = byState.slice().sort((a,b)=>b.collections-a.collections).slice(0,20);
+  const collLabels = topColl.map(r=>r.name);
+  const collData   = topColl.map(r=>Math.round(r.collections));
+  mkChart('incomeChart', {
+    type:'bar',
+    data:{ labels: collLabels, datasets:[{ label:'Distributed IV-D collections (FY'+latestYear+')', data: collData, backgroundColor:'rgba(30,150,130,1)'}]},
+    options:{responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{display:false},
+        tooltip:{callbacks:{label:ctx=>fmt$(ctx.raw)+' distributed in FY'+latestYear}}},
+      scales:{y:{ticks:{...TC,callback:v=>fmt$(v)},grid:GC},
+              x:{ticks:{...TC,font:{size:9},maxRotation:60,minRotation:60},grid:{display:false}}}}
+  });
+
+  // Top-20 by arrears stock ($).
+  const topArr = byState.slice().sort((a,b)=>b.arrears-a.arrears).slice(0,20);
+  const arrLabels = topArr.map(r=>r.name);
+  const arrData   = topArr.map(r=>Math.round(r.arrears));
+  mkChart('supportPctChart', {
+    type:'bar',
+    data:{ labels: arrLabels, datasets:[{ label:'Arrears owed (FY'+latestYear+')', data: arrData, backgroundColor:'rgba(180,50,50,1)'}]},
+    options:{responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{display:false},
+        tooltip:{callbacks:{label:ctx=>fmt$(ctx.raw)+' in accumulated arrears'}}},
+      scales:{y:{ticks:{...TC,callback:v=>fmt$(v)},grid:GC},
+              x:{ticks:{...TC,font:{size:9},maxRotation:60,minRotation:60},grid:{display:false}}}}
+  });
+
+  // National time series — admin vs collections across 8 fiscal years.
+  const tsCollections = years.map(yr => {
+    let s = 0;
+    for (const st of Object.values(acf.states)) {
+      const v = (st.metrics && st.metrics.distributedCollections && st.metrics.distributedCollections[yr]) || 0;
+      s += v;
+    }
+    return Math.round(s);
+  });
+  const tsAdmin = years.map(yr => {
+    let s = 0;
+    for (const st of Object.values(acf.states)) {
+      const v = (st.metrics && st.metrics.adminExpenditures && st.metrics.adminExpenditures[yr]) || 0;
+      s += v;
+    }
+    return Math.round(s);
+  });
+  mkChart('inkindChart', {
+    type:'line',
+    data:{ labels: years, datasets:[
+      { label:'Distributed collections', data: tsCollections, borderColor:'rgba(30,150,130,1)',   backgroundColor:'rgba(30,150,130,0.15)', tension:0.25, fill:true, pointRadius:3 },
+      { label:'Admin expenditures',      data: tsAdmin,       borderColor:'rgba(220,140,40,1)',   backgroundColor:'rgba(220,140,40,0.12)', tension:0.25, fill:true, pointRadius:3 },
+    ]},
+    options:{responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{labels:{color:'#bfbcb6',boxWidth:10,font:{size:10}}},
+        tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+fmt$(ctx.raw)}}},
+      scales:{y:{ticks:{...TC,callback:v=>fmt$(v)},grid:GC},
+              x:{ticks:TC,grid:{display:false}}}}
+  });
+
+  // Doughnut: current-support distributed vs arrears backlog.
+  let natCurrent = 0;
+  for (const st of Object.values(acf.states)) natCurrent += pick(st.metrics && st.metrics.currentSupportDistributed) || 0;
+  mkChart('arrearsChart', {
+    type:'doughnut',
+    data:{ labels: ['Current support distributed (flowing)', 'Arrears backlog (stuck)'],
+           datasets:[{ data:[Math.round(natCurrent), Math.round(natArrears)],
+                       backgroundColor:['rgba(30,150,130,1)', 'rgba(180,50,50,1)'], borderWidth:0 }]},
+    options:{responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{labels:{color:'#bfbcb6',boxWidth:10,font:{size:10}}},
+        tooltip:{callbacks:{label:ctx=>ctx.label+': '+fmt$(ctx.raw)}},
+        title:{display:true, text:'FY'+latestYear+' — '+ fmt$(natArrears/Math.max(1,natCurrent))+' of arrears for every $1 of current support flowing', color:'#9a9690', font:{size:11}}}}
+  });
+
+  // Top-15 states by federal incentive pool estimate.
+  const topIncent = byState.filter(r=>r.incentiveEst>0).sort((a,b)=>b.incentiveEst-a.incentiveEst).slice(0,15);
+  const incLabels = topIncent.map(r=>r.name);
+  const incData   = topIncent.map(r=>Math.round(r.incentiveEst));
+  mkChart('totalCostChart', {
+    type:'bar',
+    data:{ labels: incLabels, datasets:[{ label:'Federal incentive estimate (FY'+latestYear+')', data: incData, backgroundColor:'rgba(110,170,60,1)'}]},
+    options:{responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{display:false},
+        tooltip:{callbacks:{label:ctx=>fmt$(ctx.raw)+' estimated federal incentive payment'}}},
+      scales:{y:{ticks:{...TC,callback:v=>fmt$(v)},grid:GC},
+              x:{ticks:{...TC,font:{size:10},maxRotation:45,minRotation:45},grid:{display:false}}}}
+  });
+
+  // Replace the old enforcement-counter row with IV-D-system-scale metrics
+  // that ACF actually publishes: FTE staff, cost-effectiveness median,
+  // cases-with-arrears rate, admin-spend-per-case.
+  const ceVals    = byState.map(r=>r.costEff).filter(v=>v!=null);
+  const ceMedian  = ceVals.length ? ceVals.slice().sort((a,b)=>a-b)[Math.floor(ceVals.length/2)] : null;
+  let totWithArr  = 0, totCaseload2 = 0;
+  for (const st of Object.values(acf.states)) {
+    totWithArr  += pick(st.metrics && st.metrics.casesWithArrears) || 0;
+    totCaseload2 += pick(st.metrics && st.metrics.caseload) || 0;
+  }
+  const arrPct     = totCaseload2 ? (totWithArr/totCaseload2*100) : null;
+  const adminPerCase = natCaseload ? (natAdmin / natCaseload) : null;
+  const collPerCase  = natCaseload ? (natCollections / natCaseload) : null;
+  document.getElementById('enfMetrics').innerHTML =
+    `<div class="metric"><div class="ml">Cases with arrears</div><div class="mv amber">${arrPct!=null?arrPct.toFixed(1)+'%':'—'}</div></div>
+     <div class="metric"><div class="ml">National cost-effectiveness (median)</div><div class="mv">${ceMedian!=null?'$'+ceMedian.toFixed(2)+'/$1':'—'}</div></div>
+     <div class="metric"><div class="ml">Admin spend per active case</div><div class="mv">${adminPerCase!=null?'$'+Math.round(adminPerCase).toLocaleString():'—'}</div></div>
+     <div class="metric"><div class="ml">Distributed per active case</div><div class="mv">${collPerCase!=null?'$'+Math.round(collPerCase).toLocaleString():'—'}</div></div>
+     <div class="metric"><div class="ml">IV-D FTE staff nationwide</div><div class="mv">${fmtInt(natStaff)}</div></div>`;
 }
 
 // 42 USC 658a + 45 CFR §305.2. Five performance measures, each with its own
@@ -5598,6 +5882,8 @@ function renderFinancial(){
 const IVD_SCORING = {
   paternity: {
     title: 'Paternity Establishment Percentage (PEP)',
+    plainTitle: 'How often the state establishes paternity',
+    plainWhy: 'States get paid more when a higher share of children in their caseload have a legally established father. This is why some states push for paternity filings in cases where it isn\'t clearly necessary — each establishment counts toward the score.',
     cfr: '45 CFR §305.2(a)(1); 42 USC 658a(b)(4)',
     measureUnit: '% of nonmarital children in caseload with paternity established',
     rows: [
@@ -5621,6 +5907,8 @@ const IVD_SCORING = {
   },
   orderEst: {
     title: 'Support Order Establishment Percentage',
+    plainTitle: 'How often the state has a support order in place',
+    plainWhy: 'States get paid more when a higher share of their cases have a formal support order. This creates pressure to convert every case into a dollar-value order — including imputing income onto parents who are unemployed, incarcerated, or disabled, because an order of any amount scores the same as a realistic one.',
     cfr: '45 CFR §305.2(a)(2); 42 USC 658a(b)(5)',
     measureUnit: '% of IV-D cases with a support order established',
     rows: [
@@ -5640,6 +5928,8 @@ const IVD_SCORING = {
   },
   currentCollect: {
     title: 'Current Support Collected Percentage',
+    plainTitle: 'How much of current month\'s support the state collects',
+    plainWhy: 'The state earns more when a higher share of currently-owed support is actually collected. This drives aggressive wage garnishment, bank levies, tax intercepts, and driver\'s-license suspensions — every enforcement tool exists in part to push this number up.',
     cfr: '45 CFR §305.2(a)(3); 42 USC 658a(b)(6)',
     measureUnit: '$ current support collected ÷ $ current support owed',
     rows: [
@@ -5658,6 +5948,8 @@ const IVD_SCORING = {
   },
   arrearsCollect: {
     title: 'Cases Paying Toward Arrears Percentage',
+    plainTitle: 'How many back-support cases have at least some payment coming in',
+    plainWhy: 'The state earns more when more back-support cases have SOMETHING being collected — even $5 counts the same as full payment for scoring. This is a structural reason you rarely see arrears forgiven: wiping the debt kills the score. Keeping it alive and collecting anything scores well.',
     cfr: '45 CFR §305.2(a)(4); 42 USC 658a(b)(7)',
     measureUnit: '% of cases with arrears where at least some arrears were collected',
     rows: [
@@ -5674,6 +5966,8 @@ const IVD_SCORING = {
   },
   costEff: {
     title: 'Cost-Effectiveness Ratio',
+    plainTitle: 'How many dollars the state collects for every dollar it spends',
+    plainWhy: 'States earn more when they collect MORE money while spending LESS on running the system. This rewards automation (wage garnishment over hearings), discourages individualized case review, and pushes states to keep their cheapest cases active while under-investing in complex ones that require more staff time.',
     cfr: '45 CFR §305.2(a)(5); 42 USC 658a(b)(8)',
     measureUnit: '$ collected ÷ $ spent (administrative efficiency)',
     rows: [
@@ -5690,82 +5984,198 @@ const IVD_SCORING = {
   },
 };
 
-function renderIVDIncentiveTables(){
+async function renderIVDIncentiveTables(){
   const el = document.getElementById('ivdIncentiveTables');
   if (!el) return;
+  // Ensure the ACF cache is populated — the per-state scoring rows below
+  // read from _ACF_DATA. Without this await, everything renders blank on
+  // first visit.
+  if (!_ACF_DATA || !_ACF_DATA.states) { try { await loadACFData(); } catch(e) {} }
+  const acfReady = !!(_ACF_DATA && _ACF_DATA.states && Object.keys(_ACF_DATA.states).length);
+  const latest = acfReady ? (_ACF_DATA.fiscalYearsCovered || []).slice(-1)[0] : null;
+
+  // Helper: pick the latest-available value for an ACF series (falls back
+  // to the most recent year the state has data for).
+  const pickLatest = series => {
+    if (!series) return null;
+    if (series[latest] != null) return series[latest];
+    const keys = Object.keys(series).sort();
+    return keys.length ? series[keys[keys.length-1]] : null;
+  };
+
+  // Compute per-state measure values. Each state may score on 4 of the 5
+  // measures directly from ACF Preliminary Data. Paternity is the exception —
+  // the true IV-D PEP uses a nonmarital-children-in-caseload denominator that
+  // ACF Preliminary does NOT publish. The annual paternities-established
+  // flow divided by childrenInCases is an order of magnitude too small (2-17%
+  // vs the true PEP's typical 95%+), so it would incorrectly show every state
+  // at the 0% applicable tier. We don't force a mapping; that card shows
+  // a data-availability note instead.
+  const stateMeasures = [];
+  if (acfReady) {
+    for (const [name, sd] of Object.entries(_ACF_DATA.states)) {
+      const m = sd.metrics || {}, d = sd.derived || {};
+      const collRate = pickLatest(d.collectionRate) != null ? +(pickLatest(d.collectionRate)*100).toFixed(1) : null;
+      const caseload = pickLatest(m.caseload);
+      const casesArr = pickLatest(m.casesWithArrears);
+      const paying   = pickLatest(m.casesPayingArrears);
+      const arrPaidPct = (casesArr && paying) ? +(paying/casesArr*100).toFixed(1) : null;
+      const costEff  = pickLatest(m.costEffectivenessRatio);
+      const withOrd  = pickLatest(m.casesWithOrders);
+      const ordPct   = (caseload && withOrd) ? +(withOrd/caseload*100).toFixed(1) : null;
+      stateMeasures.push({ name, collRate, arrPaidPct, costEff, ordPct });
+    }
+  }
+
+  // Given a measure's rows and a state's raw value, return the applicable %.
+  const scoreFor = (rows, v) => {
+    if (v == null) return null;
+    for (const r of rows) if (v >= r.threshold) return r.appl;
+    return 0;
+  };
+  // For a given measure key, return array of applicable % per state (or null
+  // if we can't compute). `paternity` always returns null — see note above.
+  const applsForMeasure = key => {
+    if (!acfReady) return [];
+    return stateMeasures.map(s => {
+      switch (key) {
+        case 'currentCollect': return { name: s.name, val: s.collRate,   appl: scoreFor(IVD_SCORING.currentCollect.rows, s.collRate) };
+        case 'arrearsCollect': return { name: s.name, val: s.arrPaidPct, appl: scoreFor(IVD_SCORING.arrearsCollect.rows, s.arrPaidPct) };
+        case 'costEff':        return { name: s.name, val: s.costEff,    appl: scoreFor(IVD_SCORING.costEff.rows, s.costEff) };
+        case 'orderEst':       return { name: s.name, val: s.ordPct,     appl: scoreFor(IVD_SCORING.orderEst.rows, s.ordPct) };
+        case 'paternity':      return { name: s.name, val: null, appl: null };
+        default:               return { name: s.name, val: null, appl: null };
+      }
+    });
+  };
+
+  // Build per-card distribution strip: "N states at each applicable % tier".
+  const buildDistribStrip = (key, rows) => {
+    if (key === 'paternity') {
+      return `<div style="margin-top:8px;padding:7px 9px;background:rgba(176,144,232,.10);border-left:2px solid #b090e8;border-radius:3px;font-size:10px;color:var(--text3);line-height:1.55">
+        Per-state placement not shown: ACF Preliminary Data does not publish the nonmarital-children-in-caseload denominator needed to compute true IV-D PEP. The annual paternities-established flow (what ACF does publish) runs 2-17%, which misrepresents the scored measure — real PEP typically runs 95%+.
+      </div>`;
+    }
+    const scored = applsForMeasure(key).filter(s => s.appl != null);
+    if (!scored.length) return '';
+    // Bucket states by their applicable %. Use descending-threshold order
+    // from IVD_SCORING so the strip reads tier-by-tier top to bottom.
+    const buckets = rows.map(r => ({ appl: r.appl, count: scored.filter(s => s.appl === r.appl).length, top: [] }));
+    // Collect top 3 states per bucket for tooltip context.
+    scored.forEach(s => {
+      const b = buckets.find(bk => bk.appl === s.appl);
+      if (b && b.top.length < 3) b.top.push(s.name);
+    });
+    const total = scored.length;
+    // Horizontal stacked bar: each segment sized to the bucket count.
+    const segments = buckets.filter(b => b.count > 0).map(b => {
+      const pct = (b.count / total * 100);
+      const col = b.appl >= 90 ? 'rgba(60,200,170,0.85)' : b.appl >= 60 ? 'rgba(240,184,64,0.85)' : b.appl > 0 ? 'rgba(240,128,64,0.85)' : 'rgba(220,70,70,0.85)';
+      const extraN = b.count > 3 ? ' +'+(b.count - 3)+' more' : '';
+      const tip = b.appl+'% applicable · '+b.count+' state'+(b.count===1?'':'s')+': '+b.top.join(', ')+extraN;
+      return `<div title="${tip}" style="flex:${b.count};background:${col};padding:4px 2px;text-align:center;font-size:9.5px;font-weight:600;color:#0a0a0a;font-family:'DM Mono',monospace;cursor:help">${b.count}</div>`;
+    }).join('');
+    // Bucket legend rows under the bar.
+    const legend = buckets.filter(b => b.count > 0).map(b => {
+      const dot = b.appl >= 90 ? '#3cc8aa' : b.appl >= 60 ? '#f0b840' : b.appl > 0 ? '#f08040' : '#dc4646';
+      return `<div style="display:flex;align-items:center;gap:6px;font-size:9.5px;color:var(--text3);font-family:'DM Mono',monospace">
+        <span style="width:7px;height:7px;background:${dot};border-radius:50%;display:inline-block"></span>
+        <span style="min-width:34px">${b.appl}%</span>
+        <span>${b.count} state${b.count===1?'':'s'}</span>
+      </div>`;
+    }).join('');
+    // Plain-English takeaway sentence. "Most states max this out" vs
+    // "most states fall below the floor" tells a very different story.
+    const atMax   = buckets.filter(b => b.appl >= 90).reduce((s,b)=>s+b.count, 0);
+    const atMid   = buckets.filter(b => b.appl >= 60 && b.appl < 90).reduce((s,b)=>s+b.count, 0);
+    const belowFl = buckets.filter(b => b.appl === 0).reduce((s,b)=>s+b.count, 0);
+    let takeaway = '';
+    if (atMax / total >= 0.7) {
+      takeaway = `Nearly every state maxes this measure (${atMax} of ${total} at 90%+ applicable). The scoring barely differentiates states — almost everyone gets the full bonus.`;
+    } else if (atMax >= total / 2) {
+      takeaway = `Most states (${atMax} of ${total}) score in the top tier and claim the full bonus on this measure. The rest are leaving federal money on the table.`;
+    } else if (belowFl >= 1) {
+      takeaway = `${belowFl} state${belowFl===1?'':'s'} score below the floor and earn $0 on this measure. ${atMax} are in the top tier; the middle is where most states sit.`;
+    } else {
+      takeaway = `States are spread across the middle tiers — ${atMax} maxing it, ${atMid} in amber territory. No state is at floor.`;
+    }
+    return `<div style="margin-top:10px">
+      <div style="font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Where the ${total} reporting states sit (FY${latest})</div>
+      <div style="display:flex;border-radius:3px;overflow:hidden;height:20px;margin-bottom:5px">${segments}</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(82px,1fr));gap:3px 8px;margin-bottom:6px">${legend}</div>
+      <div style="font-size:10.5px;color:var(--text2);line-height:1.55;font-style:italic">${takeaway}</div>
+    </div>`;
+  };
+
   const cards = Object.entries(IVD_SCORING).map(([key, m]) => {
     const rowsHtml = m.rows.map(r => {
       const tVal = key === 'costEff' ? (r.threshold === 0 ? 'below floor' : '$' + r.threshold.toFixed(2) + '+ per $1') : (r.threshold === 0 ? 'below floor' : r.threshold.toFixed(0) + '%+');
       const applBg = r.appl >= 90 ? 'rgba(80,196,168,.18)' : r.appl >= 60 ? 'rgba(240,184,64,.15)' : r.appl > 0 ? 'rgba(240,128,64,.15)' : 'rgba(200,88,88,.15)';
       return `<tr style="background:${applBg}"><td style="padding:4px 8px;font-family:'DM Mono',monospace">${tVal}</td><td style="padding:4px 8px;font-family:'DM Mono',monospace;text-align:right;font-weight:600">${r.appl}%</td>${r.note ? '<td style="padding:4px 8px;font-size:9.5px;color:var(--text3)">'+r.note+'</td>' : '<td></td>'}</tr>`;
     }).join('');
-    return `<div style="background:var(--bg2);border:1px solid var(--border);border-radius:7px;padding:10px 12px">
-      <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px">${m.cfr}</div>
-      <div style="font-weight:600;font-size:12.5px;color:var(--text);margin-bottom:3px">${m.title}</div>
-      <div style="font-size:10.5px;color:var(--text3);margin-bottom:6px">${m.measureUnit}</div>
-      <table style="width:100%;border-collapse:collapse;font-size:10.5px;background:var(--bg3);border-radius:4px;overflow:hidden">
-        <thead><tr style="background:rgba(0,0,0,.3);color:var(--text3);font-size:9px;text-transform:uppercase;letter-spacing:.03em"><th style="padding:4px 8px;text-align:left">Performance threshold</th><th style="padding:4px 8px;text-align:right">Applicable %</th><th></th></tr></thead>
-        <tbody>${rowsHtml}</tbody></table>
+    const distrib = acfReady ? buildDistribStrip(key, m.rows) : '';
+    const plainTitle = m.plainTitle || m.title;
+    const plainWhy   = m.plainWhy || '';
+    return `<div style="background:var(--bg2);border:1px solid var(--border);border-radius:7px;padding:12px 13px">
+      <div style="font-weight:600;font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.3">${plainTitle}</div>
+      ${plainWhy ? `<div style="font-size:11px;color:var(--text2);line-height:1.55;margin-bottom:8px">${plainWhy}</div>` : ''}
+      <details style="margin-bottom:8px">
+        <summary style="cursor:pointer;font-size:10px;color:var(--text3);padding:4px 0;list-style:none">▸ Show federal scoring rules (${m.cfr})</summary>
+        <div style="margin-top:6px">
+          <div style="font-size:10.5px;color:var(--text3);margin-bottom:6px"><strong>Formal name:</strong> ${m.title}<br><strong>How it's measured:</strong> ${m.measureUnit}</div>
+          <table style="width:100%;border-collapse:collapse;font-size:10.5px;background:var(--bg3);border-radius:4px;overflow:hidden">
+            <thead><tr style="background:rgba(0,0,0,.3);color:var(--text3);font-size:9px;text-transform:uppercase;letter-spacing:.03em"><th style="padding:4px 8px;text-align:left">Performance threshold</th><th style="padding:4px 8px;text-align:right">Applicable %</th><th></th></tr></thead>
+            <tbody>${rowsHtml}</tbody></table>
+        </div>
+      </details>
+      ${distrib}
     </div>`;
   });
-  el.innerHTML = `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px">${cards.join('')}</div>
+  el.innerHTML = `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:10px">${cards.join('')}</div>
     <div style="margin-top:10px;padding:9px 12px;background:rgba(176,144,232,.10);border-left:3px solid #b090e8;border-radius:4px;font-size:10.5px;color:var(--text2);line-height:1.65">
       <strong>How the math flows:</strong> For each measure, the state's "collections base" (2 × TANF collections + non-TANF collections + foster-care collections) is multiplied by the applicable percentage. Those five weighted bases are added and used to compute the state's share of the national incentive pool (capped by Congress). A state hitting 80%+ on all five measures claims the maximum base in every category — a state with cost-effectiveness &lt;$2 per dollar earns ZERO on that measure regardless of the other four.
     </div>`;
 
-  // Per-state rung placement using latest ACF data.
+  // Per-state rung placement table. Now includes Order Establishment alongside
+  // Current Collection, Arrears-Paying, and Cost-Effectiveness (4 of 5
+  // measures). Paternity stays out — see note above.
   const stateEl = document.getElementById('ivdStateScoring');
   if (!stateEl) return;
-  if (!_ACF_DATA || !_ACF_DATA.states) { stateEl.innerHTML = '<div class="note" style="color:var(--text3)">Loading ACF data…</div>'; return; }
-  const latest = (_ACF_DATA.fiscalYearsCovered || []).slice(-1)[0];
-  const stateRows = Object.entries(_ACF_DATA.states).map(([name, sd]) => {
-    const m = sd.metrics || {}, d = sd.derived || {};
-    const pick = series => {
-      if (!series) return null;
-      if (series[latest] != null) return series[latest];
-      const keys = Object.keys(series).sort();
-      return keys.length ? series[keys[keys.length-1]] : null;
-    };
-    const collRate = pick(d.collectionRate) != null ? +(pick(d.collectionRate)*100).toFixed(1) : null;
-    const caseload = pick(m.caseload);
-    const casesArr = pick(m.casesWithArrears);
-    const arrRate  = (caseload && casesArr) ? +(casesArr/caseload*100).toFixed(1) : null;
-    // Arrears collection proxy: casesPayingArrears ÷ casesWithArrears
-    const paying   = pick(m.casesPayingArrears);
-    const arrPaidPct = (casesArr && paying) ? +(paying/casesArr*100).toFixed(1) : null;
-    const costEff  = pick(m.costEffectivenessRatio);
-    // Paternity + order-est rates aren't always directly in metrics — skip if missing.
-    return { name, collRate, arrPaidPct, costEff };
-  }).filter(r => r.collRate != null).sort((a,b) => b.collRate - a.collRate);
+  if (!acfReady) { stateEl.innerHTML = '<div class="note" style="color:var(--text3)">ACF data not available.</div>'; return; }
+  const stateRows = stateMeasures.filter(r => r.collRate != null).sort((a,b) => b.collRate - a.collRate);
 
-  const scoreForCurrCollect = v => { if (v == null) return null; for (const r of IVD_SCORING.currentCollect.rows) if (v >= r.threshold) return r.appl; return 0; };
-  const scoreForArrCollect = v => { if (v == null) return null; for (const r of IVD_SCORING.arrearsCollect.rows) if (v >= r.threshold) return r.appl; return 0; };
-  const scoreForCostEff   = v => { if (v == null) return null; for (const r of IVD_SCORING.costEff.rows) if (v >= r.threshold) return r.appl; return 0; };
+  const shade = v => v == null ? '' : (v >= 90 ? 'color:#80c450' : v >= 60 ? 'color:var(--amber)' : 'color:var(--red)');
 
   const tbl = `<table style="width:100%;border-collapse:collapse;font-size:10.5px;background:var(--bg2);border-radius:6px;overflow:hidden">
     <thead><tr style="background:var(--bg3);color:var(--text3);font-size:9.5px;text-transform:uppercase;letter-spacing:.03em">
       <th style="padding:5px 9px;text-align:left">State</th>
       <th style="padding:5px 9px;text-align:right">Current coll. %</th>
-      <th style="padding:5px 9px;text-align:right">Applicable %</th>
+      <th style="padding:5px 9px;text-align:right">Appl. %</th>
       <th style="padding:5px 9px;text-align:right">Arrears paid %</th>
-      <th style="padding:5px 9px;text-align:right">Applicable %</th>
+      <th style="padding:5px 9px;text-align:right">Appl. %</th>
       <th style="padding:5px 9px;text-align:right">Cost-eff ratio</th>
-      <th style="padding:5px 9px;text-align:right">Applicable %</th>
+      <th style="padding:5px 9px;text-align:right">Appl. %</th>
+      <th style="padding:5px 9px;text-align:right">Orders est. %</th>
+      <th style="padding:5px 9px;text-align:right">Appl. %</th>
     </tr></thead>
     <tbody>${stateRows.map(r => {
-      const a = scoreForCurrCollect(r.collRate), b = scoreForArrCollect(r.arrPaidPct), c = scoreForCostEff(r.costEff);
-      const shade = v => v == null ? '' : (v >= 90 ? 'color:#80c450' : v >= 60 ? 'color:var(--amber)' : 'color:var(--red)');
+      const a = scoreFor(IVD_SCORING.currentCollect.rows, r.collRate);
+      const b = scoreFor(IVD_SCORING.arrearsCollect.rows, r.arrPaidPct);
+      const c = scoreFor(IVD_SCORING.costEff.rows,        r.costEff);
+      const d = scoreFor(IVD_SCORING.orderEst.rows,       r.ordPct);
       return `<tr style="border-bottom:1px solid var(--border)">
-        <td style="padding:4px 9px">${r.name}</td>
+        <td style="padding:4px 9px">${_esc(r.name)}</td>
         <td style="padding:4px 9px;text-align:right;font-family:'DM Mono',monospace">${r.collRate!=null?r.collRate.toFixed(1)+'%':'—'}</td>
         <td style="padding:4px 9px;text-align:right;font-family:'DM Mono',monospace;${shade(a)}">${a!=null?a+'%':'—'}</td>
         <td style="padding:4px 9px;text-align:right;font-family:'DM Mono',monospace">${r.arrPaidPct!=null?r.arrPaidPct.toFixed(1)+'%':'—'}</td>
         <td style="padding:4px 9px;text-align:right;font-family:'DM Mono',monospace;${shade(b)}">${b!=null?b+'%':'—'}</td>
         <td style="padding:4px 9px;text-align:right;font-family:'DM Mono',monospace">${r.costEff!=null?'$'+r.costEff.toFixed(2):'—'}</td>
         <td style="padding:4px 9px;text-align:right;font-family:'DM Mono',monospace;${shade(c)}">${c!=null?c+'%':'—'}</td>
+        <td style="padding:4px 9px;text-align:right;font-family:'DM Mono',monospace">${r.ordPct!=null?r.ordPct.toFixed(1)+'%':'—'}</td>
+        <td style="padding:4px 9px;text-align:right;font-family:'DM Mono',monospace;${shade(d)}">${d!=null?d+'%':'—'}</td>
       </tr>`;
     }).join('')}</tbody></table>
-    <div style="font-size:10px;color:var(--text3);padding:6px 0;line-height:1.65">Paternity Establishment % and Order Establishment % are also scored but are not always exposed in the ACF tables we ingest. This table shows the three measures we can compute directly from ACF Preliminary Data. Green = Level 90%+ applicable rate (state maxes this measure); amber = 60–89%; red = below floor.</div>`;
+    <div style="font-size:10px;color:var(--text3);padding:6px 0;line-height:1.65">Four of five measures computed directly from ACF Preliminary Data. Paternity Establishment % is scored but ACF Preliminary does not publish the nonmarital-in-caseload denominator needed to compute it. Green = 90%+ applicable (state maxes this measure); amber = 60–89%; red = below floor.</div>`;
   stateEl.innerHTML = tbl;
 }
 
@@ -5832,7 +6242,7 @@ function renderBonusExplainer(){
       <div style="font-weight:600;font-size:12px;color:var(--text);margin-bottom:3px">${c.who}</div>
       <div style="font-size:11.5px;color:var(--text2);margin-bottom:5px"><strong>Structure:</strong> ${c.how}</div>
       <div style="font-size:11px;color:var(--text2);line-height:1.55">${c.detail}</div>
-      ${c.cite ? `<div style="font-size:10px;margin-top:6px"><a href="${c.cite}" target="_blank" rel="noopener" style="color:var(--teal)">Source ↗</a></div>` : ''}
+      ${c.cite ? `<div style="font-size:10px;margin-top:6px"><a href="${_safeUrl(c.cite)}" target="_blank" rel="noopener" style="color:var(--teal)">Source ↗</a></div>` : ''}
     </div>`).join('');
 
   // Per-state incentive payment ranking (from ACF).
@@ -5848,7 +6258,7 @@ function renderBonusExplainer(){
         el2.innerHTML = `<div class="stitle">Top 15 states by federal IV-D incentive received (FY most recent)</div>
           <table style="width:100%;border-collapse:collapse;font-size:11.5px;background:var(--bg2);border-radius:6px;overflow:hidden">
             <thead><tr style="background:var(--bg3);color:var(--text3);font-size:10px;text-transform:uppercase;letter-spacing:.04em"><th style="padding:6px 10px;text-align:left">State</th><th style="padding:6px 10px;text-align:right">Federal incentive</th><th style="padding:6px 10px;text-align:right">CSE staff (FTE)</th><th style="padding:6px 10px;text-align:right">$/staff</th></tr></thead>
-            <tbody>${rows.map(r => `<tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px">${r.name}</td><td style="padding:6px 10px;text-align:right;color:var(--red)">$${Math.round(r.inc/1e6).toLocaleString()}M</td><td style="padding:6px 10px;text-align:right">${r.staff?Math.round(r.staff).toLocaleString():'—'}</td><td style="padding:6px 10px;text-align:right;color:var(--amber)">${r.perStaff?'$'+r.perStaff.toLocaleString():'—'}</td></tr>`).join('')}</tbody>
+            <tbody>${rows.map(r => `<tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px">${_esc(r.name)}</td><td style="padding:6px 10px;text-align:right;color:var(--red)">$${Math.round(r.inc/1e6).toLocaleString()}M</td><td style="padding:6px 10px;text-align:right">${r.staff?Math.round(r.staff).toLocaleString():'—'}</td><td style="padding:6px 10px;text-align:right;color:var(--amber)">${r.perStaff?'$'+r.perStaff.toLocaleString():'—'}</td></tr>`).join('')}</tbody>
           </table>
           <div style="font-size:10.5px;color:var(--text3);padding:6px 0;line-height:1.6">These dollars flow to the state. How much gets passed through to individual hearing officers or caseworkers as a bonus depends on the state\'s personnel policy — something that\'s rarely disclosed publicly. FOIA your state\'s CSE agency for compensation structure if you need the exact answer.</div>`;
       }
@@ -5965,7 +6375,7 @@ function renderACFPanel(){
   renderParadoxPanel();
   loadACFData().then(acf => {
     if(disc) disc.innerHTML = acf.disclaimer
-      ? `<strong style="color:var(--text2)">Source:</strong> ${acf.source||'OCSE preliminary data tables'} · Years covered: ${(acf.fiscalYearsCovered||[]).join(', ')}<br><strong style="color:var(--text2)">Disclaimer:</strong> ${acf.disclaimer}`
+      ? `<strong style="color:var(--text2)">Source:</strong> ${_esc(acf.source||'OCSE preliminary data tables')} · Years covered: ${_esc((acf.fiscalYearsCovered||[]).join(', '))}<br><strong style="color:var(--text2)">Disclaimer:</strong> ${_esc(acf.disclaimer)}`
       : '<em>OCSE data file not deployed yet — run <code>python ingest_acf.py</code> on the server to generate <code>acf_state_data.json</code>.</em>';
 
     const states = acf.states || {};
@@ -5994,8 +6404,8 @@ function renderACFPanel(){
       const arrearsByYear = (s.metrics && s.metrics.arrears) || {};
       const latestArrears = latestYear && arrearsByYear[latestYear] ? '$' + (arrearsByYear[latestYear]/1e9).toFixed(2) + 'B' : '—';
       const flagChips = flags.map(f => {
-        const st = _ACF_FLAG_STYLE[f.type] || {label:f.type, color:'#888'};
-        const tooltip = (f.explanation||'').replace(/"/g,'&quot;');
+        const st = _ACF_FLAG_STYLE[f.type] || {label:_esc(f.type), color:'#888'};
+        const tooltip = _esc(f.explanation||'');
         return `<span style="display:inline-block;font-size:9px;padding:2px 7px;border-radius:3px;background:${st.color}22;color:${st.color};border:1px solid ${st.color}55;margin:2px 3px 0 0;cursor:help" title="${tooltip}">${st.label}</span>`;
       }).join('');
       // Community data confidence for this state — how many case submissions back up our stats
@@ -6003,7 +6413,7 @@ function renderACFPanel(){
       const commStatus = aggregateDataStatus(stateJudges);
       return `<div style="padding:12px;background:var(--bg2);border:1px solid var(--border);border-radius:7px">
         <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:6px">
-          <div style="font-weight:500;font-size:13px;color:var(--text)">${name}</div>
+          <div style="font-weight:500;font-size:13px;color:var(--text)">${_esc(name)}</div>
           <div style="text-align:right;font-size:10px;color:var(--text3);flex-shrink:0">${latestYear||''}</div>
         </div>
         <div style="display:flex;gap:14px;align-items:center;margin-bottom:8px">
@@ -6146,7 +6556,7 @@ async function renderParadoxPanel(){
 
     return `<div style="padding:13px;background:var(--bg2);border:1px solid var(--border);border-left:3px solid ${borderColor};border-radius:7px">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px">
-        <div style="font-weight:500;font-size:13px;color:var(--text)">${name}</div>
+        <div style="font-weight:500;font-size:13px;color:var(--text)">${_esc(name)}</div>
         ${paradoxFires ? `<span style="font-size:8px;padding:2px 6px;border-radius:3px;background:rgba(240,144,144,0.15);color:#f09090;border:1px solid rgba(240,144,144,0.35);letter-spacing:0.04em;text-transform:uppercase;font-weight:500">⚠ Paradox</span>` : ''}
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:10.5px;margin-bottom:8px">
@@ -6162,9 +6572,9 @@ async function renderParadoxPanel(){
       </div>
       ${paradoxBox}
       <div style="font-size:10px;color:var(--text2);line-height:1.6;margin-top:8px">
-        <div><strong style="color:var(--text3);font-weight:500">Program:</strong> ${info.programName || 'Unnamed'}</div>
-        ${info.agency ? `<div><strong style="color:var(--text3);font-weight:500">Agency:</strong> ${info.agency}</div>` : ''}
-        ${info.url ? `<div style="margin-top:4px"><a href="${info.url}" target="_blank" rel="noopener" style="color:var(--teal);font-size:10px">View the registry ↗</a></div>` : ''}
+        <div><strong style="color:var(--text3);font-weight:500">Program:</strong> ${_esc(info.programName || 'Unnamed')}</div>
+        ${info.agency ? `<div><strong style="color:var(--text3);font-weight:500">Agency:</strong> ${_esc(info.agency)}</div>` : ''}
+        ${info.url ? `<div style="margin-top:4px"><a href="${_safeUrl(info.url)}" target="_blank" rel="noopener" style="color:var(--teal);font-size:10px">View the registry ↗</a></div>` : ''}
         ${info.publishesPhoto || info.publishesExactDebtAmount ? `<div style="margin-top:4px;font-size:9px;color:var(--text3)">Publishes: ${[info.publishesPhoto?'photos':null, info.publishesExactDebtAmount?'exact debt amounts':null, info.publishesChildCount?'child counts':null].filter(Boolean).join(', ')}</div>` : ''}
         ${info.appealsProcessDocumented === false ? '<div style="margin-top:4px;font-size:9px;color:var(--amber)">⚠ No appeals process documented on the page</div>' : ''}
       </div>
@@ -6210,7 +6620,7 @@ async function renderCoverageGap(){
     const commStatus = aggregateDataStatus(stateJudges);
     return `<div style="padding:12px;background:var(--bg2);border:1px solid var(--border);border-radius:7px;border-left:3px solid ${color}">
       <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px">
-        <div style="font-weight:500;font-size:12px;color:var(--text)">${name}</div>
+        <div style="font-weight:500;font-size:12px;color:var(--text)">${_esc(name)}</div>
         <div style="font-size:9px;color:var(--text3)">FY${g.year}</div>
       </div>
       <div style="font-family:'DM Mono',monospace;font-size:20px;font-weight:600;color:${color};margin-bottom:4px">${ratioPct}</div>
@@ -6265,7 +6675,7 @@ function _renderCmpChips(){
   // Use data-state attribute + this.dataset.state to avoid quote-escaping
   // pitfalls when state names contain apostrophes or quotes.
   box.innerHTML = window._cmpStates.map(s => {
-    const safe = s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+    const safe = _esc(s);
     return `<span style="display:inline-flex;align-items:center;gap:6px;padding:4px 10px;background:rgba(80,196,168,.12);border:1px solid rgba(80,196,168,.4);border-radius:4px;font-size:11.5px;color:var(--teal)">${safe}<button type="button" data-state="${safe}" onclick="_cmpRemoveState(this.dataset.state)" style="background:none;border:none;color:var(--teal);cursor:pointer;font-size:13px;padding:0;line-height:1" title="Remove ${safe}">×</button></span>`;
   }).join('');
 }
@@ -6361,13 +6771,17 @@ async function renderStateGrades(){
   // not a generic good/bad palette. Previously a state at 66% showed a
   // "green" bar while sitting on the gold 60-70% band, which read as
   // "maxing the measure" even though it only earns 60-70% applicable.
+  // Bar colors intentionally DARKER than their threshold band behind them
+  // (bands are the same hue at ~0.20 alpha). This gives a clear dark-on-light
+  // contrast even when every state stacks in one tier (e.g. support-order %
+  // where every state is 80%+ and sits on the teal band).
   const _colorForTier = v => {
-    if (v == null) return 'rgba(128,128,128,0.6)';
-    if (v >= 80) return 'rgba(60,200,170,0.92)';    // teal — 100% max
-    if (v >= 70) return 'rgba(170,220,100,0.90)';   // lime — 80-100% appl
-    if (v >= 60) return 'rgba(245,200,70,0.92)';    // gold — 60-80% appl
-    if (v >= 50) return 'rgba(245,110,40,0.92)';    // orange — 50% floor
-    return 'rgba(220,70,70,0.95)';                   // red — zero incentive
+    if (v == null) return 'rgba(100,100,100,0.95)';
+    if (v >= 80) return 'rgba(30,150,130,1)';      // deep teal — 100% max
+    if (v >= 70) return 'rgba(110,170,60,1)';      // deep lime — 80-100% appl
+    if (v >= 60) return 'rgba(200,160,40,1)';      // deep gold — 60-80% appl
+    if (v >= 50) return 'rgba(210,80,20,1)';       // deep orange — 50% floor
+    return 'rgba(180,50,50,1)';                     // deep red — zero incentive
   };
   mkChart('stateEquityChart',{type:'bar',data:{labels:states,datasets:[{label:'Collection rate (OCSE %)',data:rateData,backgroundColor:rateData.map(_colorForTier)}]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},onClick:function(evt, elems){if(elems&&elems[0]){const st=states[elems[0].index];if(st) openStateSidePanel(st);}},plugins:{legend:{display:false},title:{display:true,text:'Current Support Collection Rate (FY'+latestYear+') — bar color = actual IV-D tier the state earns',color:'#d6d4d0',font:{size:13,weight:'600'}},tooltip:{backgroundColor:'rgba(8,10,14,0.95)',titleFont:{size:13,weight:'600'},bodyFont:{size:12},padding:10,callbacks:{label:function(ctx){const v=ctx.raw;const t=_tierForColl(v);return ['Collection rate: '+v+'%','Tier: '+t.label,'IV-D reward: '+(t.appl==null?'—':t.appl+'%'),'(click bar for full state profile)'];}}},thresholdBands:IVD_THRESHOLD_BANDS_COLL},scales:{y:{ticks:{...TC,callback:v=>v+'%'},grid:GC,max:100},x:{ticks:{...TC,font:{size:8},maxRotation:75,minRotation:75},grid:{display:false}}}}});
 
@@ -6442,11 +6856,11 @@ async function renderStateGrades(){
     return ce != null ? +(ce.toFixed(2)) : 0;
   });
   const CE_BANDS = [
-    { from: 0,    to: 2.0,  label: 'below $2 per $1 — $0 incentive',     color:'rgba(210,40,40,0.92)', labelColor:'#ffffff', borderTop:'rgba(255,255,255,0.4)' },
-    { from: 2.0,  to: 2.5,  label: '$2.00-$2.50 — 40% applicable',        color:'rgba(245,110,40,0.88)', labelColor:'#ffffff', borderTop:'rgba(255,255,255,0.4)' },
-    { from: 2.5,  to: 3.5,  label: '$2.50-$3.50 — 50-70% applicable',     color:'rgba(245,200,70,0.75)', labelColor:'#2a1a00', borderTop:'rgba(255,255,255,0.35)' },
-    { from: 3.5,  to: 5.0,  label: '$3.50-$5.00 — 80-90% applicable',     color:'rgba(170,220,100,0.65)',labelColor:'#1a2a00', borderTop:'rgba(255,255,255,0.35)' },
-    { from: 5.0,  to: 10.0, label: '$5+ per $1 — 100% MAX applicable',    color:'rgba(60,200,170,0.72)', labelColor:'#ffffff', borderTop:'rgba(255,255,255,0.4)' },
+    { from: 0,    to: 2.0,  label: 'below $2 per $1 — $0 incentive',     color:'rgba(210,40,40,0.22)',  labelColor:'#ffd4d4', borderTop:'rgba(255,255,255,0.18)' },
+    { from: 2.0,  to: 2.5,  label: '$2.00-$2.50 — 40% applicable',        color:'rgba(245,110,40,0.22)', labelColor:'#ffd9b8', borderTop:'rgba(255,255,255,0.18)' },
+    { from: 2.5,  to: 3.5,  label: '$2.50-$3.50 — 50-70% applicable',     color:'rgba(245,200,70,0.20)', labelColor:'#ffe8a8', borderTop:'rgba(255,255,255,0.16)' },
+    { from: 3.5,  to: 5.0,  label: '$3.50-$5.00 — 80-90% applicable',     color:'rgba(170,220,100,0.20)',labelColor:'#d8f0b0', borderTop:'rgba(255,255,255,0.16)' },
+    { from: 5.0,  to: 10.0, label: '$5+ per $1 — 100% MAX applicable',    color:'rgba(60,200,170,0.22)', labelColor:'#b8f0e0', borderTop:'rgba(255,255,255,0.18)' },
   ];
   const _tierForCE = v => {
     if (v == null) return {appl:null,label:'—'};
@@ -6469,9 +6883,9 @@ async function renderStateGrades(){
   document.getElementById('stateGradeTable').innerHTML = tableSorted.map(r=>{
     const gl = r.grade.charAt(0);
     const href = '/state.html?s=' + encodeURIComponent(r.name);
-    return `<tr style="background:${gc[gl]||''};cursor:pointer" onclick="window.open('${href}','_blank','noopener')" title="Open ${r.name} detail page">
-      <td style="font-weight:500"><a href="${href}" target="_blank" rel="noopener" style="color:var(--teal);text-decoration:none" onclick="event.stopPropagation()">${r.name} ↗</a></td>
-      <td style="font-weight:700;color:${gl==='F'?'var(--red)':gl==='B'||gl==='A'?'var(--green)':'var(--amber)'}">${r.grade}</td>
+    return `<tr style="background:${gc[gl]||''};cursor:pointer" onclick="window.open('${href}','_blank','noopener')" title="Open ${_esc(r.name)} detail page">
+      <td style="font-weight:500"><a href="${href}" target="_blank" rel="noopener" style="color:var(--teal);text-decoration:none" onclick="event.stopPropagation()">${_esc(r.name)} ↗</a></td>
+      <td style="font-weight:700;color:${gl==='F'?'var(--red)':gl==='B'||gl==='A'?'var(--green)':'var(--amber)'}">${_esc(r.grade)}</td>
       <td style="color:${r.rate!=null && r.rate<0.55?'var(--red)':'var(--text2)'}">${r.rate!=null?(r.rate*100).toFixed(1)+'%':'—'}</td>
       <td style="color:${r.arrRate!=null && r.arrRate>0.6?'var(--red)':'var(--text2)'}">${r.arrRate!=null?(r.arrRate*100).toFixed(1)+'%':'—'}</td>
       <td>${r.caseload!=null?Number(r.caseload).toLocaleString():'—'}</td>
@@ -6507,7 +6921,7 @@ async function saveVaultEntry(){
 function renderVault(){
   const el=document.getElementById('vaultEntries');if(!el)return;
   if(!vaultEntries.length){el.innerHTML='<div class="no-results">No timestamped documents yet.</div>';return;}
-  el.innerHTML=vaultEntries.slice().reverse().map(e=>`<div class="vault-box"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px"><div style="font-size:12px;font-weight:500;color:var(--teal)">${e.desc}</div><div style="font-size:10px;color:var(--text3)">${e.timestamp}</div></div><div style="font-size:10px;color:var(--text3);margin-bottom:4px">File: ${e.file}</div><div class="hash-display">${e.hash}</div><div style="font-size:10px;color:var(--text3);line-height:1.6">This hash proves "${e.desc}" existed in its exact current form on ${e.timestamp}. If anyone claims the document was created or modified after this date, this record is proof they are wrong. In production, this hash is published to the Arweave blockchain — a permanent, publicly verifiable timestamp.</div></div>`).join('');
+  el.innerHTML=vaultEntries.slice().reverse().map(e=>`<div class="vault-box"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px"><div style="font-size:12px;font-weight:500;color:var(--teal)">${_esc(e.desc)}</div><div style="font-size:10px;color:var(--text3)">${_esc(e.timestamp)}</div></div><div style="font-size:10px;color:var(--text3);margin-bottom:4px">File: ${_esc(e.file)}</div><div class="hash-display">${_esc(e.hash)}</div><div style="font-size:10px;color:var(--text3);line-height:1.6">This hash proves "${_esc(e.desc)}" existed in its exact current form on ${_esc(e.timestamp)}. If anyone claims the document was created or modified after this date, this record is proof they are wrong. In production, this hash is published to the Arweave blockchain — a permanent, publicly verifiable timestamp.</div></div>`).join('');
 }
 
 // ============================================================
@@ -6646,7 +7060,7 @@ async function _toggleStoryAngle(idx){
   try {
     body.innerHTML = await _storyAngleDetail(s);
   } catch(e) {
-    body.innerHTML = '<div style="color:var(--amber);padding:10px">Could not load supporting data: '+(e.message||e)+'</div>';
+    body.innerHTML = '<div style="color:var(--amber);padding:10px">Could not load supporting data: '+_esc(e.message||e)+'</div>';
   }
 }
 
@@ -6776,7 +7190,7 @@ async function _storyAngleDetail(s){
     var rws = Object.keys(byState).map(function(k){ var v = byState[k]; return {state:k, avg: Math.round(v.sum/v.n), n:v.n}; }).sort(function(a,b){ return b.avg - a.avg; });
     var tot = cases.reduce(function(a,c){ return a+(c.daysNoChild||0); }, 0);
     var rh = rws.slice(0,20).map(function(r){
-      return '<tr><td style="padding:3px 8px">' + r.state + '</td><td style="padding:3px 8px;text-align:right">' + r.avg + '</td><td style="padding:3px 8px;text-align:right;color:var(--text3)">' + r.n + '</td></tr>';
+      return '<tr><td style="padding:3px 8px">' + _esc(r.state) + '</td><td style="padding:3px 8px;text-align:right">' + r.avg + '</td><td style="padding:3px 8px;text-align:right;color:var(--text3)">' + r.n + '</td></tr>';
     }).join('');
     return wrap(
       '<div style="margin-bottom:8px">Nationwide avg: <strong>' + Math.round(tot/cases.length) + ' days</strong> across ' + cases.length + ' cases in ' + rws.length + ' states.</div>' +
@@ -6792,7 +7206,7 @@ async function _storyAngleDetail(s){
     var avg = Math.round(inf.reduce(function(a,c){ return a + incInfl(c); }, 0) / inf.length);
     var top = inf.slice().sort(function(a,b){ return incInfl(b) - incInfl(a); }).slice(0,10);
     var rh2 = top.map(function(c){
-      return '<tr><td style="padding:3px 8px">' + c.state + '</td>'
+      return '<tr><td style="padding:3px 8px">' + _esc(c.state) + '</td>'
         + '<td style="padding:3px 8px;text-align:right">$' + Number(c.income).toLocaleString() + '</td>'
         + '<td style="padding:3px 8px;text-align:right;color:var(--red)">$' + Number(c.courtIncome).toLocaleString() + '</td>'
         + '<td style="padding:3px 8px;text-align:right;color:var(--red);font-weight:600">+' + incInfl(c) + '%</td></tr>';
@@ -6847,7 +7261,7 @@ async function _storyAngleDetail(s){
     var pctTop15 = nationalTot > 0 ? (totIV/nationalTot*100).toFixed(1) : '—';
 
     var rh3 = show.map(function(r){
-      return '<tr><td style="padding:3px 8px">' + r.state + '</td>'
+      return '<tr><td style="padding:3px 8px">' + _esc(r.state) + '</td>'
         + '<td style="padding:3px 8px;text-align:right;color:var(--amber)">$' + Math.round(r.inc/1e6).toLocaleString() + 'M</td>'
         + '<td style="padding:3px 8px;text-align:right">$' + Math.round(r.coll/1e6).toLocaleString() + 'M</td>'
         + '<td style="padding:3px 8px;text-align:right;color:var(--text3)">' + (r.inc/r.coll*100).toFixed(2) + '%</td>'
@@ -6869,7 +7283,7 @@ async function _storyAngleDetail(s){
       return { state:name, rate:rate, cload:cload, implied: (rate && cload) ? Math.round(cload*(1-rate)) : null };
     }).filter(function(r){ return r.rate && r.cload; }).sort(function(a,b){ return (b.implied||0) - (a.implied||0); }).slice(0,15);
     var rh4 = sts2.map(function(r){
-      return '<tr><td style="padding:3px 8px">' + r.state + '</td>'
+      return '<tr><td style="padding:3px 8px">' + _esc(r.state) + '</td>'
         + '<td style="padding:3px 8px;text-align:right">' + (r.rate*100).toFixed(1) + '%</td>'
         + '<td style="padding:3px 8px;text-align:right">' + Number(r.cload).toLocaleString() + '</td>'
         + '<td style="padding:3px 8px;text-align:right;color:var(--red);font-weight:600">' + Number(r.implied).toLocaleString() + '</td></tr>';
@@ -6961,8 +7375,8 @@ function _renderScopeChips(){
   }
   box.innerHTML = window._scopeStates.map(s => {
     const cty = window._scopeCountyByState[s];
-    const safeS = s.replace(/&/g,'&amp;').replace(/"/g,'&quot;');
-    const ctyBadge = cty ? ' · <span style="color:var(--amber)">' + cty.replace(/&/g,'&amp;').replace(/"/g,'&quot;') + '</span>' : '';
+    const safeS = _esc(s);
+    const ctyBadge = cty ? ' · <span style="color:var(--amber)">' + _esc(cty) + '</span>' : '';
     return '<span style="display:inline-flex;align-items:center;gap:6px;padding:4px 10px;background:rgba(120,174,224,.12);border:1px solid rgba(120,174,224,.4);border-radius:4px;font-size:11.5px;color:#78aee0">'
       + safeS + ctyBadge
       + '<button type="button" data-st="' + safeS + '" onclick="_scopeRemoveState(this.dataset.st)" style="background:none;border:none;color:#78aee0;cursor:pointer;font-size:13px;padding:0;line-height:1">&times;</button>'
@@ -7069,15 +7483,15 @@ async function renderStoryScope(){
     { label: 'IV-D staff (FTE)',                          nat: fmtN(natStaff),    get: c => fmtN(c.staff) },
     { label: 'Federal incentive received',                nat: fmtM(natIncentive),get: c => fmtM(c.incentive) },
     { label: 'Collection rate',                           nat: fmtP(natRate),     get: c => fmtP(c.rate) },
-    { label: 'Judges verified on platform',               nat: totalJudges.toLocaleString(), get: c => c.judges.toLocaleString() + (c.county ? ' · ' + (c.ctyJudges||0) + ' in ' + c.county : '') },
-    { label: 'Submissions on platform',                   nat: totalSubs.toLocaleString(),   get: c => c.subs.toLocaleString() + (c.county ? ' · ' + (c.ctySubs||0) + ' in ' + c.county : '') },
+    { label: 'Judges verified on platform',               nat: totalJudges.toLocaleString(), get: c => c.judges.toLocaleString() + (c.county ? ' · ' + (c.ctyJudges||0) + ' in ' + _esc(c.county) : '') },
+    { label: 'Submissions on platform',                   nat: totalSubs.toLocaleString(),   get: c => c.subs.toLocaleString() + (c.county ? ' · ' + (c.ctySubs||0) + ' in ' + _esc(c.county) : '') },
   ];
 
   let headerHtml = '<th style="padding:7px 10px;text-align:left;width:35%">Metric</th>'
     + '<th style="padding:7px 10px;text-align:right">Nationwide<br><span style="font-size:9px;color:var(--text3);font-weight:400">(' + statesWithData + ' states)</span></th>';
   stateColsSpec.forEach(c => {
-    const cty = c.county ? '<br><span style="font-size:9px;color:var(--amber);font-weight:400">(+ ' + c.county + ')</span>' : '';
-    headerHtml += '<th style="padding:7px 10px;text-align:right">' + c.name + cty + '</th>';
+    const cty = c.county ? '<br><span style="font-size:9px;color:var(--amber);font-weight:400">(+ ' + _esc(c.county) + ')</span>' : '';
+    headerHtml += '<th style="padding:7px 10px;text-align:right">' + _esc(c.name) + cty + '</th>';
   });
   if (!stateColsSpec.length) headerHtml += '<th style="padding:7px 10px;text-align:right;color:var(--text3);font-style:italic">-- add a state --</th>';
 
@@ -7101,7 +7515,7 @@ async function renderStoryScope(){
     + headerHtml
     + '</tr></thead><tbody>' + bodyHtml + '</tbody></table></div>'
     + '<div style="font-size:10px;color:var(--text3);padding:6px 0;line-height:1.6">'
-    + 'Nationwide column aggregates every state ACF FY' + yr + ' figure (across ' + statesWithData + ' states). '
+    + 'Nationwide column aggregates every state ACF FY' + _esc(yr) + ' figure (across ' + statesWithData + ' states). '
     + (stateColsSpec.length ? 'State columns pulled from ACF Preliminary Data. ' : 'Add one or more states above to compare side-by-side. ')
     + 'County figures (when a county is attached to a state) reflect submissions + verified judges — ACF does not publish per-county IV-D numbers. '
     + 'Use the export button above to download this exact cut as JSON for citation.</div>';
@@ -7207,7 +7621,7 @@ function renderFeed(){
   const stFil=document.getElementById('feedState').value||'all',sort=document.getElementById('feedSort').value;
   const states=[...new Set(allCases.map(c=>c.state))].sort();
   const sel=document.getElementById('feedState'),cur=sel.value;
-  sel.innerHTML='<option value="all">All states</option>'+states.map(s=>`<option${s===cur?' selected':''}>${s}</option>`).join('');
+  sel.innerHTML='<option value="all">All states</option>'+states.map(s=>`<option${s===cur?' selected':''}>${_esc(s)}</option>`).join('');
   let shown=stFil==='all'?[...allCases]:allCases.filter(c=>c.state===stFil);
   if(sort==='recent')shown=[...shown].reverse();
   else if(sort==='days_no_child')shown=[...shown].sort((a,b)=>(b.daysNoChild||0)-(a.daysNoChild||0));
@@ -7217,7 +7631,7 @@ function renderFeed(){
   document.getElementById('feedCount').textContent=`${shown.length} cases`;
   document.getElementById('feedList').innerHTML=shown.map(c=>{
     const infl=incInfl(c),tc=totalCost(c),sp=c.income&&c.support?Math.round(c.support/c.income*100):null;
-    return`<div class="feed-card${c.cps>0?' high-cps':''}${c.po>1?' po':''}"><div class="feed-top"><span class="feed-state">${c.state}</span><span class="feed-meta">${c.year}${c.yearEnd&&c.yearEnd!==''?'-'+c.yearEnd:' (ongoing)'} · ${c.outcome||'Unknown'} · ${c.appearances||'?'} appearances · ${c.continuances||0} continuances</span></div>${c.judge?`<div style="font-size:10px;color:var(--text3);margin-bottom:4px">Judge: <strong style="color:var(--text2)">${c.judge}</strong>${c.court?' · '+c.court:''}</div>`:''} ${c.desc?`<div style="font-size:11px;color:var(--text2);line-height:1.6;margin-bottom:5px">${c.desc.slice(0,300)}${c.desc.length>300?'...':''}</div>`:''}<div class="tag-row"><span class="tag" style="font-weight:500">Custody: ${c.pct||14}%</span>${c.daysNoChild>0?`<span class="tag d">${c.daysNoChild} days without child</span>`:''}${sp?`<span class="tag ${sp>40?'d':sp>25?'w':''}">${fmt(c.support)}/mo (${sp}% income)</span>`:''}${infl>0?`<span class="tag d">+${infl}% income inflated</span>`:''}${c.arrears?`<span class="tag d">$${(c.arrearsAmt||0).toLocaleString()} arrears</span>`:''}${c.gag>0?'<span class="tag w">Gag order</span>':''}${c.sealed>0?'<span class="tag w">Sealed</span>':''}${c.cps>0?`<span class="tag d">${c.cps} CPS (${c.cpsOutcome||'?'})</span>`:''}${c.po>1?'<span class="tag d">PO: unfounded</span>':''}${c.falseAlleg>0?`<span class="tag w">${c.falseAlleg} false alleg.</span>`:''}${c.removed>0?'<span class="tag d">Children removed</span>':''}${tc>0?`<span class="tag">Cost: $${tc.toLocaleString()}</span>`:''}${c.afcc>0?'<span class="tag p">AFCC appointee</span>':''}${c.oppDonated>0?'<span class="tag d">Opp. atty donated to judge</span>':''}</div></div>`;
+    return`<div class="feed-card${c.cps>0?' high-cps':''}${c.po>1?' po':''}"><div class="feed-top"><span class="feed-state">${_esc(c.state)}</span><span class="feed-meta">${_esc(c.year)}${c.yearEnd&&c.yearEnd!==''?'-'+_esc(c.yearEnd):' (ongoing)'} · ${_esc(c.outcome||'Unknown')} · ${_esc(c.appearances||'?')} appearances · ${c.continuances||0} continuances</span></div>${c.judge?`<div style="font-size:10px;color:var(--text3);margin-bottom:4px">Judge: <strong style="color:var(--text2)">${_esc(c.judge)}</strong>${c.court?' · '+_esc(c.court):''}</div>`:''} ${c.desc?`<div style="font-size:11px;color:var(--text2);line-height:1.6;margin-bottom:5px">${_esc(c.desc.slice(0,300))}${c.desc.length>300?'...':''}</div>`:''}<div class="tag-row"><span class="tag" style="font-weight:500">Custody: ${c.pct||14}%</span>${c.daysNoChild>0?`<span class="tag d">${c.daysNoChild} days without child</span>`:''}${sp?`<span class="tag ${sp>40?'d':sp>25?'w':''}">${fmt(c.support)}/mo (${sp}% income)</span>`:''}${infl>0?`<span class="tag d">+${infl}% income inflated</span>`:''}${c.arrears?`<span class="tag d">$${(c.arrearsAmt||0).toLocaleString()} arrears</span>`:''}${c.gag>0?'<span class="tag w">Gag order</span>':''}${c.sealed>0?'<span class="tag w">Sealed</span>':''}${c.cps>0?`<span class="tag d">${c.cps} CPS (${_esc(c.cpsOutcome||'?')})</span>`:''}${c.po>1?'<span class="tag d">PO: unfounded</span>':''}${c.falseAlleg>0?`<span class="tag w">${c.falseAlleg} false alleg.</span>`:''}${c.removed>0?'<span class="tag d">Children removed</span>':''}${tc>0?`<span class="tag">Cost: $${tc.toLocaleString()}</span>`:''}${c.afcc>0?'<span class="tag p">AFCC appointee</span>':''}${c.oppDonated>0?'<span class="tag d">Opp. atty donated to judge</span>':''}</div></div>`;
   }).join('');
 }
 
@@ -7519,7 +7933,7 @@ function updateFilingBox() {
       box.style.display='block';
       box.innerHTML = `<h4>📋 File with: ${bar.complaintName}</h4>
         <p><a href="${bar.complaintForm}" target="_blank">Complaint form ↗</a> &nbsp;·&nbsp; <a href="${bar.lookupUrl}" target="_blank">Verify license ↗</a></p>
-        ${bar.arbitration ? `<p style="color:var(--teal);font-size:10px">✓ Fee arbitration available in ${state}</p>` : ''}
+        ${bar.arbitration ? `<p style="color:var(--teal);font-size:10px">✓ Fee arbitration available in ${_esc(state)}</p>` : ''}
         <div class="filing-step"><div class="filing-step-num">1</div><div>Gather billing records, fee agreement, and all written communications.</div></div>
         <div class="filing-step"><div class="filing-step-num">2</div><div>Submit via the online form above. Keep every confirmation email with timestamps.</div></div>
         <div class="filing-step"><div class="filing-step-num">3</div><div>Bar complaints are typically acknowledged within 30 days. Expect 3–12 months for resolution.</div></div>`;
@@ -7528,7 +7942,7 @@ function updateFilingBox() {
     const bar = ATTORNEY_DIRECTORY[state];
     if(bar && state) {
       box.style.display='block';
-      box.innerHTML = `<h4>💸 Fee dispute — ${state}</h4>
+      box.innerHTML = `<h4>💸 Fee dispute — ${_esc(state)}</h4>
         ${bar.arbitration ? `<p><strong>Fee arbitration available:</strong> <a href="${bar.arbitrationUrl||bar.complaintUrl}" target="_blank">File here ↗</a> — free and faster than court.</p>` : '<p>Fee arbitration not available in this state — see bar complaint process below.</p>'}
         <p><a href="${bar.complaintUrl}" target="_blank">${bar.complaintName} ↗</a></p>`;
     }
@@ -7577,7 +7991,7 @@ function onCmpStateChange() {
 
   const counties = _cmp_countiesFor(state);
   if(!counties.length){
-    countySel.innerHTML = `<option value="">(No counties in database for ${state} yet — use manual entry below)</option>`;
+    countySel.innerHTML = `<option value="">(No counties in database for ${_esc(state)} yet — use manual entry below)</option>`;
     countySel.disabled = true;
     // Still populate subject with a full fallback from JUDGES (in case manual
     // entry is the path) — keep the field typeable.
@@ -7587,7 +8001,7 @@ function onCmpStateChange() {
 
   countySel.disabled = false;
   countySel.innerHTML = `<option value="">Select county…</option>` +
-    counties.map(c => `<option value="${c.replace(/"/g,'&quot;')}">${c}</option>`).join('');
+    counties.map(c => `<option value="${_esc(c)}">${_esc(c)}</option>`).join('');
 }
 
 async function onCmpCountyChange(){
@@ -7617,15 +8031,15 @@ async function onCmpCountyChange(){
   const judges = (typeof JUDGES !== 'undefined' ? JUDGES : []).filter(j => j.state === state && j.county === county);
   const baseOpt = '<option value="">— Pick a judge or type name manually below —</option>';
   if(!judges.length){
-    subjectSel.innerHTML = baseOpt + `<option value="" disabled>(No judges for ${county}, ${state} yet — type the name manually)</option>`;
+    subjectSel.innerHTML = baseOpt + `<option value="" disabled>(No judges for ${_esc(county)}, ${_esc(state)} yet — type the name manually)</option>`;
     subjectSel.disabled = false;
     return;
   }
   const opts = judges.map(j => {
     const cnt = _CMP_JUDGE_COUNTS[j.name] || 0;
     const badge = cnt > 0 ? ` · ${cnt} submission${cnt===1?'':'s'}` : '';
-    const val = [j.name, j.county||'', j.court||''].join('|').replace(/"/g,'&quot;');
-    return `<option value="${val}">${j.name}${j.court?' — '+j.court:''}${badge}</option>`;
+    const val = _esc([j.name, j.county||'', j.court||''].join('|'));
+    return `<option value="${val}">${_esc(j.name)}${j.court?' — '+_esc(j.court):''}${badge}</option>`;
   }).join('');
   subjectSel.innerHTML = baseOpt + opts;
   subjectSel.disabled = false;
@@ -7647,10 +8061,10 @@ function onCmpSubjectSelect() {
   const cnt = _CMP_JUDGE_COUNTS[name] || 0;
   if(statsBox){
     if(cnt > 0){
-      statsBox.innerHTML = `<span style="color:var(--amber)">⚠ ${cnt} prior submission${cnt===1?'':'s'} against ${name}</span> in the Unsealed database.`;
+      statsBox.innerHTML = `<span style="color:var(--amber)">⚠ ${cnt} prior submission${cnt===1?'':'s'} against ${_esc(name)}</span> in the Unsealed database.`;
       statsBox.style.display = 'block';
     } else {
-      statsBox.innerHTML = `<span style="color:var(--text3)">No prior submissions against ${name} in the Unsealed database yet — you may be the first.</span>`;
+      statsBox.innerHTML = `<span style="color:var(--text3)">No prior submissions against ${_esc(name)} in the Unsealed database yet — you may be the first.</span>`;
       statsBox.style.display = 'block';
     }
   }
@@ -8066,7 +8480,7 @@ async function _toggleRepDetail(btn){
     <div style="font-size:10.5px;color:var(--text2);margin-bottom:6px">${familySponsored.length} sponsored · ${familyCosponsored.length} cosponsored · ${famCount} total out of ${famTotal} bills (<strong>${famPct}%</strong> of this rep's legislative activity in 119th Congress)</div>`;
   if (familySponsored.length) {
     html += `<div style="font-size:9.5px;color:var(--text3);margin:4px 0 2px">Sponsored:</div>`;
-    html += familySponsored.slice(0,8).map(b => `<div style="padding:2px 0;font-size:10px;border-bottom:1px dotted var(--border)">${_escHtml(b.title||'(untitled)').slice(0,180)}${b.congress?.gov_url?' <a href="'+_escHtml(b.congress.gov_url)+'" target="_blank" rel="noopener" style="color:var(--teal)">↗</a>':''}</div>`).join('');
+    html += familySponsored.slice(0,8).map(b => `<div style="padding:2px 0;font-size:10px;border-bottom:1px dotted var(--border)">${_escHtml(b.title||'(untitled)').slice(0,180)}${b.congress?.gov_url?' <a href="'+_safeUrl(b.congress.gov_url)+'" target="_blank" rel="noopener" style="color:var(--teal)">↗</a>':''}</div>`).join('');
   }
   if (familyCosponsored.length) {
     html += `<div style="font-size:9.5px;color:var(--text3);margin:6px 0 2px">Cosponsored:</div>`;
@@ -8095,7 +8509,7 @@ function _renderFederalCards(reps, state){
     <div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
       <span>${_escHtml(r.name)}${_partyBadge(r.party)}${r.district?` <span style="color:var(--text3);font-size:10px">· Dist ${_escHtml(r.district)}</span>`:''}</span>
       <div style="display:flex;gap:6px;align-items:center">
-        ${r.url ? `<a class="rep-link" href="${_escHtml(r.url)}" target="_blank" rel="noopener">↗</a>` : ''}
+        ${r.url ? `<a class="rep-link" href="${_safeUrl(r.url)}" target="_blank" rel="noopener">↗</a>` : ''}
         <button onclick="_toggleRepDetail(this)" style="font-size:9.5px;padding:3px 8px;border-radius:4px;border:1px solid var(--border);background:var(--bg3);color:var(--text2);cursor:pointer;font-family:inherit">Details ▾</button>
       </div>
     </div>
@@ -8125,7 +8539,7 @@ function _renderStateCards(legs, state){
   const lower = legs.filter(l => /lower|house|assembly/i.test(l.chamber));
   const row = r => `<div style="display:flex;justify-content:space-between;align-items:center;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10.5px">
     <span>${_escHtml(r.name)}${_partyBadge(r.party)}${r.district?` <span style="color:var(--text3);font-size:10px">· ${_escHtml(r.district)}</span>`:''}</span>
-    ${r.url ? `<a class="rep-link" href="${_escHtml(r.url)}" target="_blank" rel="noopener">↗</a>` : ''}
+    ${r.url ? `<a class="rep-link" href="${_safeUrl(r.url)}" target="_blank" rel="noopener">↗</a>` : ''}
   </div>`;
   const cap = (arr, n=8) => arr.slice(0, n);
   return `
@@ -8195,7 +8609,7 @@ async function onRepStateChange() {
   if(fin && data) {
     data.style.display='block';
     document.getElementById('rep-state-data-text').innerHTML =
-      `<strong>${state} IV-D data (HHS OCSE FY${fin.year||''}):</strong> $${fin.ivd}M collected · ${fin.cases.toLocaleString()} open cases · $${fin.avg_order}/mo avg order · $${fin.arrears}M in arrears · $${fin.incentive}M federal incentive · ${fin.workers?fin.workers.toLocaleString()+' staff':''}`;
+      `<strong>${_esc(state)} IV-D data (HHS OCSE FY${_esc(fin.year||'')}):</strong> $${fin.ivd}M collected · ${fin.cases.toLocaleString()} open cases · $${fin.avg_order}/mo avg order · $${fin.arrears}M in arrears · $${fin.incentive}M federal incentive · ${fin.workers?fin.workers.toLocaleString()+' staff':''}`;
   }
 }
 // Also re-run when the user edits the ZIP so the pinned card appears without
@@ -8488,8 +8902,8 @@ function openWarrantDetails(){
   if(!m) return;
   var d = _WC_STATE;
   var pick = function(id){ return document.getElementById(id); };
-  var bullets = function(arr){ return (arr||[]).map(function(it){ return '<li style="padding:3px 0 3px 18px;position:relative;color:var(--text2);font-size:11px;line-height:1.6"><span style="position:absolute;left:0;color:var(--teal)">✓</span>' + it + '</li>'; }).join(''); };
-  var nobullets = function(arr){ return (arr||[]).map(function(it){ return '<li style="padding:3px 0 3px 18px;position:relative;color:var(--text2);font-size:11px;line-height:1.6"><span style="position:absolute;left:0;color:var(--red)">✕</span>' + it + '</li>'; }).join(''); };
+  var bullets = function(arr){ return (arr||[]).map(function(it){ return '<li style="padding:3px 0 3px 18px;position:relative;color:var(--text2);font-size:11px;line-height:1.6"><span style="position:absolute;left:0;color:var(--teal)">✓</span>' + _esc(it) + '</li>'; }).join(''); };
+  var nobullets = function(arr){ return (arr||[]).map(function(it){ return '<li style="padding:3px 0 3px 18px;position:relative;color:var(--text2);font-size:11px;line-height:1.6"><span style="position:absolute;left:0;color:var(--red)">✕</span>' + _esc(it) + '</li>'; }).join(''); };
 
   var s  = pick('wc-m-statement');
   var nc = pick('wc-m-nocollect');
@@ -8535,12 +8949,12 @@ function loadLegislationFeed(){
         return 'leg-stat-active';
       };
       var items = bills.map(function(b){
-        var href = b.url || '#';
+        var href = _safeUrl(b.url || '');
         var cls  = statusClass(b.status);
         return '<a class="leg-item" href="' + href + '" target="_blank" rel="noopener">' +
-               '<span class="leg-st">' + (b.jurisdiction||'—') + ' · ' + (b.billId||'') + '</span>' +
-               '<span>' + (b.title||'Untitled bill') + '</span>' +
-               '<span class="' + cls + '">' + (b.status||'—') + '</span>' +
+               '<span class="leg-st">' + _esc(b.jurisdiction||'—') + ' · ' + _esc(b.billId||'') + '</span>' +
+               '<span>' + _esc(b.title||'Untitled bill') + '</span>' +
+               '<span class="' + cls + '">' + _esc(b.status||'—') + '</span>' +
                '</a>';
       }).join('');
       track.innerHTML = items + items;  // duplicate for loop
@@ -8683,8 +9097,8 @@ function populateJurisdictionLists() {
   });
 
   judgeList.innerHTML = judgeMatches.map(function(j){
-    var sub = j.court ? ' — ' + j.court : '';
-    return '<option value="' + (j.name||'').replace(/"/g,'&quot;') + '">' + (j.name||'') + sub + '</option>';
+    var sub = j.court ? ' — ' + _esc(j.court) : '';
+    return '<option value="' + _esc(j.name||'') + '">' + _esc(j.name||'') + sub + '</option>';
   }).join('');
 
   // Court names: unique courtSystem values from matching jurisdictions.
@@ -8693,7 +9107,7 @@ function populateJurisdictionLists() {
   // Also add the per-judge "court" field if present (more specific, e.g. "246th District Court")
   judgeMatches.forEach(function(j){ if(j.court) courts[j.court] = true; });
   courtList.innerHTML = Object.keys(courts).sort().map(function(c){
-    return '<option value="' + c.replace(/"/g,'&quot;') + '"></option>';
+    return '<option value="' + _esc(c) + '"></option>';
   }).join('');
 
   // Attorneys: accumulate any attorney names already seen in the community
@@ -8705,7 +9119,7 @@ function populateJurisdictionLists() {
     if (c.oppAtty)  seen[c.oppAtty]  = true;
   });
   attyList.innerHTML = Object.keys(seen).sort().map(function(a){
-    return '<option value="' + a.replace(/"/g,'&quot;') + '"></option>';
+    return '<option value="' + _esc(a) + '"></option>';
   }).join('');
 }
 

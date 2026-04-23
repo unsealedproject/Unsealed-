@@ -2,16 +2,20 @@
 /**
  * api_order_verify.php — anti-fraud + autofill via Claude Vision.
  *
- * Accepts: multipart POST with `order` (PDF, max 10 MB) and `hash` (client
- * SHA-256 hex of the file). Returns: extracted STATISTICAL fields only —
- * court, county, state, judge name, order type, custody split, support
- * amount, order flags (gag, supervised vis, arrears). Strips ALL party
- * names, child names, attorney names, addresses, case numbers, SSNs, DOBs,
- * phone numbers, email addresses before anything leaves this endpoint.
+ * Accepts: multipart POST with `order` (PDF, max 10 MB). Returns: extracted
+ * STATISTICAL fields only — court, county, state, judge name, order type,
+ * custody split, support amount, order flags (gag, supervised vis, arrears).
+ * Strips ALL party names, child names, attorney names, addresses, case
+ * numbers, SSNs, DOBs, phone numbers, email addresses before anything
+ * leaves this endpoint.
  *
- * The PDF itself is NEVER written to disk. Only the client-provided hash is
- * logged (in an append-only TSV) so the same order cannot verify two
- * different submissions. Hash collision rejects with 409.
+ * The PDF itself is NEVER written to disk. The SHA-256 hash is computed
+ * SERVER-SIDE from the uploaded bytes (never trust a client-submitted
+ * hash — a malicious client could claim someone else's hash to pre-block
+ * legitimate submissions, or submit fake collisions as a DoS). The hash
+ * is stored in an SQLite table keyed by hash column with UNIQUE index;
+ * lookups are O(log n) and the comparison uses hash_equals (constant time)
+ * when iterating. Hash collision rejects with 409.
  *
  * Privacy model: the file is held in memory only for the duration of this
  * request. The Claude API receives it via base64. Anthropic's stated policy
@@ -42,7 +46,6 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || empty($_FILES['order'])) {
 }
 
 $file = $_FILES['order'];
-$hash = preg_replace('/[^a-f0-9]/i', '', (string)($_POST['hash'] ?? ''));
 
 if ($file['error'] !== UPLOAD_ERR_OK) {
     http_response_code(400);
@@ -54,30 +57,6 @@ if ($file['size'] > 10 * 1024 * 1024) {
     echo json_encode(['ok'=>false,'error'=>'File too large (10 MB max).']);
     exit;
 }
-if (strlen($hash) !== 64) {
-    http_response_code(400);
-    echo json_encode(['ok'=>false,'error'=>'Valid SHA-256 hash required.']);
-    exit;
-}
-
-// Dedup: append-only log of seen hashes. A hash already present means the
-// same order was already used to verify another submission — reject.
-$dedupFile = '/var/www/fca/data/order_hashes.tsv';
-if (is_file($dedupFile)) {
-    $fh = @fopen($dedupFile, 'r');
-    if ($fh) {
-        while (($line = fgets($fh)) !== false) {
-            $parts = explode("\t", trim($line));
-            if (!empty($parts[0]) && strcasecmp($parts[0], $hash) === 0) {
-                fclose($fh);
-                http_response_code(409);
-                echo json_encode(['ok'=>false,'error'=>'This order has already been used to verify a submission. Each court order can verify one submission.']);
-                exit;
-            }
-        }
-        fclose($fh);
-    }
-}
 
 // Read file into memory (never written to disk on our side).
 $bytes = @file_get_contents($file['tmp_name']);
@@ -86,15 +65,54 @@ if ($bytes === false || strlen($bytes) < 200) {
     echo json_encode(['ok'=>false,'error'=>'Could not read uploaded file.']);
     exit;
 }
-// Sanity: must start with %PDF-
+// Sanity: must start with %PDF-. This magic-byte check is server-side so a
+// browser can't lie about the MIME type to get a .exe or script into the
+// pipeline.
 if (substr($bytes, 0, 5) !== '%PDF-') {
     http_response_code(400);
     echo json_encode(['ok'=>false,'error'=>'Not a valid PDF.']);
     exit;
 }
 
+// Compute the SHA-256 SERVER-SIDE. Never trust a client-submitted hash:
+// a malicious client could claim someone else's hash (pre-block a real
+// submission) or flood us with fake hashes (DoS the dedup log).
+$hash = hash('sha256', $bytes);
+
+// Dedup via SQLite — indexed UNIQUE column, O(log n) lookup instead of the
+// prior O(n) linear scan of a TSV that was also a timing oracle.
+$dedupDB = _order_dedup_db();
+if ($dedupDB) {
+    $st = $dedupDB->prepare('SELECT hash FROM order_hashes WHERE hash = :h LIMIT 1');
+    $st->bindValue(':h', $hash, SQLITE3_TEXT);
+    $row = $st->execute()->fetchArray(SQLITE3_ASSOC);
+    if ($row && is_string($row['hash']) && hash_equals($hash, $row['hash'])) {
+        http_response_code(409);
+        echo json_encode(['ok'=>false,'error'=>'This order has already been used to verify a submission. Each court order can verify one submission.']);
+        exit;
+    }
+}
+
 $b64 = base64_encode($bytes);
 unset($bytes);  // free memory
+
+function _order_dedup_db(): ?SQLite3 {
+    static $db = null;
+    if ($db !== null) return $db;
+    $path = '/var/www/fca/data/order_hashes.db';
+    $dir  = dirname($path);
+    if (!is_dir($dir)) @mkdir($dir, 0750, true);
+    try {
+        $db = new SQLite3($path);
+        $db->busyTimeout(3000);
+        $db->exec('PRAGMA journal_mode=WAL;');
+        $db->exec('CREATE TABLE IF NOT EXISTS order_hashes (hash TEXT PRIMARY KEY NOT NULL, seen_at TEXT NOT NULL)');
+        return $db;
+    } catch (Throwable $e) {
+        error_log('api_order_verify: dedup DB open failed: ' . $e->getMessage());
+        return null;
+    }
+}
 
 // Strict extraction prompt. The model MUST refuse to return names/addresses/
 // case numbers and MUST return JSON only.
@@ -341,7 +359,15 @@ if (isset($clean['isActualOrder']) && $clean['isActualOrder'] === false) {
     exit;
 }
 
-// Commit the hash to the dedup log now that verification succeeded.
-@file_put_contents($dedupFile, $hash . "\t" . gmdate('Y-m-d\TH:i:s\Z') . "\n", FILE_APPEND | LOCK_EX);
+// Commit the hash to the dedup table now that verification succeeded.
+// INSERT OR IGNORE means a late-racing identical submission loses to the
+// first one without error — good, since either would reject on the next
+// round-trip anyway.
+if ($dedupDB) {
+    $ins = $dedupDB->prepare('INSERT OR IGNORE INTO order_hashes (hash, seen_at) VALUES (:h, :t)');
+    $ins->bindValue(':h', $hash,                           SQLITE3_TEXT);
+    $ins->bindValue(':t', gmdate('Y-m-d\TH:i:s\Z'),        SQLITE3_TEXT);
+    @$ins->execute();
+}
 
 echo json_encode(['ok'=>true,'data'=>$clean,'hash'=>$hash]);

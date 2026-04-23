@@ -83,18 +83,14 @@ if (!$api_key) {
 }
 
 // ── RATE LIMIT ────────────────────────────────────────────────
-$ip = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'] ?? 'unknown';
-$ip = preg_replace('/[^0-9a-fA-F.:,]/', '', explode(',', $ip)[0]);
-$rl  = sys_get_temp_dir() . '/uns_ai_rl_' . md5($ip) . '.json';
-$rld = file_exists($rl) ? json_decode(file_get_contents($rl), true) : ['c' => 0, 'h' => date('YmdH')];
-if ($rld['h'] !== date('YmdH')) $rld = ['c' => 0, 'h' => date('YmdH')];
-if ($rld['c'] >= 60) {
+// fca_rate_ok() uses REMOTE_ADDR only (ignores X-Forwarded-For) and
+// keys the counter file with HMAC-SHA256 + an on-disk server secret.
+require_once __DIR__ . '/api_keys.php';
+if (!fca_rate_ok('ai', 60)) {
     http_response_code(429);
     echo json_encode(['error' => 'Rate limit: 60 AI requests per hour per IP.']);
     exit;
 }
-$rld['c']++;
-file_put_contents($rl, json_encode($rld), LOCK_EX);
 
 // ── READ + VALIDATE BODY ──────────────────────────────────────
 $raw = file_get_contents('php://input', false, null, 0, 131072); // 128KB max
