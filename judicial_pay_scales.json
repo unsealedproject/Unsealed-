@@ -1,0 +1,153 @@
+{
+  "_about": "Judicial pay scales — every number must cite a primary-source published document. Generic court-homepage URLs are not acceptable citations: we name the specific statute, code section, compensation-commission order, or budget-bill item. Cross-state rankings are maintained by the National Center for State Courts (NCSC) at their Salary Tracker; we cite NCSC as a secondary source but never as the sole authority.",
+  "_meta": {
+    "schema": 2,
+    "lastUpdated": "2026-04-23",
+    "verificationKey": {
+      "verified":        "Primary source document cited and retrieved directly (state statute, code section, commission order, or equivalent). Number is authoritative.",
+      "pending":         "Awaiting primary-source verification. NCSC Salary Tracker is the authoritative cross-state aggregator for current figures — use that for this state until we add a direct citation.",
+      "secondary-only":  "Only aggregated sources (NCSC, state-bar surveys) available; no direct state publication located. Number shown for context but should not be cited as definitive."
+    },
+    "ncscTrackerUrl": "https://www.ncsc.org/salarytracker/explore-the-data",
+    "ncscTrackerNote": "NCSC's Salary Tracker is the authoritative cross-state aggregator, updated twice yearly (January / July). For any state flagged 'pending' here, the NCSC tracker is the reliable current-figure source until we add a direct citation.",
+    "compensationComponents": {
+      "_about": "State judicial compensation typically has three components. The 'base' figure alone understates actual pay in counties that supplement.",
+      "base":             "The base annual salary fixed by the state — the number reported in NCSC surveys and most public listings. Usually includes any auto-COLA already applied (see 'cola' below).",
+      "cola":             "Annual auto-escalator written into state law — e.g. PA Act 51 of 1995 ties judicial salary to Philadelphia-MSA CPI-U every Jan 1. When present, the published 'base' for the current year IS the post-COLA figure — NOT an additional line item.",
+      "county_supplement":"Extra money paid BY THE COUNTY (not the state) on top of the state base. Material in Georgia (capped at $50K), Texas (district $18K cap / appellate $9K cap), Indiana, Michigan, Illinois, and a handful of others. In metro counties this can equal or exceed the state base.",
+      "admin_differential":"Additional stipend for Chief/President/Administrative judges — set by statute, typically $2K-$16K. Paid on top of base.",
+      "housing_allowance":"Rare for state judges. I could not verify any state with a published judicial housing allowance as of April 2026. Federal Article III judges explicitly do NOT receive locality pay (unlike GS employees) — a deliberate statutory choice to keep federal judicial pay uniform."
+    }
+  },
+  "federal": {
+    "status":    "verified",
+    "year":      2026,
+    "citation":  "Administrative Office of the U.S. Courts — Judicial Compensation page, retrieved 2026-04-23. Rates set by 28 U.S.C. §§ 5, 44, 135 plus annual COLA under the Ethics Reform Act of 1989.",
+    "sourceUrl": "https://www.uscourts.gov/about-federal-courts/about-federal-judges/judicial-compensation",
+    "colaMechanism": {
+      "type":      "auto-escalator",
+      "statute":   "Ethics Reform Act of 1989 (as amended)",
+      "index":     "Employment Cost Index (ECI), capped at 5% per year",
+      "frequency": "Annual, subject to explicit congressional action to apply",
+      "note":      "Congress must appropriate the increase each year; it is not automatic in the way state-level auto-COLAs are."
+    },
+    "localityPay": {
+      "applicable": false,
+      "note":       "Federal Article III judges do NOT receive locality pay (unlike GS employees). Uniform nationwide by statute — a NY SDNY district judge and a rural Kansas district judge both earn $249,900 (2026). This is deliberate: keeps the judiciary insulated from regional cost-of-living politics."
+    },
+    "housingAllowance": { "applicable": false },
+    "positions": {
+      "scotus_chief":        { "salary": 320700, "title": "Chief Justice of the United States" },
+      "scotus_associate":    { "salary": 306600, "title": "Associate Justice of the Supreme Court" },
+      "circuit_appeals":     { "salary": 264900, "title": "U.S. Circuit Court of Appeals Judge" },
+      "district":            { "salary": 249900, "title": "U.S. District Court Judge" },
+      "magistrate":          { "salary": 229908, "title": "U.S. Magistrate Judge", "note": "92% of district judge salary per 28 U.S.C. § 634" },
+      "bankruptcy":          { "salary": 229908, "title": "U.S. Bankruptcy Judge",  "note": "92% of district judge salary per 28 U.S.C. § 153" }
+    }
+  },
+  "states": {
+    "Pennsylvania": {
+      "status":    "verified",
+      "year":      2026,
+      "citation":  "204 Pa. Code § 211.2 — Judicial salaries effective January 1, 2026. Published by the Pennsylvania Code and Bulletin, Title 204 (Judicial System General Provisions), Chapter 211. COLA mechanism governed by Act 51 of 1995 (amending the Public Official Compensation Law of 9/30/1983) which ties annual salary increases to the Philadelphia-Wilmington-Atlantic City CPI-U.",
+      "sourceUrl": "https://www.pacodeandbulletin.gov/Display/pacode?file=/secure/pacode/data/204/chapter211/s211.2.html",
+      "colaMechanism": {
+        "type":        "auto-escalator",
+        "statute":     "Act 51 of 1995, amending Public Official Compensation Law (9/30/1983)",
+        "statuteUrl":  "https://www.legis.state.pa.us/WU01/LI/LI/US/PDF/1995/0/0051..PDF",
+        "index":       "CPI-U for Philadelphia-Wilmington-Atlantic City, PA-NJ-DE-MD metropolitan area",
+        "frequency":   "Annual, effective January 1",
+        "firstApplied":"1997-01-01",
+        "latestAdjustment": { "year": 2026, "percent": 3.5 },
+        "note":        "The published salaries below ALREADY include the 2026 COLA. The 3.5% increase is not a separate line item — it is baked into the § 211.2 figures. No separate housing or locality allowance exists for PA judges."
+      },
+      "positions": {
+        "supreme":           { "salary": 270622, "title": "Justice, Supreme Court of Pennsylvania" },
+        "chief_supreme":     { "salary": 278496, "title": "Chief Justice, Supreme Court of Pennsylvania" },
+        "appellate":         { "salary": 255346, "title": "Judge, Superior Court / Commonwealth Court", "courtName": "Superior Court and Commonwealth Court" },
+        "appellate_presiding":{"salary": 263216, "title": "President Judge, Superior Court / Commonwealth Court" },
+        "trial_general":     { "salary": 234916, "title": "Judge, Court of Common Pleas", "courtName": "Court of Common Pleas", "note": "Includes Family Division judges — PA does not pay family judges on a separate scale" },
+        "magisterial":       { "salary": 117466, "title": "Magisterial District Judge" },
+        "senior_per_diem":   { "salary": 731,    "title": "Senior Judge", "note": "Per diem rate, not annual" }
+      },
+      "adminDifferentials": {
+        "philly_alleg_admin_judge_6plus":  { "amount": 229393, "title": "Administrative Judge, Court of Common Pleas of Philadelphia or Allegheny County (division with 6+ judges)", "citation": "204 Pa. Code § 211.3", "note": "TOTAL salary for this role, not a supplement on top of base — this replaces the base Common Pleas salary." },
+        "philly_alleg_admin_judge_5less":  { "amount": 228403, "title": "Administrative Judge, Court of Common Pleas of Philadelphia or Allegheny County (division with 5 or fewer judges)" },
+        "president_judge_common_pleas":    { "amount": null,   "title": "President Judge differentials in other Common Pleas districts", "note": "Varies by district size; see 204 Pa. Code § 211.3 for the full schedule." }
+      },
+      "countySupplements": { "applicable": false, "note": "PA does not permit county supplements for Common Pleas judges — every county pays the same state-set base. This differs from GA, TX, IN, MI where counties add on top." },
+      "housingAllowance": { "applicable": false, "note": "No housing allowance exists for any Pennsylvania judicial position." },
+      "familyCourtNote":  "PA does not have a separate salary scale for family-court judges. Family Division judges in the Court of Common Pleas (Philadelphia, Allegheny, etc.) earn the same base as any other Common Pleas judge — currently $234,916 effective 2026-01-01."
+    },
+    "Alabama":            { "status": "pending", "note": "Primary source: Alabama Code Title 12 and annual judicial-compensation updates. See NCSC Salary Tracker in the meantime." },
+    "Alaska":             { "status": "pending", "note": "Primary source: Alaska Judicial Compensation Commission recommendation, adopted by legislature. See NCSC Salary Tracker in the meantime." },
+    "Arizona":            { "status": "pending", "note": "Primary source: Arizona Revised Statutes Title 38, Ch. 4. See NCSC Salary Tracker in the meantime." },
+    "Arkansas":           { "status": "pending", "note": "Primary source: Arkansas Independent Citizens Commission on compensation. See NCSC Salary Tracker in the meantime." },
+    "California":         { "status": "pending", "note": "Primary source: CalHR Judicial Salaries schedule (Gov. Code § 68200). Usually updated July 1 annually. See NCSC Salary Tracker in the meantime." },
+    "Colorado":           { "status": "pending", "note": "Primary source: Colorado Revised Statutes § 13-30-103. See NCSC Salary Tracker in the meantime." },
+    "Connecticut":        { "status": "pending", "note": "Primary source: Connecticut General Statutes § 51-47 and judicial compensation commission. See NCSC Salary Tracker in the meantime." },
+    "Delaware":           { "status": "pending", "note": "Primary source: 29 Del. Code § 5612 (Delaware Compensation Commission). See NCSC Salary Tracker in the meantime." },
+    "District of Columbia":{"status": "pending", "note": "DC judges funded federally; paid at Article I / III rates per DC Code § 11-702 (Superior Court) and § 11-703 (Court of Appeals). See NCSC Salary Tracker in the meantime." },
+    "Florida":            { "status": "pending", "note": "Primary source: Florida General Appropriations Act (annual budget line items) for judicial salaries. See NCSC Salary Tracker in the meantime." },
+    "Georgia":            { "status": "pending", "note": "Primary source: O.C.G.A. § 15-6-29 (state base); county supplements published separately by each county commission. Figures NCSC reports are state base only — actual compensation in metro counties (Fulton, DeKalb, Cobb, Gwinnett) can be $50-100K higher. See NCSC Salary Tracker for state base." },
+    "Hawaii":             { "status": "pending", "note": "Primary source: Hawaii Salary Commission recommendation; HRS § 604-2.5. See NCSC Salary Tracker in the meantime." },
+    "Idaho":              { "status": "pending", "note": "Primary source: Idaho Code § 59-502. See NCSC Salary Tracker in the meantime." },
+    "Illinois":           { "status": "pending", "note": "Primary source: Illinois Compensation Review Board order; 705 ILCS 25/1. See NCSC Salary Tracker in the meantime." },
+    "Indiana":            { "status": "pending", "note": "Primary source: Indiana Code § 33-38-5 (state base); county supplements vary. See NCSC Salary Tracker in the meantime." },
+    "Iowa":               { "status": "pending", "note": "Primary source: Iowa Code § 602.1509. See NCSC Salary Tracker in the meantime." },
+    "Kansas":             { "status": "pending", "note": "Primary source: K.S.A. 20-101a (state-wide judicial pay scale). Legislature enacted multi-year raises 2023-2024. See NCSC Salary Tracker in the meantime." },
+    "Kentucky":           { "status": "pending", "note": "Primary source: KRS § 21.370 and § 64.480. See NCSC Salary Tracker in the meantime." },
+    "Louisiana":          { "status": "pending", "note": "Primary source: Louisiana Revised Statutes § 13:42 et seq. See NCSC Salary Tracker in the meantime." },
+    "Maine":              { "status": "pending", "note": "Primary source: 4 M.R.S. § 4 and § 105-A. See NCSC Salary Tracker in the meantime." },
+    "Maryland":           { "status": "pending", "note": "Primary source: MD Courts and Judicial Proceedings Code § 1-302 and Judicial Compensation Commission reports. See NCSC Salary Tracker in the meantime." },
+    "Massachusetts":      { "status": "pending", "note": "Primary source: Mass. General Laws Ch. 211 § 2 and Ch. 32 § 65. See NCSC Salary Tracker in the meantime." },
+    "Michigan":           { "status": "pending", "note": "Primary source: MCL § 600.301 and State Officers Compensation Commission. State base only; local supplements common. See NCSC Salary Tracker in the meantime." },
+    "Minnesota":          { "status": "pending", "note": "Primary source: Minn. Stat. § 15A.083 and Compensation Council recommendation. See NCSC Salary Tracker in the meantime." },
+    "Mississippi":        { "status": "pending", "note": "Primary source: MS Code § 25-3-35. Major raise enacted 2022. See NCSC Salary Tracker in the meantime." },
+    "Missouri":           { "status": "pending", "note": "Primary source: MO Rev. Stat. § 476.405 and Citizens' Commission on Compensation. See NCSC Salary Tracker in the meantime." },
+    "Montana":            { "status": "pending", "note": "Primary source: MCA § 3-1-1115. See NCSC Salary Tracker in the meantime." },
+    "Nebraska":           { "status": "pending", "note": "Primary source: Neb. Rev. Stat. § 24-201.02. See NCSC Salary Tracker in the meantime." },
+    "Nevada":             { "status": "pending", "note": "Primary source: NRS § 2.050, § 3.030. See NCSC Salary Tracker in the meantime." },
+    "New Hampshire":      { "status": "pending", "note": "Primary source: NH RSA § 491-A. See NCSC Salary Tracker in the meantime." },
+    "New Jersey":         { "status": "pending", "note": "Primary source: N.J.S.A. § 2B:2-4 (Supreme Court) and § 43:6A (pensions linked to salary). See NCSC Salary Tracker in the meantime." },
+    "New Mexico":         { "status": "pending", "note": "Primary source: NMSA § 34-1-9 and annual general appropriations act. See NCSC Salary Tracker in the meantime." },
+    "New York":           { "status": "pending", "note": "Primary source: NY Judiciary Law § 221 and Commission on Legislative, Judicial and Executive Compensation determinations. NY Family Court is a distinct bench — separate salary from Supreme Court trial judges. See NCSC Salary Tracker in the meantime." },
+    "North Carolina":     { "status": "pending", "note": "Primary source: N.C. Gen. Stat. § 7A-10. See NCSC Salary Tracker in the meantime." },
+    "North Dakota":       { "status": "pending", "note": "Primary source: N.D. Cent. Code § 27-02-02 (Supreme); § 27-05-04 (District). See NCSC Salary Tracker in the meantime." },
+    "Ohio":               { "status": "pending", "note": "Primary source: ORC § 141.04 (state-paid portion of trial judge salary) and Supreme Court salary schedule. Common Pleas Domestic Relations judges paid at same base as other Common Pleas judges. See NCSC Salary Tracker in the meantime." },
+    "Oklahoma":           { "status": "pending", "note": "Primary source: 20 O.S. § 1301 and Board on Judicial Compensation. See NCSC Salary Tracker in the meantime." },
+    "Oregon":             { "status": "pending", "note": "Primary source: ORS § 1.310 and ORS § 292.313. See NCSC Salary Tracker in the meantime." },
+    "Rhode Island":       { "status": "pending", "note": "Primary source: R.I. Gen. Laws § 8-3-1 and § 8-10-6. See NCSC Salary Tracker in the meantime." },
+    "South Carolina":     { "status": "pending", "note": "Primary source: S.C. Code § 14-1-220 and state general appropriations act. See NCSC Salary Tracker in the meantime." },
+    "South Dakota":       { "status": "pending", "note": "Primary source: SDCL § 16-15-4. See NCSC Salary Tracker in the meantime." },
+    "Tennessee":          { "status": "pending", "note": "Primary source: T.C.A. § 8-23-103. See NCSC Salary Tracker in the meantime." },
+    "Texas":              { "status": "pending", "note": "Primary source: TX Gov. Code § 659.012 (state base). County courts at law: compensation set locally by each county's commissioners court, no statewide figure. See NCSC Salary Tracker in the meantime." },
+    "Utah":               { "status": "pending", "note": "Primary source: Utah Code § 67-8-2. See NCSC Salary Tracker in the meantime." },
+    "Vermont":            { "status": "pending", "note": "Primary source: 32 V.S.A. § 1003. See NCSC Salary Tracker in the meantime." },
+    "Virginia": {
+      "status":    "partially-verified",
+      "year":      2026,
+      "citation":  "Va. Code § 16.1-69.44 — Salaries of judges (J&DR = 90% of Circuit judge salary). Circuit Court judge salary fixed by the Virginia General Appropriation Act for the 2024-2026 biennium (HB30/SB30 enrolled 2024).",
+      "sourceUrl": "https://law.lis.virginia.gov/vacode/title16.1/chapter4.1/section16.1-69.44/",
+      "colaMechanism": {
+        "type":      "biennial-appropriation",
+        "statute":   "Virginia General Appropriation Act (HB/SB 30), biennial",
+        "note":      "VA does not auto-escalate judicial salaries by a CPI formula the way PA does. The General Assembly sets the figure in each two-year budget. Last amendment affecting J&DR formula: 2025 c. 249."
+      },
+      "positions": {
+        "trial_general":     { "salary": 207611, "title": "Circuit Court Judge",                        "courtName": "Circuit Court",  "fy": "2025-2026", "note": "Fixed by 2024-2026 biennium appropriation (item 44)." },
+        "trial_family":      { "salary": 186850, "title": "Juvenile and Domestic Relations District Court Judge", "courtName": "J&DR District Court", "formula": "90% of Circuit Court salary", "statute": "Va. Code § 16.1-69.44", "note": "All VA J&DR judges — including the Fairfax, Prince William, and Henrico judges we have rostered — earn this amount. 90% of $207,611 = $186,850 (rounded)." },
+        "trial_gdc":         { "salary": 186850, "title": "General District Court Judge",              "formula": "90% of Circuit Court salary", "statute": "Va. Code § 16.1-69.44" },
+        "supreme":           { "salary": null,   "title": "Justice, Supreme Court of Virginia",          "note": "Pending primary-source citation from 2024-2026 Appropriation Act. Historically ~10-15% above Circuit." },
+        "appellate":         { "salary": null,   "title": "Judge, Court of Appeals of Virginia",         "note": "Pending primary-source citation from 2024-2026 Appropriation Act." }
+      },
+      "housingAllowance":  { "applicable": false, "note": "No housing allowance exists for any Virginia judicial position." },
+      "countySupplements": { "applicable": false, "note": "Virginia does not permit county supplements for state court judges — every Virginia judge at the same level earns the same salary statewide." },
+      "familyCourtNote":   "Virginia J&DR District Court is a distinct bench that handles custody, visitation, support, protective orders, and juvenile matters. By statute these judges earn exactly 90% of Circuit Court judges even though their dockets are heavier. This 10% gap is a structural fact of how VA funds family court vs general civil/criminal."
+    },
+    "Washington":         { "status": "pending", "note": "Primary source: Washington Citizens' Commission on Salaries schedule; RCW § 43.03.012. See NCSC Salary Tracker in the meantime." },
+    "West Virginia":      { "status": "pending", "note": "Primary source: W. Va. Code § 51-2-13 (circuit), § 51-2A-6 (family). WV Family Court is a distinct bench paid less than Circuit Court. See NCSC Salary Tracker in the meantime." },
+    "Wisconsin":          { "status": "pending", "note": "Primary source: Wis. Stat. § 20.923 and Joint Committee on Employment Relations schedule. See NCSC Salary Tracker in the meantime." },
+    "Wyoming":            { "status": "pending", "note": "Primary source: Wyo. Stat. § 5-1-109. See NCSC Salary Tracker in the meantime." }
+  }
+}
